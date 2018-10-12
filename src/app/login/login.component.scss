@@ -1,0 +1,67 @@
+section#login {
+  height: 100%;
+  width: 75%;
+  overflow: hidden;
+}
+
+.no-padding {
+  padding: 0;
+  height: 100%;
+}
+
+.login_splash {
+  background-image: url(../../assets/images/login_splash.png);
+  background-repeat: repeat-y;
+  position: fixed;
+  float: left;
+  max-width: 35%;
+}
+
+#contact {
+  padding-top: 25%;
+}
+
+.login-main {
+  float: right;
+}
+
+
+
+  
+  .form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+    float: left;
+  }
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-signin .checkbox {
+    font-weight: normal;
+  }
+  .form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .form-signin .form-control:focus {
+    z-index: 2;
+  }
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-signin p {
+    margin-top: 10px;
+  }

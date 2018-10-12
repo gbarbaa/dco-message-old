@@ -1,0 +1,66 @@
+
+
+<section id="login">
+
+  <!-- login start -->
+  <div class="col-md-12 no-padding">
+    <div class="col-md-6 no-padding  login_splash visible-md visible-lg" data-animation="fadeIn" data-animation-delay="500">
+    <div class="clearfix"></div>
+    </div>
+    <!-- end col-md-6-->
+
+    <div class="col-md-6 animated login-main" data-animation="fadeIn" data-animation-delay="300">
+      <div id="contact">
+        <div class="col-md-8 col-md-offset-2 col-sm-8 col-xs-8">
+          <!--
+          <h4 class="text-left fw-900 animated fadeIn visible" data-animation="fadeIn" data-animation-delay="400">Welcome!</h4>
+
+          <div class="devider">
+            <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
+
+          </div>
+
+          <p class="text-left font-size-14 op08 animated fadeIn visible" data-animation="fadeIn" data-animation-delay="400">
+            Nemo enim ipsam quia voluptas sit aspernatur
+          </p>
+          -->
+          <p class="text-left font-size-11 animated fadeIn visible" data-animation="fadeIn" data-animation-delay="400">
+              Please enter your CDSID and Password to continue.
+            </p>
+          
+          <div class="clearfix"></div>
+
+          <div class="container">
+            <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
+                <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  {{message}}
+                </div>
+                <h2 class="form-signin-heading">Please sign in</h2>
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="loginData.username" name="username" required/>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" class="form-control" placeholder="Password" [(ngModel)]="loginData.password" name="password" required/>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Sign in</button>
+                <p>
+                    Not a member? <a [routerLink]="['/signup']">Signup here</a>
+                </p>
+            </form>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+        <!-- end col-md-8-->
+      </div>
+      <!-- end contact-->
+    </div>
+    <!-- end col-md-6-->
+  </div>
+  <!-- end col-md-12-->
+
+
+
+  <!-- login end -->
+  <div class="clearfix"></div>
+
+</section>

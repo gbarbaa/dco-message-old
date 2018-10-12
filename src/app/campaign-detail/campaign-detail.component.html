@@ -1,0 +1,59 @@
+<div class="button-row">
+  <a mat-raised-button color="primary" [routerLink]="['/campaigns']"><mat-icon>list</mat-icon></a>
+</div>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title><h2>{{campaign.title}}</h2></mat-card-title>
+    <mat-card-subtitle>{{campaign.description}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <dl>
+      <div class="col-md-6">
+      <dt>Campaign Name:</dt>
+      <dd>{{campaign.campaignname}}</dd>
+      <dt>Ad Name:</dt>
+      <dd>{{campaign.adname}}</dd>
+      <dt>Campaign Exp. Date:</dt>
+      <dd>{{campaign.campaignexpdate}}</dd>
+      <dt>Ad Exp. Date:</dt>
+      <dd>{{campaign.adexpdate}}</dd>
+      <dt>Campaign/Ad Type:</dt>
+      <dd>{{campaign.campaignadtype}}</dd>
+      <dt>Creative ID:</dt>
+      <dd>{{campaign.creativeid}}</dd>
+      <dt>Update Date:</dt>
+      <dd>{{campaign.updated_date | date}}</dd>
+    </div>
+    <div class="col-md-6">
+        <dt>Vehicle Id:</dt>
+        <dd>{{campaign.vehicleid}}</dd>
+        <dt>Vehicle VIN:</dt>
+        <dd>{{campaign.vehiclevin}}</dd>
+        <dt>Vehicle Make:</dt>
+        <dd>{{campaign.make}}</dd>
+        <dt>Vehicle Model:</dt>
+        <dd>{{campaign.model}}</dd>
+        <dt>Vehicle Year:</dt>
+        <dd>{{campaign.year}}</dd>
+        <dt>Vehicle Color:</dt>
+        <dd>{{campaign.color}}</dd>
+        <dt>Vehicle Body:</dt>
+        <dd>{{campaign.trim}}</dd>
+        <dt>Vehicle Ododmeter:</dt>
+        <dd>{{campaign.vehicleodometer}}</dd>
+        <dt>Vehicle Title:</dt>
+        <dd>{{campaign.vehicletitle}}</dd>
+        <dt>Vehicle Price:</dt>
+        <dd>{{campaign.vehicleprice}}</dd>
+        <dt>PA Code:</dt>
+        <dd>{{campaign.pacode}}</dd>
+        <dt>Postal Code:</dt>
+        <dd>{{campaign.postalCode}}</dd>
+      </div>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-raised-button color="primary" [routerLink]="['/campaign-edit', campaign._id]"><mat-icon>edit</mat-icon></a>
+    <a mat-raised-button color="warn" (click)="deleteCampaign(campaign._id)"><mat-icon>delete</mat-icon></a>
+  </mat-card-actions>
+</mat-card>
