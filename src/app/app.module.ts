@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { FileDropModule } from 'ngx-file-drop';
 
 import {
@@ -13,6 +12,7 @@ import {
   MatSortModule,
   MatTableModule,
   MatIconModule,
+  MatSelectModule,
   MatButtonModule,
   MatCardModule,
   MatSidenavModule,
@@ -85,13 +85,13 @@ const appRoutes: Routes = [
     component: DcoEditComponent,
     data: { title: 'Edit Campaign' }
   },
-  
+
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'
   },
   { path: '**',
-  component: NotfoundComponent,
+    component: NotfoundComponent,
   }
 ];
 
@@ -122,6 +122,7 @@ const appRoutes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
     MatIconModule,
     MatButtonModule,
