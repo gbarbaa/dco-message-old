@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run build & concurrently --kill-others \"npm run serve-api\" \"npm run serve\"",
+    "restart": "ng build && node ./bin/www",
     "serve": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --output-path=public",
     "serve-api": "node ./bin/www",

@@ -71,6 +71,9 @@ export class LoginComponent implements OnInit {
       }, err => {
         this.message = err.error.msg;
       });
+
+      sessionStorage.setItem('zipcode', this.data.user['dealers'][0].dealerzipcode);
+   
     });
   }
 

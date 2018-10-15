@@ -63,66 +63,10 @@ router.put('/profile',  function(req, res) {
 });
 
 
-/*** Campaigns ****/
-/* GET ALL CAMPAIGNS */
-router.get('/',  passport.authenticate('jwt', { session: false}),  function(req, res, next) {
-  var token = getToken(req.headers);
-  if (token) {
-  Campaign.find(function (err, products) {
-    if (err) return next(err);
-    res.json(products);
-  });
-} else {
-  return res.status(403).send({success: false, msg: 'Unauthorized msg1.'});
-}
-});
-
-/* GET SINGLE CAMPAIGN BY ID */
-router.get('/:id',  function(req, res, next) {
-  
-  Campaign.findById(req.params.id, function (err, post)  {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-
-/* SAVE CAMPAIGN */
-router.post('/',  passport.authenticate('jwt', { session: false}), function(req, res, next) {
-  var token = getToken(req.headers);
-  if (token) {
-  Campaign.create(req.body, function (err, post) { 
-    if (err) return next(err);
-    res.json(post);
-  });
-} else {
-  return res.status(403).send({success: false, msg: 'Unauthorized msg2.'});
-}
-});
-
-/* UPDATE CAMPAIGN */
-router.put('/:id',  function(req, res, next) {
-
-  Campaign.findByIdAndUpdate(req.params.id, req.body, function (err, post)  {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-
-/* DELETE CAMPAIGN */
-router.delete('/:id', function(req, res, next) {
-  
-  Campaign.findByIdAndRemove(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
-
-/** End Campaign routes */
-
-
 /*** DCO ****/
 /* GET ALL DCOs */
 router.get('/',  passport.authenticate('jwt', { session: false}),  function(req, res, next) {
+
   var token = getToken(req.headers);
   if (token) {
   Dcome.find(function (err, products) {

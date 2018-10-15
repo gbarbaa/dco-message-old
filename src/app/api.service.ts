@@ -6,10 +6,10 @@ import { catchError, tap, map } from 'rxjs/operators';
 
 
 let httpOptions = {
-  headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken'), 'Content-Type':  'application/xhtml+xml' })
+  headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
 };
 
-const endpoint = 'https://www.servicesus.ford.com/dealer/Dealers?make=Ford&dealerName=';
+const dealerEndpoint = 'https://www.servicesus.ford.com/dealer/Dealers?make=Ford&dealerName=';
 
 const apiUrl = "/api";
 
@@ -46,7 +46,7 @@ private extractData(res: Response) {
 /** Get Dealer */
 
 getDealer(dealerName): Observable<any> {
-  return this.httpClient.get(endpoint + dealerName, { responseType: 'text' }).pipe(
+  return this.httpClient.get(dealerEndpoint + dealerName, { responseType: 'text' }).pipe(
     map(this.extractData));
 }
 

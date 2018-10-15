@@ -580,8 +580,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\galferez\Apps\dco-me\node_modules\@angular\material\prebuilt-themes\indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
-module.exports = __webpack_require__(/*! C:\Users\galferez\Apps\dco-me\src\assets\sass\styles.scss */"./src/assets/sass/styles.scss");
+__webpack_require__(/*! C:\Users\galferez\Apps\dco-message\node_modules\@angular\material\prebuilt-themes\indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
+module.exports = __webpack_require__(/*! C:\Users\galferez\Apps\dco-message\src\assets\sass\styles.scss */"./src/assets/sass/styles.scss");
 
 
 /***/ })
