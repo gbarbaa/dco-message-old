@@ -69,10 +69,7 @@ li.menu-shop-menu__subitem {
 
 .main-section {
     position: fixed;
-    float: right;
-    right: 0;
-    width: 46%;
-    margin-right: 16%;
+    right: 7%;
 }
 
 .tabs-section {
@@ -99,6 +96,14 @@ mat-icon {
   
   .half-width {
     width: 50%;
+  }
+
+  .menu-bar {
+    background: #1e5799; /* Old browsers */
+    background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
   }
 
 
@@ -342,6 +347,31 @@ row.disclaimers {
     width: 100%;
 }
 
+.buttons-panel button {
+    margin-left: 20px;
+    min-height: 30px;
+    margin-bottom: 8px;
+}
+
+/*
+Frames
+=========================== */
+.frames-container {
+    display: inline-block
+}
+
+.single-frame-container{
+    display: inline-block;
+    margin: 3%;
+}
+
+.single-frame-main{
+    background-color: lightgray;
+    min-height: 450px;
+    display: inline-block;
+    border: 1px solid gray;
+    width: 100%;
+}
 
 /*
 Colors

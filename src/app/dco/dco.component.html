@@ -122,41 +122,26 @@
           </div>
           <!-- Sidebar Ends -->
   
-          <div class="button-row">
-              <a mat-raised-button color="primary" [routerLink]="['/dco-create']">
-                <mat-icon>add</mat-icon>
-              </a>
-              <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary" style="height: 36px;margin-left: 20px;"><mat-icon>save</mat-icon></button>
+
+        </div>
+  
+        <!-- Right Panel -->
+        <div class="main-section col-md-8 col-sm-8">
+        
+            <div class="">
+                <a mat-raised-button color="primary" [routerLink]="['/dco-create']">
+                    <mat-icon>add</mat-icon>
+                </a>
+                <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary" style="height: 36px;margin-left: 20px;">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </div>
+        
+            <div class="">
+                <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
             </div>
         </div>
   
-        
-        <!-- Right Part -->
-        <div class="main-section col-md-8 col-sm-8">
-  
-            <div class="mainform" id="mainform">
-   
-                <div class="row" style="margin-left: 0;">
-  
-                
-  
-                <div class="">
-                  <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
-  
-                </div>
-  
-                <div class="tabs-section col-md-12 pull-left tabs animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="500">
-  
-  
-                </div>
-  
-              </div>
-       
-          </div>
-        
-  
-        </div>
-      <!-- end row -->
     </form>
     </div>
     <!-- end container -->

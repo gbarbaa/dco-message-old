@@ -1,139 +1,215 @@
 <header id="top">
   <div class="navbar-fixed-top" role="navigation">
-      <div class="navbar container no-container">
-          <!-- Navbar Header -->
+    <div class="navbar container no-container">
+      <!-- Navbar Header -->
 
-          <div class="navbar-header">
-              <!-- Logo -->
-              <a class="navbar-brand" href="#">
-                  <img src="../assets/images/fd-horz-logo.png" alt="Ford Direct" class="logo">
-              </a>
-          </div>
+      <div class="navbar-header">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+          <img src="../assets/images/fd-horz-logo.png" alt="Ford Direct" class="logo">
+        </a>
       </div>
+    </div>
   </div>
 </header>
 <!-- Header Ends -->
 
 <section class="container-page  leftside-panel ">
   <div class="container">
-  <div class="row">
-  <form [formGroup]="dcoForm" (ngSubmit)="onFormSubmit(dcoForm.value)" >
-      <!-- Left Part Sidebar -->
-      <div class="col-md-3 col-sm-3">
-        <!-- Sidebar Begins -->
-        <div class="sidebar">
-  
-          <div class="row" style="display: inline-block;">
+    <div class="row">
+      <form [formGroup]="dcoForm" (ngSubmit)="onFormSubmit(dcoForm.value)">
+        <!-- Left Part Sidebar -->
+        <div class="col-md-3 col-sm-3">
+          <!-- Sidebar Begins -->
+          <div class="sidebar">
+            <div class="row" style="display: inline-block;">
+              <h5>New Placement(s)</h5>
+              <!-- Devider -->
+              <div class="devider">
+                <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
+              </div>
               <mat-form-field class="full-width ">
-                  <input matInput placeholder="Make *" formControlName="make" [errorStateMatcher]="matcher">
-                  <mat-error>
-                      <span *ngIf="!dcoForm.get('make').valid && dcoForm.get('make').touched">Please Select a Make</span>
-                  </mat-error>
-              </mat-form-field>
- 
-              <mat-form-field class="full-width ">
-                  <input matInput placeholder="Model *" formControlName="model" [errorStateMatcher]="matcher">
-                  <mat-error>
-                      <span *ngIf="!dcoForm.get('model').valid && dcoForm.get('model').touched">Please Select Car Model</span>
-                  </mat-error>
+                <input matInput placeholder="Make *" formControlName="make" [errorStateMatcher]="matcher">
+                <mat-error>
+                  <span *ngIf="!dcoForm.get('make').valid && dcoForm.get('make').touched">Please Select a Make</span>
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field class="full-width ">
-                  <input matInput placeholder="Year *" formControlName="year" [errorStateMatcher]="matcher">
-                  <mat-error>
-                      <span *ngIf="!dcoForm.get('year').valid && dcoForm.get('year').touched">Please Select Car Year</span>
-                  </mat-error>
+                <input matInput placeholder="Model *" formControlName="model" [errorStateMatcher]="matcher">
+                <mat-error>
+                  <span *ngIf="!dcoForm.get('model').valid && dcoForm.get('model').touched">Please Select Car Model</span>
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field class="full-width ">
-                  <input matInput  placeholder="Zip Code *" formControlName="zipcode" [errorStateMatcher]="matcher">
-                  <mat-error>
-                      <span *ngIf="!dcoForm.get('zipcode').valid && dcoForm.get('zipcode').touched">Please Enter Zip Code</span>
-                  </mat-error>
+                <input matInput placeholder="Year *" formControlName="year" [errorStateMatcher]="matcher">
+                <mat-error>
+                  <span *ngIf="!dcoForm.get('year').valid && dcoForm.get('year').touched">Please Select Car Year</span>
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field class="full-width ">
-                  <input matInput placeholder="Placement ID * (Size: 300x600)" formControlName="placementid" [errorStateMatcher]="matcher">
-                  <mat-error>
-                      <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
-                  </mat-error>
+                <input matInput placeholder="Zip Code *" formControlName="zipcode" [errorStateMatcher]="matcher">
+                <mat-error>
+                  <span *ngIf="!dcoForm.get('zipcode').valid && dcoForm.get('zipcode').touched">Please Enter Zip Code</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="full-width ">
+                <input matInput placeholder="Placement ID * (Size: 300x600)" formControlName="placementid" [errorStateMatcher]="matcher">
+                <mat-error>
+                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field class="full-width ">
                 <input matInput placeholder="Placement ID * (Size: 300X250)" formControlName="placementid" [errorStateMatcher]="matcher">
                 <mat-error>
-                    <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
+                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
                 </mat-error>
-        
+
               </mat-form-field>
 
               <mat-form-field class="full-width ">
                 <input matInput placeholder="Placement ID * (Size: 790x90)" formControlName="placementid" [errorStateMatcher]="matcher">
                 <mat-error>
-                    <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
+                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
                 </mat-error>
-             
+
               </mat-form-field>
 
               <mat-form-field class="full-width ">
                 <input matInput placeholder="Placement ID * (Size: 160x600)" formControlName="placementid" [errorStateMatcher]="matcher">
                 <mat-error>
-                    <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
+                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
                 </mat-error>
-        
+
               </mat-form-field>
 
               <mat-form-field class="full-width ">
                 <input matInput placeholder="Placement ID * (Size: 320x50)" formControlName="placementid" [errorStateMatcher]="matcher">
                 <mat-error>
-                    <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
+                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
                 </mat-error>
               </mat-form-field>
 
-          </div>
-          <!-- Categories -->
-    
-
-        </div>
-        <!-- Sidebar Ends -->
-
-
-      </div>
-
-      
-      <!-- Right Part -->
-      <div class="main-section col-md-8 col-sm-8">
-
-          <div class="mainform" id="mainform">
- 
-              <div class="row" style="margin-left: 0;">
-
-              
-
-              <div class="">
-                <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
-
-              </div>
-
-              <div class="tabs-section col-md-12 pull-left tabs animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="500">
-
-
-              </div>
-
             </div>
-     
+          </div>
+          <!-- Sidebar Ends -->
         </div>
-      
 
-      </div>
-      <div class="button-row">
-        <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary">
-          <mat-icon>save</mat-icon>
-        </button>
-      </div>
-    <!-- end row -->
-  </form>
-  </div>
-  <!-- end container -->
+        <!-- Right Panel -->
+        <div class="main-section col-md-8 col-sm-8">
+          <div class="buttons-panel">
+            <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary">
+              <mat-icon>save</mat-icon>Save 
+            </button>
+            <span></span>
+             <button [disabled]="!dcoForm.valid" mat-raised-button color="primary" (click)="getOffers()">
+                <mat-icon>check_circle_outline</mat-icon> Select Offer
+              </button>
+          </div>
+          <div class="">
+            <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
+          </div>
+          <div clas="frames-container row">
+            <div class="single-frame-container col-md-3">
+              <div class="frames-titles">
+                <h5>Frame 1</h5>
+              </div>
+              <div class="single-frame-main">
+                <div class="frame-dealer-logo">
+            
+                </div>
+                <div class="frame-background">
+                  <div class="frame-heading-text">
+            
+                  </div>
+                  <div class="frame-vehicle-img">
+            
+                  </div>
+                </div>
+                <div class="frame-subheading-text">
+            
+                </div>
+                <div class="frame-cta">
+            
+                </div>
+                <div class="frame-diclosure">
+            
+                </div>
+            
+              </div>
+            </div>
+            <div class="single-frame-container col-md-3">
+                <div class="frames-titles">
+                  <h5>Frame 2</h5>
+                </div>
+                <div class="single-frame-main">
+                    <div class="frame-dealer-logo">
+                    
+                    </div>
+                    <div class="frame-background">
+                      <div class="frame-heading-text">
+                    
+                      </div>
+                      <div class="frame-subheading1-text">
+                    
+                      </div>
+                      <div class="frame-vehicle-img">
+                    
+                      </div>
+                    </div>
+                    <div class="frame-subheading2-text">
+                    
+                    </div>
+                    <div class="frame-cta">
+                    
+                    </div>
+                    <div class="frame-diclosure">
+                    
+                    </div>
+
+                </div>
+            </div>
+            <div class="single-frame-container col-md-3">
+              <div class="frames-titles">
+                <h5>Frame 3</h5>
+              </div>
+              <div class="single-frame-main">
+                <div class="frame-dealer-logo">
+            
+                </div>
+                <div class="frame-vehicle-img">
+            
+                </div>
+                <div class="frame-background">
+                  <div class="frame-subheading1-text">
+            
+                  </div>
+                  <div class="frame-heading-text">
+            
+                  </div>
+                </div>
+            
+                <div class="frame-cta">
+            
+                </div>
+                <div class="frame-diclosure">
+            
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- end form -->
+      </form>
+      <!-- end row -->
+    </div>
+    <!-- end container -->
   </div>
 </section>
