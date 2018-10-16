@@ -67,7 +67,7 @@
               </mat-form-field>
 
               <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID * (Size: 300x600)" formControlName="placementid"
+                <input matInput placeholder="Placement ID's * (Size: 300x600)" formControlName="placementid"
                        [errorStateMatcher]="matcher">
                 <mat-error>
                   <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
@@ -75,7 +75,7 @@
               </mat-form-field>
 
               <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID * (Size: 300X250)" formControlName="placementid"
+                <input matInput placeholder="Placement ID's * (Size: 300X250)" formControlName="placementid"
                        [errorStateMatcher]="matcher">
                 <mat-error>
                   <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
@@ -83,17 +83,8 @@
 
               </mat-form-field>
 
-              <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID * (Size: 790x90)" formControlName="placementid"
-                       [errorStateMatcher]="matcher">
-                <mat-error>
-                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
-                </mat-error>
-
-              </mat-form-field>
-
-              <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID * (Size: 160x600)" formControlName="placementid"
+             <mat-form-field class="full-width ">
+                <input matInput placeholder="Placement ID (Size: 790x90)" formControlName="placementid"
                        [errorStateMatcher]="matcher">
                 <mat-error>
                   <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
@@ -102,12 +93,21 @@
               </mat-form-field>
 
               <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID * (Size: 320x50)" formControlName="placementid"
+                <input matInput placeholder="Placement ID (Size: 160x600)" formControlName="placementid"
                        [errorStateMatcher]="matcher">
                 <mat-error>
                   <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
                 </mat-error>
+
               </mat-form-field>
+
+              <mat-form-field class="full-width ">
+                <input matInput placeholder="Placement ID (Size: 320x50)" formControlName="placementid"
+                       [errorStateMatcher]="matcher">
+                <mat-error>
+                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
+                </mat-error>
+              </mat-form-field> 
 
             </div>
           </div>
