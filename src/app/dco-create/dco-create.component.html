@@ -117,12 +117,12 @@
         <!-- Right Panel -->
         <div class="main-section col-md-8 col-sm-8">
           <div class="buttons-panel">
-            <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary">
+            <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button class="btn-block btn-background">
               <mat-icon>save</mat-icon>
               Save
             </button>
             <span></span>
-            <button [disabled]="!dcoForm.valid" mat-raised-button color="primary" (click)="getOffers()">
+            <button [disabled]="!dcoForm.valid" mat-raised-button class="btn-block btn-background" (click)="getOffers()">
               <mat-icon>check_circle_outline</mat-icon>
               Select Offer
             </button>
@@ -132,7 +132,7 @@
                  data-animation-delay="1000"></div>
           </div>
           <div clas="frames-container row">
-            <div class="single-frame-container col-md-3">
+            <div class="single-frame-container column col-md-3">
               <div class="frames-titles">
                 <h5>Frame 1</h5>
               </div>
@@ -160,7 +160,7 @@
 
               </div>
             </div>
-            <div class="single-frame-container col-md-3">
+            <div class="single-frame-container column col-md-3">
               <div class="frames-titles">
                 <h5>Frame 2</h5>
               </div>
@@ -192,7 +192,7 @@
               </div>
             
             </div>
-            <div class="single-frame-container col-md-3">
+            <div class="single-frame-container column col-md-3">
               <div class="frames-titles">
                 <h5>Frame 3</h5>
               </div>
