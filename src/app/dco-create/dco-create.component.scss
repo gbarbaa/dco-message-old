@@ -60,6 +60,11 @@ ul.menu-shop-menu {
   color: #111111;
 }
 
+.buttons-panel {
+  display: inline-flex;
+  width: 350px;
+}
+
 .container-page.leftside-panel {
   min-width: 520px;
 }
@@ -67,11 +72,6 @@ ul.menu-shop-menu {
 .menu-account, .menu-main, .menu-shop-menu {
   list-style-type: none;
   text-align: right;
-}
-
-.buttons-panel {
-  display: flex;
-  width: 50%;
 }
 
 li.menu-shop-menu__subitem {
