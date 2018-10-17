@@ -1,4 +1,4 @@
 module.exports = {
     'secret':'meansecure',
-    'database': 'mongodb://localhost/dco-messageassembly-dev'
+    'database': 'mongodb://localhost:27017/dco-messageassembly-dev'
   };

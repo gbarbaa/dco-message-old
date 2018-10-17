@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FileDropModule } from 'ngx-file-drop';
+// Import your library
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ModalModule , TooltipModule } from 'ngx-bootstrap';
 
 import {
   MatInputModule,
@@ -17,6 +20,8 @@ import {
   MatCardModule,
   MatSidenavModule,
   MatFormFieldModule,
+  MatCheckboxModule,
+  MatTooltipModule,
   MatTabsModule } from "@angular/material";
 
 import { AppComponent } from './app.component';
@@ -130,7 +135,13 @@ const appRoutes: Routes = [
     MatSidenavModule,
     MatFormFieldModule,
     MatTabsModule,
-    FileDropModule
+    FileDropModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    // Specify your library as an import
+    SlickCarouselModule,
+    ModalModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

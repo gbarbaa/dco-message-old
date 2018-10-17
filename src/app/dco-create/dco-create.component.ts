@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,TemplateRef} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -7,13 +7,18 @@ import {ApiService} from '../api.service';
 import * as _ from 'lodash';
 import {of} from 'rxjs/observable/of';
 import {AbstractControl, FormControl, FormGroupDirective, FormBuilder, FormGroup, FormArray, NgForm, Validators} from '@angular/forms';
-
 import {BehaviorSubject} from 'rxjs';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+
 
 export interface Vehiclemodel {
   value: string;
   viewValue: string;
 }
+
+
 
 export interface Vehiclemake {
   value: string;
@@ -23,7 +28,10 @@ export interface Vehiclemake {
 @Component({
   selector: 'app-dco-create',
   templateUrl: './dco-create.component.html',
-  styleUrls: ['./dco-create.component.scss']
+  styleUrls: [
+              './dco-create.component.scss'
+              
+            ]
 })
 
 export class DcoCreateComponent implements OnInit {
@@ -37,6 +45,8 @@ export class DcoCreateComponent implements OnInit {
   dealerid: String = '';
   dealerName: String = '';
   dealerurl: String = '';
+  modalRef: BsModalRef;
+  submittedData : Object ;
 
 
   vehiclemakes: Vehiclemake[] = [
@@ -64,8 +74,12 @@ export class DcoCreateComponent implements OnInit {
     {value: 'C-MAX Hybrid', viewValue: 'C-MAX Hybrid'}
   ];
 
+  slideConfig = {"slidesToShow": 3, "slidesToScroll": 3, dots: true,arrows : false};
 
-  constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder) {
+  offer = [];
+
+
+  constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder,private bsmodalservice: BsModalService) {
   }
 
 
@@ -96,6 +110,9 @@ export class DcoCreateComponent implements OnInit {
       dealername: null,
       dealerurl: null
     });
+
+    //this.offerInfo();
+
   }
 
   onFormSubmit(formc: NgForm) {
@@ -108,5 +125,48 @@ export class DcoCreateComponent implements OnInit {
         console.log(err);
       });
   }
+
+  offerInfo(template: TemplateRef<any>,record) {
+    this.api.getOffer(record)
+        .subscribe(data => { 
+          
+          console.log(data) 
+          
+
+          if(data.Response.Nameplate.Trims != '') {
+            this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;   
+          } else {
+            this.offer = data.Response.Nameplate.Groups.Group;   
+          }
+      });
+
+    this.submittedData = record;
+    
+    // if(!record.make && !record.model && !record.year && !record.zipcode) {
+      this.modalRef = this.bsmodalservice.show(template);  
+    // }
+      
+    
+  }
+
+  open(template: TemplateRef<any>) {
+    console.log(template);
+    
+  } 
+
+  onChange(event, index, item) {
+
+    
+    item.checked = !item.checked;
+
+    // this.lastAction = 'index: ' + index + ', label: ' + item.label + ', checked: ' + item.checked;
+
+    console.log(index)
+    console.log(event)
+    console.log(item);
+
+}
+
+
 
 }

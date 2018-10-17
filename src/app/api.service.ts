@@ -13,6 +13,8 @@ const dealerEndpoint = 'https://www.servicesus.ford.com/dealer/Dealers?make=Ford
 
 const apiUrl = "/api";
 
+const offerInfo = "http://www.servicesus.ford.com/incentives/SpecialOffers.json?appContext=T2&";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -125,6 +127,22 @@ deleteDco(id: string): Observable<{}> {
     .pipe(
       catchError(this.handleError)
     );
+}
+
+
+
+/***   Get Offer ***/
+
+getOffer(recored): Observable<any> {
+
+  // make=Ford&model=C-MAX%20Hybrid&postalCode=48120&year=2018
+
+  let url = offerInfo+'make='+recored.make+'&model='+recored.model+'&postalCode='+recored.zipcode+'&year='+recored.year;
+
+  return this.httpClient.get(url).pipe(
+    map(this.extractData),
+    catchError(this.handleError));
+  
 }
 
 
