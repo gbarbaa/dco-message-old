@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,TemplateRef} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
@@ -7,8 +7,11 @@ import {ApiService} from '../api.service';
 import * as _ from 'lodash';
 import {of} from 'rxjs/observable/of';
 import {AbstractControl, FormControl, FormGroupDirective, FormBuilder, FormGroup, FormArray, NgForm, Validators} from '@angular/forms';
-
 import {BehaviorSubject} from 'rxjs';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+
 
 import { Offers } from '../lib/service/data/offers';
 
@@ -16,6 +19,8 @@ export interface Vehiclemodel {
   value: string;
   viewValue: string;
 }
+
+
 
 export interface Vehiclemake {
   value: string;
@@ -25,7 +30,10 @@ export interface Vehiclemake {
 @Component({
   selector: 'app-dco-create',
   templateUrl: './dco-create.component.html',
-  styleUrls: ['./dco-create.component.scss']
+  styleUrls: [
+              './dco-create.component.scss'
+              
+            ]
 })
 
 export class DcoCreateComponent implements OnInit {
@@ -49,6 +57,9 @@ export class DcoCreateComponent implements OnInit {
     vehicleimage1: String;
   }];
   publisher: String = '';
+  modalRef: BsModalRef;
+  submittedData : Object ;
+
 
   vehiclemakes: Vehiclemake[] = [
     {value: 'Ford', viewValue: 'Ford'}
@@ -89,7 +100,13 @@ export class DcoCreateComponent implements OnInit {
   displayColumns = ['placementid'];
   rows: FormArray = this.fb.array([]);
 
-  constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder) {
+  
+  slideConfig = {"slidesToShow": 3, "slidesToScroll": 3, dots: true,arrows : false};
+
+  offer = [];
+
+
+  constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService) {
   }
 
   ngOnInit() {
@@ -126,6 +143,9 @@ export class DcoCreateComponent implements OnInit {
      this.offersData.forEach((d: Offers) => this.addRow(d, false));
      this.offersData.forEach((d: Offers) => this.addRow(d, false));
      this.offersData.forEach((d: Offers) => this.addRow(d, false));
+
+    //this.offerInfo();
+
   }
 
   onFormSubmit(formc: NgForm) {
@@ -135,7 +155,7 @@ export class DcoCreateComponent implements OnInit {
     this.api.postDco(formc)
       .subscribe(res => {
           let id = res['_id'];
-          this.router.navigate(['/dco-details', id]);
+          this.router.navigate(['/dcos', id]);
         }, (err) => {
           console.log(err);
       });
@@ -174,4 +194,47 @@ export class DcoCreateComponent implements OnInit {
   editInitialFieldValues() {
     
   }
+  offerInfo(template: TemplateRef<any>,record) {
+    this.api.getOffer(record)
+        .subscribe(data => { 
+          
+          console.log(data) 
+          
+
+          if(data.Response.Nameplate.Trims != '') {
+            this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;   
+          } else {
+            this.offer = data.Response.Nameplate.Groups.Group;   
+          }
+      });
+
+    this.submittedData = record;
+    
+    // if(!record.make && !record.model && !record.year && !record.zipcode) {
+      this.modalRef = this.bsmodalservice.show(template);  
+    // }
+      
+    
+  }
+
+  open(template: TemplateRef<any>) {
+    console.log(template);
+    
+  } 
+
+  onChange(event, index, item) {
+
+    
+    item.checked = !item.checked;
+
+    // this.lastAction = 'index: ' + index + ', label: ' + item.label + ', checked: ' + item.checked;
+
+    console.log(index)
+    console.log(event)
+    console.log(item);
+
+}
+
+
+
 }

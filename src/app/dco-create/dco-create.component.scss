@@ -60,6 +60,11 @@ ul.menu-shop-menu {
   color: #111111;
 }
 
+.buttons-panel {
+  display: inline-flex;
+  width: 350px;
+}
+
 .container-page.leftside-panel {
   min-width: 520px;
 }
@@ -67,11 +72,6 @@ ul.menu-shop-menu {
 .menu-account, .menu-main, .menu-shop-menu {
   list-style-type: none;
   text-align: right;
-}
-
-.buttons-panel {
-  display: flex;
-  width: 50%;
 }
 
 li.menu-shop-menu__subitem {
@@ -371,13 +371,33 @@ row.disclaimers {
 .buttons-panel button {
   margin-left: 20px;
   min-height: 30px;
+  margin-top: 0;
+  padding: 0;
   margin-bottom: 8px;
+}
+
+.button-offer {
+  padding-left: 20px;
+
+}
+
+.button-color {
+  background: #1b3664;
+  color: white;
+}
+
+.btn-group-justified {
+  margin-bottom: 20px;
+
 }
 
 /*
 Frames
 =========================== */
 .frames-container {
+  display: inline-block;
+  padding-left: 13%;
+  margin-top: 2%;
   display: inline-block
 }
 
@@ -478,55 +498,148 @@ Frames
 }
 
 /*
-Colors
-=========================== */
-.colors {
-  padding: 0;
-  margin: 10px 0 -7px 0;
-  display: inline-block;
+// Colors
+// =========================== */
+// .colors {
+//   padding: 0;
+//   margin: 10px 0 -7px 0;
+//   display: inline-block;
 
-  li {
-    float: left;
-    display: block;
-    margin: 0 5px 5px 0;
+//     li {
+//       float: left;
+//       display: block;
+//       margin: 0 5px 5px 0;
 
-    .mat-mini-fab {
-      border: solid 5px transparent;
-      @include transition("all 0.5s ease-in-out");
-      position: relative;
-      width: 30px;
-      height: 30px;
-    }
+//       .mat-mini-fab {
+//         border: solid 5px transparent;
+//         @include transition("all 0.5s ease-in-out");
+//         position: relative;
+//         width: 30px;
+//         height: 30px;
+//       }
+//   }
 
-    &.active .mat-mini-fab {
-      border-color: #fff;
-      -webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1) !important;
-      box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1) !important;
-    }
+//     &.active .mat-mini-fab {
+//       border-color: #fff;
+//       -webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1) !important;
+//       box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1) !important;
+//     }
 
-    &.dark .mat-mini-fab {
-      background-color: #333;
-    }
+//     &.dark .mat-mini-fab {
+//       background-color: #333;
+//     }
 
-    &.gray2 .mat-mini-fab {
-      background-color: #999;
-    }
+//     &.gray2 .mat-mini-fab {
+//       background-color: #999;
+//     }
 
-    &.gray1 .mat-mini-fab {
-      background-color: #cfcfcf;
-    }
+//     &.gray1 .mat-mini-fab {
+//       background-color: #cfcfcf;
+//     }
 
-    &.gray .mat-mini-fab {
-      background-color: #f5f5f5;
-    }
-  }
-}
+//     &.gray .mat-mini-fab {
+//       background-color: #f5f5f5;
+//     }
+//   }
+// }
 
 /* Media
 ===================*/
 
+.example-card {
+  max-width: 450px;
+}
 
+.mat-card {
+  margin-left: 10px;
+  margin-right: 3px;
+}
 
+.example-header-image {
+  background-size: cover;
+}
+
+.titleRecord {
+  color: red;
+  font-size: 12px;
+  text-align: center;
+}
+
+.mat-card-subtitle {
+  font-size: 18px;
+}
+
+.example-margin {
+  margin: 0 10px;
+  color: blue;
+}
+
+.mat-card-actions {
+  text-align: center;
+}
+
+.detail {
+  color: cadetblue;
+}
+
+.dataOffer {
+  float: right;
+}
+
+.mat-card-header {
+  background-color: #f6f6f6;
+  width: 100%;
+}
+
+.mat-card-header-text {
+  width: 100% !important;
+}
+
+.mat-card-content {
+  text-align: center;
+  height: 200px;
+}
+
+@media screen and (min-width: 768px) {
+  .modal-dialog {
+    width: 800px; /* New width for default modal */
+  }
+  .modal-sm {
+    width: 350px; /* New width for small modal */
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .modal-lg {
+    width: 1050px; /* New width for large modal */
+  }
+}
+
+.modal-content {
+  width: 800px !important;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: blue;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: blue !important;
+}
+
+::ng-deep .mat-card-header-text {
+  /* CSS styles go here */
+  width: 100%;
+}
+
+::ng-deep .mat-card-subtitle {
+  /* CSS styles go here */
+  width: 100%;
+  text-align: center;
+}
+
+  
+  
 
 
 

@@ -48,6 +48,11 @@ ul.menu-shop-menu {
   text-align: right;
 }
 
+.buttons-panel {
+  display: inline-flex;
+  width: 350px;
+}
+
 li.menu-shop-menu__subitem {
   border: 1px solid #ccc;
   text-align: center;
