@@ -92,7 +92,6 @@ export class CampaignCreateComponent implements OnInit {
 
     this.data.forEach((d: Disclaimers) => this.addRow(d, false));
     this.updateView();
-
   }
 
   onFormSubmit(formc:NgForm) {

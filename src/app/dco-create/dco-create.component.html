@@ -59,56 +59,42 @@
               </mat-form-field>
 
               <mat-form-field class="full-width ">
-                <input matInput placeholder="Zip Code *" formControlName="zipcode" [errorStateMatcher]="matcher">
+                <input matInput placeholder="Zip Code *" formControlName="postalcode" [errorStateMatcher]="matcher">
                 <mat-error>
                   <span
-                    *ngIf="!dcoForm.get('zipcode').valid && dcoForm.get('zipcode').touched">Please Enter Zip Code</span>
+                    *ngIf="!dcoForm.get('postalcode').valid && dcoForm.get('postalcode').touched">Please Enter Zip Code</span>
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID's * (Size: 300x600)" formControlName="placementid"
-                       [errorStateMatcher]="matcher">
-                <mat-error>
-                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
-                </mat-error>
-              </mat-form-field>
 
-              <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID's * (Size: 300X250)" formControlName="placementid"
-                       [errorStateMatcher]="matcher">
-                <mat-error>
-                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
-                </mat-error>
-
-              </mat-form-field>
-
-             <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID (Size: 790x90)" formControlName="placementid"
-                       [errorStateMatcher]="matcher">
-                <mat-error>
-                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
-                </mat-error>
-
-              </mat-form-field>
-
-              <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID (Size: 160x600)" formControlName="placementid"
-                       [errorStateMatcher]="matcher">
-                <mat-error>
-                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
-                </mat-error>
-
-              </mat-form-field>
-
-              <mat-form-field class="full-width ">
-                <input matInput placeholder="Placement ID (Size: 320x50)" formControlName="placementid"
-                       [errorStateMatcher]="matcher">
-                <mat-error>
-                  <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
-                </mat-error>
-              </mat-form-field> 
-
+              <div formArrayName="offers">
+                <div [formGroupName]="0">
+                  <mat-form-field class="full-width " required>
+                    <input matInput placeholder="Placement ID's * (Size: 300x600)" type="text" formControlName="placementid">
+                  </mat-form-field>
+                </div>
+                <div [formGroupName]="1">
+                  <mat-form-field class="full-width " required>
+                    <input matInput placeholder="Placement ID's * (Size: 300X250)" type="text" formControlName="placementid">
+                  </mat-form-field>
+                </div>
+                <div  formGroupName="2">
+                  <mat-form-field class="full-width ">
+                    <input matInput placeholder="Placement ID's (Size: 790x90)" type="text" formControlName="placementid">
+                  </mat-form-field>
+                </div>
+                <div  formGroupName="3">
+                  <mat-form-field class="full-width ">
+                    <input matInput placeholder="Placement ID's (Size: 160x600)" type="text" formControlName="placementid">
+                  </mat-form-field>
+                </div>
+                <div  formGroupName="4">
+                  <mat-form-field class="full-width ">
+                    <input matInput placeholder="Placement ID's (Size: 320x50)" type="text" formControlName="placementid">
+                  </mat-form-field>
+                </div> 
+              </div>
+              
             </div>
           </div>
           <!-- Sidebar Ends -->
@@ -117,12 +103,12 @@
         <!-- Right Panel -->
         <div class="main-section col-md-8 col-sm-8">
           <div class="buttons-panel">
-            <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary">
+            <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button class="btn-block btn-background">
               <mat-icon>save</mat-icon>
               Save
             </button>
             <span></span>
-            <button [disabled]="!dcoForm.valid" mat-raised-button color="primary" (click)="getOffers()">
+            <button [disabled]="!dcoForm.valid" mat-raised-button class="btn-block btn-background" (click)="getOffers()">
               <mat-icon>check_circle_outline</mat-icon>
               Select Offer
             </button>
@@ -132,7 +118,7 @@
                  data-animation-delay="1000"></div>
           </div>
           <div clas="frames-container row">
-            <div class="single-frame-container col-md-3">
+            <div class="single-frame-container column col-md-3">
               <div class="frames-titles">
                 <h5>Frame 1</h5>
               </div>
@@ -160,7 +146,7 @@
 
               </div>
             </div>
-            <div class="single-frame-container col-md-3">
+            <div class="single-frame-container column col-md-3">
               <div class="frames-titles">
                 <h5>Frame 2</h5>
               </div>
@@ -192,7 +178,7 @@
               </div>
             
             </div>
-            <div class="single-frame-container col-md-3">
+            <div class="single-frame-container column col-md-3">
               <div class="frames-titles">
                 <h5>Frame 3</h5>
               </div>

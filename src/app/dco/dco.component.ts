@@ -26,7 +26,7 @@ export class DcoComponent implements OnInit {
   model: String='';
   year: String='';
   placementid: string='';
-  zipcode: string='';
+  postalcode: string='';
   dealerid: string='';
   dealerName: string='';
   dealerurl: string='';
@@ -76,7 +76,7 @@ constructor(
         'make' : [null, Validators.required],
         'model' : [null, Validators.required],
         'year' : [null, Validators.required],
-        'zipcode' : [null, Validators.required],
+        'postalcode' : [null, Validators.required],
         'placementid' : [null, Validators.required],
         'dealerid' : [null],
         'dealername' : [null],
@@ -94,7 +94,7 @@ constructor(
           make: allDcos[dcoId].make,
           model: allDcos[dcoId].model,
           year: allDcos[dcoId].year,
-          zipcode: allDcos[dcoId].postalcode,
+          postalcode: allDcos[dcoId].postalcode,
           placementid: allDcos[dcoId].placementid,
           dealerid: allDcos[dcoId].dealerid,
           dealername: allDcos[dcoId].dealername,

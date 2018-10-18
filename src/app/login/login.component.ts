@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   dealerid: String;
   dealername: String;
   dealermake: String;
+  dealerurl: String;
   dealercupid: String;
   dealerpacode: String;
   dealerzipcode: String;
@@ -61,8 +62,11 @@ export class LoginComponent implements OnInit {
       const xml = parser.parseFromString(this.dealer, 'text/xml');
       const obj = this.ngxXml2jsonService.xmlToJson(xml);
 
+      console.log("obj", obj);
+
       this.data.user['dealers'][0].dealerid = obj['Response']['@attributes']['ttl'];
       this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer']['Cupid'];
+      this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer']['URL'];
       this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer']['PACode'];
       this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer']['Address']['PostalCode'];
 
@@ -72,8 +76,11 @@ export class LoginComponent implements OnInit {
         this.message = err.error.msg;
       });
 
+      sessionStorage.setItem('dealerid', this.data.user['dealers'][0].dealerid);
+      sessionStorage.setItem('dealername', this.data.user['dealers'][0].dealername);
+      sessionStorage.setItem('dealerurl', this.data.user['dealers'][0].dealerurl);
+      sessionStorage.setItem('pacode', this.data.user['dealers'][0].dealerpacode);
       sessionStorage.setItem('zipcode', this.data.user['dealers'][0].dealerzipcode);
-   
     });
   }
 

@@ -46,9 +46,9 @@
                 </mat-form-field>
 
                 <mat-form-field class="full-width ">
-                    <input matInput placeholder="Zip Code *" formControlName="zipcode" [errorStateMatcher]="matcher">
+                    <input matInput placeholder="Zip Code *" formControlName="postalcode" [errorStateMatcher]="matcher">
                     <mat-error>
-                        <span *ngIf="!dcoForm.get('zipcode').valid && dcoForm.get('zipcode').touched">Please Enter Zip Code</span>
+                        <span *ngIf="!dcoForm.get('postalcode').valid && dcoForm.get('postalcode').touched">Please Enter Zip Code</span>
                     </mat-error>
                 </mat-form-field>
 

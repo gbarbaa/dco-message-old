@@ -6,6 +6,7 @@ var dealersSubSchema = Schema({
     dealerid: String,
     dealername: String,
     dealermake: String,
+    dealerurl: String,
     dealercupid: String,
     dealerpacode: String,
     dealerzipcode: String
