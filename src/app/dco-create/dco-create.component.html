@@ -228,14 +228,14 @@
 
         <ng-template #template>
           <div class="modal-header">
-            <i class="fa fa-credit-card" aria-hidden="true"></i> <h6 class="modal-title pull-left">Select Offer</h6>
+            <i class="fa fa-credit-card" aria-hidden="true"></i> <h4 class="modal-title pull-left">Select Offer</h4>
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
               <span aria-hidden="true">×</span>
             </button>
           </div>
           <div class="modal-body">
             <h4><strong>{{submittedData.year}} {{submittedData.make}} {{submittedData.model}}
-              ({{submittedData.zipcode}})</strong></h4>
+              ({{submittedData.postalcode}})</strong></h4>
             <ngx-slick-carousel class="carousel"
                                 #slickModal="slick-carousel"
                                 [config]="slideConfig" width="100%">
