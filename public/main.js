@@ -1221,6 +1221,7 @@ var DcoCreateComponent = /** @class */ (function () {
         this.formBuilder = formBuilder;
         this.fb = fb;
         this.bsmodalservice = bsmodalservice;
+        this.userid = '';
         this.make = '';
         this.model = '';
         this.year = '';
@@ -1273,14 +1274,16 @@ var DcoCreateComponent = /** @class */ (function () {
     DcoCreateComponent.prototype.ngOnInit = function () {
         var _this = this;
         //retrieving values from the session and create values base on naming convention//
+        var stored_userid = sessionStorage.getItem('userid');
         var stored_dealerid = sessionStorage.getItem('dealerid');
         var stored_dealername = sessionStorage.getItem('dealername');
         var stored_dealerurl = sessionStorage.getItem('dealerurl');
         var stored_pacode = sessionStorage.getItem('pacode');
         var stored_zipcode = sessionStorage.getItem('zipcode');
-        console.log('zipcode', stored_zipcode);
+        console.log('userid', stored_userid);
         this.editInitialFieldValues();
         this.dcoForm = this.formBuilder.group({
+            'userid': [stored_userid],
             'make': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
             'model': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
             'year': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
@@ -1310,8 +1313,9 @@ var DcoCreateComponent = /** @class */ (function () {
         formc = this.dcoForm.value;
         this.api.postDco(formc)
             .subscribe(function (res) {
+            console.log("resu", res);
             var id = res['_id'];
-            _this.router.navigate(['/dcos', id]);
+            _this.router.navigate(['dcos']);
         }, function (err) {
             console.log(err);
         });
@@ -1593,6 +1597,7 @@ var DcoComponent = /** @class */ (function () {
         this.formBuilder = formBuilder;
         this.fb = fb;
         this.id = '';
+        this.userid = '';
         this.make = '';
         this.model = '';
         this.year = '';
@@ -1613,10 +1618,18 @@ var DcoComponent = /** @class */ (function () {
     }
     DcoComponent.prototype.ngOnInit = function () {
         var _this = this;
+        var stored_userid = sessionStorage.getItem('userid');
         this.api.getDcos()
             .subscribe(function (res) {
             _this.dcos = res;
             console.log("ress", _this.dcos);
+            console.log("user", stored_userid);
+            _this.groupedDcos = lodash__WEBPACK_IMPORTED_MODULE_5__["filter"](_this.dcos, function (user) { return user.userid == stored_userid; });
+            _this.groupedDcoIds = Object.keys(_this.groupedDcos);
+            _this.selectedDco = _this.groupedDcoIds[0];
+            console.log("dcos", _this.groupedDcos);
+            console.log("gdcois", _this.groupedDcoIds[0]);
+            _this.getDco(_this.groupedDcos, _this.groupedDcoIds[0]);
         }, function (err) {
             console.log(err);
             if (err.status === 401) {
@@ -1624,6 +1637,7 @@ var DcoComponent = /** @class */ (function () {
             }
         });
         this.dcoForm = this.formBuilder.group({
+            'userid': [null],
             'make': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required],
             'model': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required],
             'year': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_6__["Validators"].required],
@@ -1637,6 +1651,7 @@ var DcoComponent = /** @class */ (function () {
     DcoComponent.prototype.getDco = function (allDcos, dcoId) {
         this.id = allDcos[dcoId]._id;
         this.dcoForm.setValue({
+            userid: allDcos[dcoId].userid,
             make: allDcos[dcoId].make,
             model: allDcos[dcoId].model,
             year: allDcos[dcoId].year,
@@ -1780,6 +1795,7 @@ var LoginComponent = /** @class */ (function () {
         this.http.post('/api/signin', this.loginData).subscribe(function (resp) {
             _this.data = resp;
             localStorage.setItem('jwtToken', _this.data.token);
+            sessionStorage.setItem('userid', _this.data.user.username);
             _this.getDealer(_this.data.user['dealers'][0].dealername);
             _this.router.navigate(['dcos']);
         }, function (err) {
@@ -1794,11 +1810,20 @@ var LoginComponent = /** @class */ (function () {
             var xml = parser.parseFromString(_this.dealer, 'text/xml');
             var obj = _this.ngxXml2jsonService.xmlToJson(xml);
             console.log("obj", obj);
-            _this.data.user['dealers'][0].dealerid = obj['Response']['@attributes']['ttl'];
-            _this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer']['Cupid'];
-            _this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer']['URL'];
-            _this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer']['PACode'];
-            _this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer']['Address']['PostalCode'];
+            if (obj['Response']['Dealer'].length = 1) {
+                _this.data.user['dealers'][0].dealerid = obj['Response']['Dealer']['SalesCode'];
+                _this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer']['Cupid'];
+                _this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer']['URL'];
+                _this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer']['PACode'];
+                _this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer']['Address']['PostalCode'];
+            }
+            else {
+                _this.data.user['dealers'][0].dealerid = obj['Response']['Dealer'][0]['SalesCode'];
+                _this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer'][0]['Cupid'];
+                _this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer'][0]['URL'];
+                _this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer'][0]['PACode'];
+                _this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer'][0]['Address']['PostalCode'];
+            }
             _this.http.put('/api/profile', _this.data.user).subscribe(function (resp) {
                 console.log("resp", resp);
             }, function (err) {

@@ -40,6 +40,7 @@ var dcocSubSchema = Schema({
 },{ _id : false });
 
 var DcoSchema = new Schema({
+    userid: String,
     make: String,
     model: String,
     year: String,

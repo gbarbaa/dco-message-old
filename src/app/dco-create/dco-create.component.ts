@@ -12,15 +12,12 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 
-
 import { Offers } from '../lib/service/data/offers';
 
 export interface Vehiclemodel {
   value: string;
   viewValue: string;
 }
-
-
 
 export interface Vehiclemake {
   value: string;
@@ -38,6 +35,7 @@ export interface Vehiclemake {
 
 export class DcoCreateComponent implements OnInit {
   dcoForm: FormGroup;
+  userid: String = '';
   make: String = '';
   model: String = '';
   year: String = '';
@@ -57,9 +55,9 @@ export class DcoCreateComponent implements OnInit {
     vehicleimage1: String;
   }];
   publisher: String = '';
+
   modalRef: BsModalRef;
   submittedData : Object ;
-
 
   vehiclemakes: Vehiclemake[] = [
     {value: 'Ford', viewValue: 'Ford'}
@@ -99,7 +97,6 @@ export class DcoCreateComponent implements OnInit {
   dataSource = new BehaviorSubject<AbstractControl[]>([]);
   displayColumns = ['placementid'];
   rows: FormArray = this.fb.array([]);
-
   
   slideConfig = {"slidesToShow": 3, "slidesToScroll": 3, dots: true,arrows : false};
 
@@ -112,15 +109,17 @@ export class DcoCreateComponent implements OnInit {
   ngOnInit() {
 
     //retrieving values from the session and create values base on naming convention//
+    var stored_userid = sessionStorage.getItem('userid');
     var stored_dealerid = sessionStorage.getItem('dealerid');
     var stored_dealername = sessionStorage.getItem('dealername');
     var stored_dealerurl = sessionStorage.getItem('dealerurl');
     var stored_pacode = sessionStorage.getItem('pacode');
     var stored_zipcode = sessionStorage.getItem('zipcode');
-    console.log('zipcode', stored_zipcode);
+    console.log('userid', stored_userid);
     this.editInitialFieldValues();
  
     this.dcoForm = this.formBuilder.group({
+      'userid': [stored_userid],
       'make': [null, Validators.required],
       'model': [null, Validators.required],
       'year': [null, Validators.required],
@@ -154,8 +153,9 @@ export class DcoCreateComponent implements OnInit {
     formc = this.dcoForm.value;
     this.api.postDco(formc)
       .subscribe(res => {
+        console.log("resu", res);
           let id = res['_id'];
-          this.router.navigate(['/dcos', id]);
+          this.router.navigate(['dcos']);
         }, (err) => {
           console.log(err);
       });

@@ -64,12 +64,12 @@ router.put('/profile',  function(req, res) {
 
 
 /*** DCO ****/
+
 /* GET ALL DCOs */
 router.get('/',  passport.authenticate('jwt', { session: false}),  function(req, res, next) {
-
   var token = getToken(req.headers);
   if (token) {
-  Dcome.find(function (err, products) {
+    Dcome.find(function (err, products) {
     if (err) return next(err);
     res.json(products);
   });

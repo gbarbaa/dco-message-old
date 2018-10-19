@@ -22,6 +22,7 @@ export class DcoComponent implements OnInit {
 
   dcoForm: FormGroup;
   id:string='';
+  userid: string='';
   make: string='';
   model: String='';
   year: String='';
@@ -35,6 +36,9 @@ export class DcoComponent implements OnInit {
   public search: string = null;
   dcos: any;
  
+  groupedDcoIds: any;
+  groupedDcos: any;
+
   private selectedDco: Dco;
 
 constructor(
@@ -56,6 +60,7 @@ constructor(
     }
 
     ngOnInit() {
+      var stored_userid = sessionStorage.getItem('userid');
 
       this.api.getDcos()
 
@@ -64,7 +69,20 @@ constructor(
         this.dcos = res;
         
         console.log("ress", this.dcos);
+        console.log("user",  stored_userid);
+
      
+        this.groupedDcos = _.filter(this.dcos, user=>user.userid == stored_userid);
+
+        this.groupedDcoIds = Object.keys(this.groupedDcos);
+
+        this.selectedDco =  this.groupedDcoIds[0];
+
+        console.log("dcos",  this.groupedDcos);
+        console.log("gdcois",  this.groupedDcoIds[0]);
+        this.getDco(this.groupedDcos, this.groupedDcoIds[0]);
+
+
         }, err => {
           console.log(err);
           if(err.status === 401) {
@@ -73,6 +91,7 @@ constructor(
       });
 
       this.dcoForm = this.formBuilder.group({
+        'userid' : [null],
         'make' : [null, Validators.required],
         'model' : [null, Validators.required],
         'year' : [null, Validators.required],
@@ -81,7 +100,6 @@ constructor(
         'dealerid' : [null],
         'dealername' : [null],
         'dealerurl' : [null],
-
       });
     }
 
@@ -91,6 +109,7 @@ constructor(
 
         this.id = allDcos[dcoId]._id;
         this.dcoForm.setValue({
+          userid: allDcos[dcoId].userid,
           make: allDcos[dcoId].make,
           model: allDcos[dcoId].model,
           year: allDcos[dcoId].year,
