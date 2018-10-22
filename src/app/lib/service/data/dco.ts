@@ -1,12 +1,15 @@
 export class Dco{
     id: string;
-    placementid: string;
+    userid: string;
     make: string;
     model: string;
     year: string;
-    dealerzipcode: string;
     dealerid: string;
     dealername: string;
-    campadealerurl: string;
+    dealerurl: string;
+    postalcode: string;
+    pacode: string;
+    offers: [string];
+    publisher: string;
     show: boolean = false;
 }

@@ -176,6 +176,11 @@ Container
     padding: 25px 0 0px 0;
 }
 
+angular2csv > button {
+    background: none !important;
+    border: none !important;
+}
+
 .col.m4.l3.s12.pull-l9.pull-m8.layout.side-product {
     position: static;
 }
@@ -269,6 +274,17 @@ h5 {
     display: flex;
 }
 
+.panel-body {
+    padding-left: 1px;
+    padding-right: 5px;
+}
+
+section.panel-project-trash {
+    float: right;
+    right: 0;
+    margin-right: -10px;
+}
+
 span.panel-title {
     display: block;
 }
@@ -276,6 +292,10 @@ span.panel-title {
 .panel-project-content {
     cursor: pointer;
     width: 180px;
+}
+
+.panel-title {
+    cursor: pointer;
 }
 
 .panel-active-projects > label {
@@ -356,6 +376,110 @@ img.img-responsive.pull-left.blog-image {
     width: 100%;
 }
 
+/*
+Frames
+=========================== */
+.frames-container {
+    display: inherit;
+  }
+  
+  .single-frame-main {
+  
+    min-height: 450px;
+    display: inline-block;
+    border: 1px solid gray;
+    width: 100%;
+  }
+  
+  .frame-background {
+    margin: 10px;
+    border: 1px solid black;
+    height: auto;
+    background: lightgray;
+  }
+  
+  .frame-dealer-logo, .frame-heading-text, .frame-vehicle-img {
+    margin: 10px;
+    border: 1px solid black;
+    text-align: center;
+    min-height: 90px;
+    background: white;
+  }
+  
+  .frame-subheading1-text, .frame-subheading2-text {
+    margin: 10px;
+    border: 1px solid black;
+    min-height: 30px;
+    background: white;
+  }
+  
+  .frame-disclosure {
+    margin: 10px;
+    color: #3f51b5;
+    text-align: -webkit-center;
+    cursor: pointer;
+  }
+  
+  .frame-cta {
+    margin: 10px;
+    background-color: #3f51b5;
+    min-height: 30px;
+    color: white;
+    text-align: center;
+    vertical-align: -webkit-baseline-middle;
+    padding-top: 5px;
+    cursor: pointer;
+  }
+  
+  .frame-dealer-logo:before, .frame-heading-text:before, .frame-vehicle-img:before, .frame-subheading1-text:before, .frame-subheading2-text:before, .frame-background:before {
+    font-size: x-small;
+    position: relative;
+    top: -8px;
+    right: 0;
+    float: right;
+    background: white;
+    cursor: pointer;
+    text-underline-position: auto;
+    color: blue;
+    text-decoration: underline;
+  }
+  
+  .frame-dealer-logo:before {
+    content: "Dealer Logo";
+  }
+  
+  .frame-heading-text:before {
+    content: "Heading Text";
+  }
+  
+  .frame-vehicle-img:before {
+    content: "Vehicle Image";
+  }
+  
+  .frame-vehicle-img:before {
+    content: "Vehicle Image";
+  }
+  
+  .frame-subheading1-text:before {
+    content: "Sub-Heading";
+  }
+  
+  .frame-subheading2-text:before {
+    content: "Sub-Heading";
+  }
+  
+  .frame-cta:before {
+    content: "CTA";
+  }
+  
+  .frame-disclosure:before {
+    content: "Disclosure";
+  }
+  
+  .frame-background:before {
+    content: "Background";
+  }
+  
 /*
 Colors
 =========================== */

@@ -7,6 +7,7 @@ import { FileDropModule } from 'ngx-file-drop';
 // Import your library
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ModalModule , TooltipModule } from 'ngx-bootstrap';
+import { Angular2CsvModule } from 'angular2-csv';
 
 import {
   MatInputModule,
@@ -141,7 +142,8 @@ const appRoutes: Routes = [
     // Specify your library as an import
     SlickCarouselModule,
     ModalModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    Angular2CsvModule
   ],
   providers: [],
   bootstrap: [AppComponent]

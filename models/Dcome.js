@@ -6,6 +6,7 @@ var disclaimerscSubSchema = Schema({
 },{ _id : false });
 
 var dcocSubSchema = Schema({
+  size: String,
   placementid: {
     type: String,
     unique: true,
@@ -36,7 +37,7 @@ var dcocSubSchema = Schema({
   disclosurecopy2: String,
   disclosurecopy3: String,
   backgroundimage: String,
-  backgroundimageurl: String
+  backgroundurl: String
 },{ _id : false });
 
 var DcoSchema = new Schema({

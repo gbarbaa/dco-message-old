@@ -1,4 +1,5 @@
 export interface Offers {
+  size: String;
   placementid: String;
   offerheadline1: String;
   vehiclename1: String;
@@ -7,4 +8,23 @@ export interface Offers {
   disclosurelabel1: String;
   logo1: String;
   vehicleimage1: String;
+  offerheadline2: String;
+  vehiclename2: String;
+  ctalabel2: String;
+  ctaurl2: String;
+  disclosurelabel2: String;
+  logo2: String;
+  vehicleimage2: String;
+  offerheadline3: String;
+  vehiclename3: String;
+  ctalabel3: String;
+  ctaurl3: String;
+  disclosurelabel3: String;
+  logo3: String;
+  vehicleimage3: String;
+  disclosurecopy1: String;
+  disclosurecopy2: String;
+  disclosurecopy3: String;
+  backgroundimage: String;
+  backgroundurl: String;
 }

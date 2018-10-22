@@ -11,7 +11,6 @@ import {BehaviorSubject} from 'rxjs';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-
 import { Offers } from '../lib/service/data/offers';
 
 export interface Vehiclemodel {
@@ -27,10 +26,7 @@ export interface Vehiclemake {
 @Component({
   selector: 'app-dco-create',
   templateUrl: './dco-create.component.html',
-  styleUrls: [
-              './dco-create.component.scss'
-              
-            ]
+  styleUrls: [ './dco-create.component.scss']
 })
 
 export class DcoCreateComponent implements OnInit {
@@ -45,14 +41,34 @@ export class DcoCreateComponent implements OnInit {
   pacode: String = '';
   postalcode: String = '';
   offers : [{
-    placementid: String;
-    offerheadline1: String;
-    vehiclename1: String;
-    ctalabel1: String;
-    ctaurl1: String;
-    disclosurelabel1: String;
-    logo1: String;
-    vehicleimage1: String;
+    size: String,
+    placementid: String,
+    offerheadline1: String,
+    vehiclename1: String,
+    ctalabel1: String,
+    ctaurl1: String,
+    disclosurelabel1: String,
+    logo1: String,
+    vehicleimage1: String,
+    offerheadline2: String,
+    vehiclename2: String,
+    ctalabel2: String,
+    ctaurl2: String,
+    disclosurelabel2: String,
+    logo2: String,
+    vehicleimage2: String,
+    offerheadline3: String,
+    vehiclename3: String,
+    ctalabel3: String,
+    ctaurl3: String,
+    disclosurelabel3: String,
+    logo3: String,
+    vehicleimage3: String,
+    disclosurecopy1: String,
+    disclosurecopy2: String,
+    disclosurecopy3: String,
+    backgroundimage: String,
+    backgroundurl: String,
   }];
   publisher: String = '';
 
@@ -84,16 +100,40 @@ export class DcoCreateComponent implements OnInit {
     {value: 'C-MAX Hybrid', viewValue: 'C-MAX Hybrid'}
   ];
 
-  offersData: Offers[] = [ 
-    {placementid: new String,
+  possible_sizes: any = ['300x600','300x250','790x90','160x600','320x50'];
+  possible_frames: any = ["_1", "_2", "_3"];
+
+  offersData: Offers[] = [{
+    size: new String,
+    placementid: new String,
     offerheadline1: new String,
     vehiclename1: new String,
     ctalabel1: new String,
     ctaurl1: new String,
     disclosurelabel1: new String,
     logo1: new String,
-    vehicleimage1: new String}
-  ];
+    vehicleimage1: new String,
+    offerheadline2: new String,
+    vehiclename2: new String,
+    ctalabel2: new String,
+    ctaurl2: new String,
+    disclosurelabel2: new String,
+    logo2: new String,
+    vehicleimage2: new String,
+    offerheadline3: new String,
+    vehiclename3: new String,
+    ctalabel3: new String,
+    ctaurl3: new String,
+    disclosurelabel3: new String,
+    logo3: new String,
+    vehicleimage3: new String,
+    disclosurecopy1: new String,
+    disclosurecopy2: new String,
+    disclosurecopy3: new String,
+    backgroundimage: new String,
+    backgroundurl: new String
+  }];
+  
   dataSource = new BehaviorSubject<AbstractControl[]>([]);
   displayColumns = ['placementid'];
   rows: FormArray = this.fb.array([]);
@@ -102,54 +142,53 @@ export class DcoCreateComponent implements OnInit {
 
   offer = [];
 
+  stored_userid = sessionStorage.getItem('userid');
+  stored_dealerid = sessionStorage.getItem('dealerid');
+  stored_dealername = sessionStorage.getItem('dealername');
+  stored_dealerurl = sessionStorage.getItem('dealerurl');
+  stored_pacode = sessionStorage.getItem('pacode');
+  stored_zipcode = sessionStorage.getItem('zipcode');
 
   constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService) {
   }
 
   ngOnInit() {
 
-    //retrieving values from the session and create values base on naming convention//
-    var stored_userid = sessionStorage.getItem('userid');
-    var stored_dealerid = sessionStorage.getItem('dealerid');
-    var stored_dealername = sessionStorage.getItem('dealername');
-    var stored_dealerurl = sessionStorage.getItem('dealerurl');
-    var stored_pacode = sessionStorage.getItem('pacode');
-    var stored_zipcode = sessionStorage.getItem('zipcode');
-    console.log('userid', stored_userid);
-    this.editInitialFieldValues();
+    console.log('zipcode', this.stored_zipcode);
+    console.log('pacode', this.stored_pacode);
+
  
     this.dcoForm = this.formBuilder.group({
-      'userid': [stored_userid],
+      'userid': [this.stored_userid],
       'make': [null, Validators.required],
       'model': [null, Validators.required],
       'year': [null, Validators.required],
-      'dealerid': [stored_dealerid],
-      'dealername': [stored_dealername],
-      'dealerurl': [stored_dealerurl],
-      'pacode': [stored_pacode],
-      'postalcode': [stored_zipcode, Validators.required],
+      'dealerid': [this.stored_dealerid],
+      'dealername': [this.stored_dealername],
+      'dealerurl': [this.stored_dealerurl],
+      'pacode': [this.stored_pacode],
+      'postalcode': [this.stored_zipcode, Validators.required],
       'offers':  this.rows
-    
     }, err => {
       if(err.status === 401) {
         this.router.navigate(['login']);
       }
     });
      
-    //* Create 5 empty placements ids, 1 for each size, for the intial form 
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
+    //* Create 5 placements ids, 1 for each size, for the intial form 
+    this.possible_sizes.forEach(element => {
+      this.offersData.forEach((d: Offers) => this.addRow(d, false));
+    });
 
     //this.offerInfo();
 
   }
 
   onFormSubmit(formc: NgForm) {
-    //* Cycle through 5 placementids and remove empty ones before post */
+    //* Cycle through placementids and remove empty ones before post */
+    this.editInitialFieldValues();
     this.removeEmptyPlacementIds();
+
     formc = this.dcoForm.value;
     this.api.postDco(formc)
       .subscribe(res => {
@@ -163,6 +202,7 @@ export class DcoCreateComponent implements OnInit {
 
   addRow(d?: Offers, noUpdate?: boolean) {
     const row = this.fb.group({
+      'size': [d && d.size ? d.size : null, []],
       'placementid'   : [d && d.placementid ? d.placementid : null, []],
       'offerheadline1'   : [d && d.offerheadline1 ? d.offerheadline1 : null, []],
       'vehiclename1'   : [d && d.vehiclename1 ? d.vehiclename1 : null, []],
@@ -170,7 +210,26 @@ export class DcoCreateComponent implements OnInit {
       'ctaurl1'   : [d && d.ctaurl1 ? d.ctaurl1 : null, []],
       'disclosurelabel1'   : [d && d.disclosurelabel1 ? d.disclosurelabel1 : null, []],
       'logo1'   : [d && d.logo1 ? d.logo1 : null, []],
-      'vehicleimage1'   : [d && d.vehicleimage1 ? d.vehicleimage1 : null, []]
+      'vehicleimage1'   : [d && d.vehicleimage1 ? d.vehicleimage1 : null, []],
+      'offerheadline2'   : [d && d.offerheadline2 ? d.offerheadline2 : null, []],
+      'vehiclename2'   : [d && d.vehiclename2 ? d.vehiclename2 : null, []],
+      'ctalabel2'   : [d && d.ctalabel2 ? d.ctalabel2 : null, []],
+      'ctaurl2'   : [d && d.ctaurl2 ? d.ctaurl2 : null, []],
+      'disclosurelabel2'   : [d && d.disclosurelabel2 ? d.disclosurelabel2 : null, []],
+      'logo2'   : [d && d.logo2 ? d.logo2 : null, []],
+      'vehicleimage2'   : [d && d.vehicleimage2 ? d.vehicleimage2 : null, []],
+      'offerheadline3'   : [d && d.offerheadline3 ? d.offerheadline3 : null, []],
+      'vehiclename3'   : [d && d.vehiclename3 ? d.vehiclename3 : null, []],
+      'ctalabel3'   : [d && d.ctalabel3 ? d.ctalabel3 : null, []],
+      'ctaurl3'   : [d && d.ctaurl3 ? d.ctaurl3 : null, []],
+      'disclosurelabel3'   : [d && d.disclosurelabel3 ? d.disclosurelabel3 : null, []],
+      'logo3'   : [d && d.logo3 ? d.logo3 : null, []],
+      'vehicleimage3'   : [d && d.vehicleimage3 ? d.vehicleimage3 : null, []],
+      'disclosurecopy1': [d && d.disclosurecopy1 ? d.disclosurecopy1 : null, []],
+      'disclosurecopy2': [d && d.disclosurecopy2 ? d.disclosurecopy2 : null, []],
+      'disclosurecopy3': [d && d.disclosurecopy3 ? d.disclosurecopy3 : null, []],
+      'backgroundimage': [d && d.backgroundimage ? d.backgroundimage : null, []],
+      'backgroundurl'  : [d && d.backgroundurl ? d.backgroundurl : null, []]
     });
     this.rows.push(row);
     if (!noUpdate) { this.updateView(); }
@@ -192,14 +251,35 @@ export class DcoCreateComponent implements OnInit {
   }
 
   editInitialFieldValues() {
-    
+    this.offersData = this.dcoForm.controls['offers'].value;
+    var captured_model = this.dcoForm.controls['model'].value;
+    const url_head: string = "https://creativesham.file.core.windows.net/progad/";
+    const dealer_folder: string =  this.stored_zipcode + "_" + this.stored_dealerurl + "/";
+    const global_folder: string  =  "universal/";
+    const azure_token: string = "?sv=2017-11-09&ss=f&srt=sco&sp=rl&se=2022-01-02T03:35:55Z&st=2018-10-12T18:35:55Z&spr=https&sig=9xuB6sBTVQvjHdG3S5W8KyfvrFYw6CjSmcKvhE25Snk%3D"
+
+ //   console.log("offerdata", this.offersData);
+
+    this.possible_sizes.forEach((size, index) => {
+        this.offersData[index].size = size;
+        /**Logo */
+        this.offersData[index].logo1 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + size + ".jpg" + azure_token;
+        this.offersData[index].logo2 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + size + ".jpg" + azure_token;
+        this.offersData[index].logo3 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + size + ".jpg" + azure_token;
+        /**Vehicle Image */
+        this.offersData[index].vehicleimage1 = url_head + global_folder + captured_model + "_1_" + size + ".png" + azure_token;
+        this.offersData[index].vehicleimage2 = url_head + global_folder + captured_model + "_2_" + size + ".png" + azure_token;
+        this.offersData[index].vehicleimage3 = url_head + global_folder + captured_model + "_3_" + size + ".png" + azure_token;
+        /**Background URL */
+        this.offersData[index].backgroundurl = 	"https://www." + this.stored_dealerurl + ".com/new-inventory/index.htm?search=&model=" + captured_model;
+    });
   }
+
   offerInfo(template: TemplateRef<any>,record) {
     this.api.getOffer(record)
         .subscribe(data => { 
           
           console.log(data) 
-          
 
           if(data.Response.Nameplate.Trims != '') {
             this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;   

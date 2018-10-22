@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       const xml = parser.parseFromString(this.dealer, 'text/xml');
       const obj = this.ngxXml2jsonService.xmlToJson(xml);
 
-      console.log("obj", obj['Response']['Dealer'].length);
+      console.log("obj", obj['Response']['Dealer']);
 
       if (obj['Response']['Dealer'].length >= 1) {
         this.data.user['dealers'][0].dealerid = obj['Response']['Dealer'][0]['SalesCode'];

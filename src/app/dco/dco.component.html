@@ -22,45 +22,6 @@
         <div class="col-md-3 col-sm-3">
           <!-- Sidebar Begins -->
           <div class="sidebar">
-    
-            <div class="row" style="display: none;">
-                <mat-form-field class="full-width ">
-                    <input matInput placeholder="Make *" formControlName="make" [errorStateMatcher]="matcher">
-                    <mat-error>
-                        <span *ngIf="!dcoForm.get('make').valid && dcoForm.get('make').touched">Please Select a Make</span>
-                    </mat-error>
-                </mat-form-field>
-   
-                <mat-form-field class="full-width ">
-                    <input matInput placeholder="Model *" formControlName="model" [errorStateMatcher]="matcher">
-                    <mat-error>
-                        <span *ngIf="!dcoForm.get('model').valid && dcoForm.get('model').touched">Please Select Car Model</span>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="full-width ">
-                    <input matInput placeholder="Year *" formControlName="year" [errorStateMatcher]="matcher">
-                    <mat-error>
-                        <span *ngIf="!dcoForm.get('year').valid && dcoForm.get('year').touched">Please Select Car Year</span>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="full-width ">
-                    <input matInput placeholder="Zip Code *" formControlName="postalcode" [errorStateMatcher]="matcher">
-                    <mat-error>
-                        <span *ngIf="!dcoForm.get('postalcode').valid && dcoForm.get('postalcode').touched">Please Enter Zip Code</span>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="full-width ">
-                    <input matInput placeholder="Placement ID *" formControlName="placementid" [errorStateMatcher]="matcher">
-                    <mat-error>
-                        <span *ngIf="!dcoForm.get('placementid').valid && dcoForm.get('placementid').touched">Please Enter Placment ID</span>
-                    </mat-error>
-                </mat-form-field>
-
-            </div>
-            <!-- Categories -->
             <div class="row">
               <h5>Active Placements</h5>
               <!-- Devider -->
@@ -89,22 +50,42 @@
                   <div id="accordion" class="panel-group faq-panel accordion" data-animated="fadeInUp"  >
   
                     <!-- Accordion campaings Begins -->
-                    <div class="panel panel-default" *ngFor="let key of dcos; index as i " [class.active]="selectedDcoIndex === i">
+                    <div class="panel panel-default" *ngFor="let key of groupedDcoIds; index as i " [class.active]="selectedDcoIndex === i">
                     
-                      <div class="panel-heading" >
-                        <!-- Title -->
-                        <div  data-toggle="collapse" class="panel-active-projects">
-                            <label class="">Placement ID</label>
-                          <span class="panel-title">
-                            <a  (click)="selectDco(key, i)">{{key.placementid}}</a>
-                          </span>
-                          <label class="">{{key.make}} / {{key.model}} /  {{key.year}}</label>
+                        <div class="panel-heading">
+                            <!-- Title -->
+                            <div href="#collapseOne" data-parent="#accordion" data-toggle="collapse" class="panel-active-projects" >
+                                <label class="">Offer</label>
+                                <span class="panel-title" (click)="selectDco(key, i)">
+                                        <label class="">{{groupedDcos[key][0].make}} / {{groupedDcos[key][0].model}} / {{groupedDcos[key][0].year}}</label>
+                                        <label class="">Zipcode: {{groupedDcos[key][0].postalcode}}</label>
+                                </span>
+                            </div>
                         </div>
-   
-                      </div>
-  
+                        <div class="panel-collapse collapse in" id="collapseOne">
+                            <!-- Placements Section Begins -->
+                            <div class="panel-body">
+                                <div class="" *ngFor="let offer of groupedDcos[key]; index as o" >
+                                    <div class="panel-project-heading active" *ngFor="let placement of offer.offers; index as p" [class.active]="selectedPlacement === placement.placementid" >
+                                        <section class="panel-project-content" >
+                                         <a (click)="selectPlacement(o, placement.placementid)">
+                                            <label class="" >Placement ID</label>
+                                            <div>
+                                                <span class="text campaign-subtitle" style="display: inline;">{{placement.placementid}} ({{placement.size}})</span>
+                                            </div>
+                                         </a> 
+                                        </section>
+                
+                                        <section  class="panel-project-trash">                           
+                                            <a color="warn" (click)="deleteDco()"><mat-icon>delete</mat-icon></a>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <!-- Accordion campaings Ends -->
+                    <!-- Accordion Dco's Ends -->
   
                    
                   </div>
@@ -128,19 +109,113 @@
         <!-- Right Panel -->
         <div class="main-section col-md-8 col-sm-8">
         
-            <div class="">
-                <a mat-raised-button color="primary" [routerLink]="['/dco-create']">
-                    <mat-icon>add</mat-icon>
-                </a>
-                <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary" style="height: 36px;margin-left: 20px;">
-                    <mat-icon>save</mat-icon>
-                </button>
-            </div>
-        
-            <div class="">
-                <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
-            </div>
+        <div class="">
+            <a mat-raised-button color="primary" [routerLink]="['/dco-create']">
+                <mat-icon>add</mat-icon>
+            </a>
+            <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary" style="height: 36px;margin-left: 20px;">
+                <mat-icon>save</mat-icon>
+            </button>
+
+            <button mat-raised-button color="primary" style="height: 36px;margin-left: 20px;">
+               <angular2csv [data]="data" filename="test.csv" [options]="options"></angular2csv>
+            </button>
         </div>
+    
+        <div class="">
+            <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
+        </div>
+
+        <div class="frames-container row">
+                <div class="single-frame-container column col-md-4">
+                  <div class="frames-titles">
+                    <h5>Frame 1</h5>
+                  </div>
+                  <div class="single-frame-main">
+                    <div class="frame-dealer-logo" id="logo1" (click)="open(frame,'logo1','image','Dealer logo')">
+                        <mat-form-field class="full-width ">
+                                <input matInput placeholder="Logo1" type="text" formControlName="offers[placementid]">
+                        </mat-form-field>
+                    </div>
+                    <div class="frame-background">
+                      <div class="frame-heading-text" id="heading1" (click)="open(heading,'heading1','heading','Heading Text')">
+    
+                      </div>
+                      <div class="frame-vehicle-img" id="vehicle1" (click)="open(vehicle,'vehicle1','vehicle','Vehicle Image')">
+    
+                      </div>
+                    </div>
+                    <div class="frame-subheading1-text" id="subheading1" (click)="open(heading,'subheading1','subheading','Sub Heading Text')">
+    
+                    </div>
+                    <div class="frame-cta" id="cta1" (click)="open(cta,'cta1','cta','Button Text')">
+    
+                    </div>
+                    <div class="frame-disclosure" id="disclosure1" (click)="open(heading,'disclosure1','disclosure','Disclosure')">
+    
+                    </div>
+    
+                  </div>
+                </div>
+                <div class="single-frame-container column col-md-4">
+                  <div class="frames-titles">
+                    <h5>Frame 2</h5>
+                  </div>
+                  <div class="single-frame-main">
+                    <div class="frame-dealer-logo" id="logo2" (click)="open(frame,'logo2','image','Dealer Logo')">
+                    </div>
+                    <div class="frame-background">
+                      <div class="frame-heading-text" id="heading2" (click)="open(heading,'heading2','heading','Heading Text')">
+    
+                      </div>
+                      <div class="frame-subheading1-text" id="subheading2" (click)="open(heading,'subheading2','subheading','Sub Heading Text')">
+    
+                      </div>
+                      <div class="frame-vehicle-img" id="vehicle2" (click)="open(vehicle,'vehicle2','vehicle','Vehicle Image')">
+    
+                      </div>
+                    </div>
+                   <div class="frame-cta" id="cta2" (click)="open(cta,'cta2','cta','Button Text')">
+    
+                    </div>
+                    <div class="frame-disclosure" id="disclosure2" (click)="open(heading,'disclosure2','disclosure','Disclosure')">
+    
+                    </div>
+    
+                  </div>
+    
+                </div>
+                <div class="single-frame-container column col-md-4">
+                  <div class="frames-titles">
+                    <h5>Frame 3</h5>
+                  </div>
+                  <div class="single-frame-main">
+                    <div class="frame-dealer-logo" id="logo3" (click)="open(frame,'logo3','image','Dealer Logo')">
+    
+                    </div>
+                    <div class="frame-vehicle-img" id="vehicle3" (click)="open(vehicle,'vehicle3','vehicle','Vehicle Image')">
+    
+                    </div>
+                    <div class="frame-background">
+                      <div class="frame-subheading1-text" id="subheading3" (click)="open(heading,'subheading3','subheading','Sub Heading Text')">
+    
+                      </div>
+                      <div class="frame-heading-text" id="heading3" (click)="open(heading,'heading3','heading','Heading Text')">
+    
+                      </div>
+                    </div>
+    
+                    <div class="frame-cta" id="cta3" (click)="open(cta,'cta3','cta','Button Text')">
+    
+                    </div>
+                    <div class="frame-disclosure" id="disclosure3" (click)="open(heading,'disclosure3','disclosure','Disclosure')">
+    
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </div>
+ 
   
     </form>
     </div>
