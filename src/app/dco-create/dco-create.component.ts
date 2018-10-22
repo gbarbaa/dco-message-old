@@ -1,9 +1,10 @@
-import {Component, OnInit,TemplateRef} from '@angular/core';
+import {Component, OnInit,TemplateRef,ElementRef } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {tap, catchError} from 'rxjs/operators';
 import {ApiService} from '../api.service';
+import { Offers } from '../lib/service/data/offers';
 import * as _ from 'lodash';
 import {of} from 'rxjs/observable/of';
 import {AbstractControl, FormControl, FormGroupDirective, FormBuilder, FormGroup, FormArray, NgForm, Validators} from '@angular/forms';
@@ -12,8 +13,6 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 
-
-import { Offers } from '../lib/service/data/offers';
 
 export interface Vehiclemodel {
   value: string;
@@ -31,22 +30,59 @@ export interface Vehiclemake {
   selector: 'app-dco-create',
   templateUrl: './dco-create.component.html',
   styleUrls: [
-              './dco-create.component.scss'
-              
-            ]
+    './dco-create.component.scss'
+
+  ]
 })
 
 export class DcoCreateComponent implements OnInit {
   dcoForm: FormGroup;
+  id: String = '';
   make: String = '';
   model: String = '';
   year: String = '';
-  dealerid: String = '';
-  dealername: String = '';
-  dealerurl: String = '';
-  pacode: String = '';
+  placementid: String = '';
   postalcode: String = '';
-  offers : [{
+  dealerid: String = '';
+  dealerName: String = '';
+  dealerurl: String = '';
+  modalRef: BsModalRef;
+  submittedData: Object ;
+  OfferHeadline1: String = '';
+  SubHeading1: String = '';
+  CTALabel1: String = '';
+  CTAURL1: String = '';
+  Logo1: String = '';
+  VehicleImage1: String = '';
+  BackgroundUrl1: String = '';
+  DisclosureLabel1: String = '';
+  DisclosureCopy1: String = '';
+  OfferHeadline2: String = '';
+  SubHeading2: String = '';
+  CTALabel2: String = '';
+  CTAURL2: String = '';
+  Logo2: String = '';
+  VehicleImage2: String = '';
+  BackgroundUrl2: String = '';
+  DisclosureLabel2: String = '';
+  DisclosureCopy2: String = '';
+  OfferHeadline3: String = '';
+  SubHeading3: String = '';
+  CTALabel3: String = '';
+  CTAURL3: String = '';
+  Logo3: String = '';
+  VehicleImage3: String = '';
+  BackgroundUrl3: String = '';
+  DisclosureLabel3: String = '';
+  DisclosureCopy3: String = '';
+
+  frameForm: FormGroup;
+  textForm: FormGroup;
+  vehicleForm: FormGroup;
+  ctaForm: FormGroup;
+
+  selected = -1;
+  offers: [{
     placementid: String;
     offerheadline1: String;
     vehiclename1: String;
@@ -56,9 +92,15 @@ export class DcoCreateComponent implements OnInit {
     logo1: String;
     vehicleimage1: String;
   }];
-  publisher: String = '';
-  modalRef: BsModalRef;
-  submittedData : Object ;
+  // Default content when check any offer
+
+  defaultHeading : String = '';
+  defaultSubHeading : String = '';
+  defaultDisclouser : String = '';
+
+
+
+  unCheckedCheckbox : Boolean = false;
 
 
   vehiclemakes: Vehiclemake[] = [
@@ -82,69 +124,134 @@ export class DcoCreateComponent implements OnInit {
     {value: 'TransitConnect', viewValue: 'Transit Connect'},
     {value: 'FocusElectric', viewValue: 'Focus Electric'},
     {value: 'FusionHybrid', viewValue: 'Fusion Hybrid'},
-    {value: 'FusionEnergi', viewValue: 'Fusion Energi'},
+    {value: 'Fusion Energi', viewValue: 'Fusion Energi'},
     {value: 'C-MAX Hybrid', viewValue: 'C-MAX Hybrid'}
   ];
-
-  offersData: Offers[] = [ 
+  offersData: Offers[] = [
     {placementid: new String,
-    offerheadline1: new String,
-    vehiclename1: new String,
-    ctalabel1: new String,
-    ctaurl1: new String,
-    disclosurelabel1: new String,
-    logo1: new String,
-    vehicleimage1: new String}
+      offerheadline1: new String,
+      vehiclename1: new String,
+      ctalabel1: new String,
+      ctaurl1: new String,
+      disclosurelabel1: new String,
+      logo1: new String,
+      vehicleimage1: new String}
   ];
   dataSource = new BehaviorSubject<AbstractControl[]>([]);
   displayColumns = ['placementid'];
   rows: FormArray = this.fb.array([]);
-
-  
   slideConfig = {"slidesToShow": 3, "slidesToScroll": 3, dots: true,arrows : false};
 
   offer = [];
-
+  openId :String = '';
+  conditionDiv :String = '';
+  title :String = '';
 
   constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService) {
   }
 
+
   ngOnInit() {
 
-    //retrieving values from the session and create values base on naming convention//
-    var stored_dealerid = sessionStorage.getItem('dealerid');
-    var stored_dealername = sessionStorage.getItem('dealername');
-    var stored_dealerurl = sessionStorage.getItem('dealerurl');
-    var stored_pacode = sessionStorage.getItem('pacode');
-    var stored_zipcode = sessionStorage.getItem('zipcode');
-    console.log('zipcode', stored_zipcode);
-    this.editInitialFieldValues();
- 
+    //retrieving from the session//
+    var stored_data = sessionStorage.getItem('postalcode');
+    console.log('postalcode', stored_data);
+
     this.dcoForm = this.formBuilder.group({
       'make': [null, Validators.required],
       'model': [null, Validators.required],
       'year': [null, Validators.required],
-      'dealerid': [stored_dealerid],
-      'dealername': [stored_dealername],
-      'dealerurl': [stored_dealerurl],
-      'pacode': [stored_pacode],
-      'postalcode': [stored_zipcode, Validators.required],
-      'offers':  this.rows
-    
-    }, err => {
-      if(err.status === 401) {
-        this.router.navigate(['login']);
-      }
-    });
-     
-    //* Create 5 empty placements ids, 1 for each size, for the intial form 
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-     this.offersData.forEach((d: Offers) => this.addRow(d, false));
+      'postalcode': [null, Validators.required],
+      'placementid': [null, Validators.required],
+      'dealerid': [null],
+      'dealername': [null],
+      'dealerurl': [null],
+      'OfferHeadline1': [null],
+      'SubHeading1': [null],
+      'CTALabel1': [null],
+      'CTAURL1': [null],
+      'Logo1': [null],
+      'VehicleImage1': [null],
+      'BackgroundUrl1': [null],
+      'DisclosureLabel1': [null],
+      'DisclosureCopy1': [null],
+      'OfferHeadline2': [null],
+      'SubHeading2': [null],
+      'CTALabel2': [null],
+      'CTAURL2': [null],
+      'Logo2': [null],
+      'VehicleImage2': [null],
+      'BackgroundUrl2': [null],
+      'DisclosureLabel2': [null],
+      'DisclosureCopy2': [null],
+      'OfferHeadline3': [null],
+      'SubHeading3': [null],
+      'CTALabel3': [null],
+      'CTAURL3': [null],
+      'Logo3': [null],
+      'VehicleImage3': [null],
+      'BackgroundUrl3': [null],
+      'DisclosureLabel3': [null],
+      'DisclosureCopy3': [null],
 
-    //this.offerInfo();
+    });
+
+    this.dcoForm.setValue({
+      make: null,
+      model: null,
+      year: null,
+      postalcode: stored_data,
+      placementid: null,
+      dealerid: null,
+      dealername: null,
+      dealerurl: null,
+      OfferHeadline1: null,
+      SubHeading1: null,
+      CTALabel1: null,
+      CTAURL1: null,
+      Logo1: null,
+      VehicleImage1: null,
+      BackgroundUrl1: null,
+      DisclosureLabel1: null,
+      DisclosureCopy1: null,
+      OfferHeadline2: null,
+      SubHeading2: null,
+      CTALabel2: null,
+      CTAURL2: null,
+      Logo2: null,
+      VehicleImage2: null,
+      BackgroundUrl2: null,
+      DisclosureLabel2: null,
+      DisclosureCopy2: null,
+      OfferHeadline3: null,
+      SubHeading3: null,
+      CTALabel3: null,
+      CTAURL3: null,
+      Logo3: null,
+      VehicleImage3: null,
+      BackgroundUrl3: null,
+      DisclosureLabel3: null,
+      DisclosureCopy3: null
+
+    });
+
+    this.frameForm = this.formBuilder.group({
+      'image': [null, Validators.required],
+    });
+
+    this.textForm = this.formBuilder.group({
+      'heading': [null, Validators.required],
+    });
+
+    this.vehicleForm = this.formBuilder.group({
+      'vehicle': [null, Validators.required],
+    });
+
+    this.ctaForm = this.formBuilder.group({
+      'ctarecord': [null, Validators.required],
+      'ctaurl': [null, Validators.required],
+    });
+
 
   }
 
@@ -154,13 +261,12 @@ export class DcoCreateComponent implements OnInit {
     formc = this.dcoForm.value;
     this.api.postDco(formc)
       .subscribe(res => {
-          let id = res['_id'];
-          this.router.navigate(['/dcos', id]);
-        }, (err) => {
-          console.log(err);
+        let id = res['_id'];
+        this.router.navigate(['/dcos', id]);
+      }, (err) => {
+        console.log(err);
       });
   }
-
   addRow(d?: Offers, noUpdate?: boolean) {
     const row = this.fb.group({
       'placementid'   : [d && d.placementid ? d.placementid : null, []],
@@ -192,49 +298,148 @@ export class DcoCreateComponent implements OnInit {
   }
 
   editInitialFieldValues() {
-    
+
   }
   offerInfo(template: TemplateRef<any>,record) {
     this.api.getOffer(record)
-        .subscribe(data => { 
-          
-          console.log(data) 
-          
+      .subscribe(data => {
 
-          if(data.Response.Nameplate.Trims != '') {
-            this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;   
-          } else {
-            this.offer = data.Response.Nameplate.Groups.Group;   
-          }
+        console.log(data)
+
+
+        if(data.Response.Nameplate.Trims != '') {
+          this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;
+        } else {
+          this.offer = data.Response.Nameplate.Groups.Group;
+        }
       });
 
     this.submittedData = record;
-    
-    // if(!record.make && !record.model && !record.year && !record.zipcode) {
-      this.modalRef = this.bsmodalservice.show(template);  
+
+    // if(!record.make && !record.model && !record.year && !record.postalcode) {
+    this.modalRef = this.bsmodalservice.show(template, { class: 'modal-lg' });
     // }
-      
-    
+
+
   }
 
-  open(template: TemplateRef<any>) {
-    console.log(template);
-    
-  } 
+  open(frame: TemplateRef<any>,id,condition,title) {
 
-  onChange(event, index, item) {
-
-    
-    item.checked = !item.checked;
-
-    // this.lastAction = 'index: ' + index + ', label: ' + item.label + ', checked: ' + item.checked;
-
-    console.log(index)
-    console.log(event)
-    console.log(item);
-
-}
+    this.modalRef = this.bsmodalservice.show(frame, { class: 'modal-md' });
+    this.openId = id;
+    this.conditionDiv = condition;
+    this.title = title;
+  }
 
 
+  submitImageData(imgSrc,condition,url?:any) {
+
+    if(condition == 'image') {
+
+      let id: any = this.openId;
+
+      let element = document.getElementById(id);
+      element.setAttribute("style", "background-image: url("+imgSrc.image+");");
+
+      let appendValue:any = '';
+
+      if(id == 'logo1') {
+        appendValue = document.getElementById('Logo1');
+        this.Logo1 = imgSrc.image;
+      } else if(id == 'logo2') {
+        appendValue = document.getElementById('Logo2');
+        this.Logo2 = imgSrc.image;
+      } else {
+        appendValue = document.getElementById('Logo3');
+        this.Logo3 = imgSrc.image;
+      }
+
+    } else if(condition == 'heading' || condition == 'subheading' || condition == 'disclosure') {
+
+
+      let id: any = this.openId;
+
+      let element = document.getElementById(id);
+      element.innerHTML = imgSrc.heading;
+
+      if(id == 'heading1') {
+        this.OfferHeadline1 = imgSrc.heading;
+      } else if(id == 'heading2') {
+        this.OfferHeadline2 = imgSrc.heading;
+      } else if(id == 'heading3') {
+        this.OfferHeadline3 = imgSrc.heading;
+      } else if(id == 'subheading1') {
+        this.SubHeading1 = imgSrc.heading;
+      } else if(id == 'subheading2') {
+        this.SubHeading2 = imgSrc.heading;
+      } else if(id == 'subheading3') {
+        this.SubHeading3 = imgSrc.heading;
+      } else if(id == 'disclosure1') {
+        this.DisclosureLabel1 = imgSrc.heading;
+      } else if(id == 'disclosure2') {
+        this.DisclosureLabel2 = imgSrc.heading;
+      } else {
+        this.DisclosureLabel1 = imgSrc.heading;
+      }
+
+
+    } else if(condition == 'vehicle') {
+
+      let id: any = this.openId;
+
+      var element = document.getElementById(id);
+      element.setAttribute("style", "background-image: url("+imgSrc.vehicle+");");
+
+      if(id == 'vehicle1') {
+        this.VehicleImage1 = imgSrc.vehicle;
+      } else if(id == 'vehicle2') {
+        this.VehicleImage2 = imgSrc.vehicle;
+      } else if(id == 'vehicle3') {
+        this.VehicleImage3 = imgSrc.vehicle;
+      }
+
+
+    } else if(condition == 'cta') {
+
+      let x = document.createElement("a");
+      x.setAttribute("href", imgSrc.ctaurl);
+      x.setAttribute("target", '_blank');
+      x.setAttribute("class", 'contentHref');
+      x.setAttribute("style", "text-decoration: none;color:white");
+      x.innerHTML = imgSrc.ctarecord;
+      let id: any = this.openId;
+      var element = document.getElementById(id);
+      element.innerHTML = "";
+      element.appendChild(x);
+
+      if(id == 'cta1') {
+        this.CTALabel1 = imgSrc.ctarecord;
+        this.CTAURL1 = imgSrc.ctaurl;
+      } else if(id == 'cta2') {
+        this.CTALabel2 = imgSrc.ctarecord;
+        this.CTAURL2 = imgSrc.ctaurl;
+      } else if(id == 'cta3') {
+        this.CTALabel3 = imgSrc.ctarecord;
+        this.CTAURL3 = imgSrc.ctaurl;
+      }
+    }
+    this.modalRef.hide()
+  }
+
+// Select Offer and submit
+
+  submitOffer() {
+
+  }
+
+  clickOffer(record) {
+
+    let data = this.offer[record];
+
+    this.defaultHeading = data.Campaign.CampaignType;
+    this.defaultSubHeading = data.Campaign.Name;
+    console.log(record);
+    console.log();
+  }
 
 }
