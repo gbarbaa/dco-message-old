@@ -96,16 +96,16 @@ export class DcoCreateComponent implements OnInit {
 
   defaultHeading : String = '';
   defaultSubHeading : String = '';
-  defaultDisclouser : String = '';
+  defaultDisclouser : String = 'Disclosure';
 
 
 
   unCheckedCheckbox : Boolean = false;
 
-
   vehiclemakes: Vehiclemake[] = [
     {value: 'Ford', viewValue: 'Ford'}
   ];
+
   vehiclemodels: Vehiclemodel[] = [
     {value: 'Fusion', viewValue: 'Fusion'},
     {value: 'Fiesta', viewValue: 'Fiesta'},
@@ -254,7 +254,7 @@ export class DcoCreateComponent implements OnInit {
 
 
   }
-
+  get f() { return this.textForm.controls; }
   onFormSubmit(formc: NgForm) {
     //* Cycle through 5 placementids and remove empty ones before post */
     this.removeEmptyPlacementIds();
@@ -300,31 +300,48 @@ export class DcoCreateComponent implements OnInit {
   editInitialFieldValues() {
 
   }
+
   offerInfo(template: TemplateRef<any>,record) {
+    this.offer = [];
+    this.selected = -1;
     this.api.getOffer(record)
       .subscribe(data => {
-
-        console.log(data)
-
-
-        if(data.Response.Nameplate.Trims != '') {
-          this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;
+        if(record.model == 'Fusion' || record.model == 'Focus') {
+          this.offer = data.Response.Nameplate.Trims.Trim[0].Groups.Group;
         } else {
-          this.offer = data.Response.Nameplate.Groups.Group;
+          if(data.Response.Nameplate.Trims != '') {
+            this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;
+          } else {
+            this.offer = data.Response.Nameplate.Groups.Group;
+          }
         }
+      } ,  error => {
+
       });
 
     this.submittedData = record;
-
-    // if(!record.make && !record.model && !record.year && !record.postalcode) {
     this.modalRef = this.bsmodalservice.show(template, { class: 'modal-lg' });
-    // }
-
-
   }
 
   open(frame: TemplateRef<any>,id,condition,title) {
 
+    if(title === "Disclosure") {
+      this.textForm = this.formBuilder.group({
+        'heading': [null,
+          Validators.compose([
+            Validators.maxLength(650),
+            Validators.required
+          ])]
+      });
+    } else {
+      this.textForm = this.formBuilder.group({
+        'heading': [null,
+          Validators.compose([
+            Validators.maxLength(27),
+            Validators.required
+          ])]
+      });
+    }
     this.modalRef = this.bsmodalservice.show(frame, { class: 'modal-md' });
     this.openId = id;
     this.conditionDiv = condition;
@@ -356,7 +373,6 @@ export class DcoCreateComponent implements OnInit {
 
     } else if(condition == 'heading' || condition == 'subheading' || condition == 'disclosure') {
 
-
       let id: any = this.openId;
 
       let element = document.getElementById(id);
@@ -378,12 +394,24 @@ export class DcoCreateComponent implements OnInit {
         this.DisclosureLabel1 = imgSrc.heading;
       } else if(id == 'disclosure2') {
         this.DisclosureLabel2 = imgSrc.heading;
-      } else {
+      } else if(id == 'disclosure3') {
         this.DisclosureLabel1 = imgSrc.heading;
       }
 
+    } else if(condition == 'background') {
+      let id: any = this.openId;
+      let element = document.getElementById(id);
+      element.setAttribute("style", "background-color:"+ imgSrc.heading);
 
-    } else if(condition == 'vehicle') {
+      if(id == 'background1') {
+        this.BackgroundUrl1 = imgSrc.heading;
+      } else if(id == 'background2') {
+        this.BackgroundUrl2 = imgSrc.heading;
+      } else {
+        this.BackgroundUrl3 = imgSrc.heading;
+      }
+
+    }  else if(condition == 'vehicle') {
 
       let id: any = this.openId;
 
@@ -423,7 +451,7 @@ export class DcoCreateComponent implements OnInit {
         this.CTAURL3 = imgSrc.ctaurl;
       }
     }
-    this.modalRef.hide()
+    this.modalRef.hide();
   }
 
 // Select Offer and submit
@@ -435,11 +463,36 @@ export class DcoCreateComponent implements OnInit {
   clickOffer(record) {
 
     let data = this.offer[record];
-
     this.defaultHeading = data.Campaign.CampaignType;
+    this.OfferHeadline1 = data.Campaign.CampaignType;
+    this.OfferHeadline2 = data.Campaign.CampaignType;
+    this.OfferHeadline3 = data.Campaign.CampaignType;
     this.defaultSubHeading = data.Campaign.Name;
-    console.log(record);
-    console.log();
+    this.SubHeading1 = data.Campaign.Name;
+    this.SubHeading2 = data.Campaign.Name;
+    this.SubHeading3 = data.Campaign.Name;
+
+    this.defaultDisclouser = data.Campaign.Disclaimer;
+    this.DisclosureLabel1 = data.Campaign.Disclaimer;
+    this.DisclosureLabel2 = data.Campaign.Disclaimer;
+    this.DisclosureLabel3 = data.Campaign.Disclaimer;
   }
+
+  onChangeResetFrame() {
+    this.defaultHeading = '';
+    this.OfferHeadline1 = '';
+    this.OfferHeadline2 = '';
+    this.OfferHeadline3 = '';
+    this.defaultSubHeading = '';
+    this.SubHeading1 = '';
+    this.SubHeading2 = '';
+    this.SubHeading3 = '';
+
+    this.defaultDisclouser = 'Disclosure';
+    this.DisclosureLabel1 = '';
+    this.DisclosureLabel2 = '';
+    this.DisclosureLabel3 = '';
+  }
+
 
 }

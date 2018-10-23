@@ -34,8 +34,8 @@
                 <mat-error>
                   <span *ngIf="!dcoForm.get('make').valid && dcoForm.get('make').touched">Please Select a Make</span>
                 </mat-error> -->
-                <mat-select placeholder="Make" formControlName="make">
-                  <mat-option *ngFor="let vehiclemake of vehiclemakes" [value]="vehiclemake.value">
+                <mat-select placeholder="Make" formControlName="make" >
+                  <mat-option *ngFor="let vehiclemake of vehiclemakes" [value]="vehiclemake.value" >
                     {{vehiclemake.viewValue}}
                   </mat-option>
                 </mat-select>
@@ -50,7 +50,7 @@
                   <span
                     *ngIf="!dcoForm.get('model').valid && dcoForm.get('model').touched">Please Select Car Model</span>
                 </mat-error> -->
-                <mat-select placeholder="Model" formControlName="model">
+                <mat-select placeholder="Model" formControlName="model" (selectionChange)="onChangeResetFrame();">
                   <mat-option *ngFor="let vehiclemodel of vehiclemodels" [value]="vehiclemodel.value">
                     {{vehiclemodel.viewValue}}
                   </mat-option>
@@ -155,7 +155,7 @@
                 <div class="frame-dealer-logo" id="logo1" (click)="open(frame,'logo1','image','Dealer logo')">
 
                 </div>
-                <div class="frame-background">
+                <div class="frame-background" id="background1" (click)="open(heading,'background1','background','Background Color')">
                   <div class="frame-heading-text" id="heading1" (click)="open(heading,'heading1','heading','Heading Text')">
                     {{defaultHeading}}
                   </div>
@@ -170,7 +170,7 @@
                   CTA
                 </div>
                 <div class="frame-disclosure" id="disclosure1" (click)="open(heading,'disclosure1','disclosure','Disclosure')">
-                  Disclosure
+                  {{defaultDisclouser}}
                 </div>
 
               </div>
@@ -182,7 +182,7 @@
               <div class="single-frame-main">
                 <div class="frame-dealer-logo" id="logo2" (click)="open(frame,'logo2','image','Dealer Logo')">
                 </div>
-                <div class="frame-background">
+                <div class="frame-background" id="background2" (click)="open(heading,'background2','background','Background Color')">
                   <div class="frame-heading-text" id="heading2" (click)="open(heading,'heading2','heading','Heading Text')">
                     {{defaultHeading}}
                   </div>
@@ -197,7 +197,7 @@
                   CTA
                 </div>
                 <div class="frame-disclosure" id="disclosure2" (click)="open(heading,'disclosure2','disclosure','Disclosure')">
-                  Disclosure
+                  {{defaultDisclouser}}
                 </div>
 
               </div>
@@ -214,7 +214,7 @@
                 <div class="frame-vehicle-img" id="vehicle3" (click)="open(vehicle,'vehicle3','vehicle','Vehicle Image')">
 
                 </div>
-                <div class="frame-background">
+                <div class="frame-background" id="background3" (click)="open(heading,'background3','background','Background Color')">
                   <div class="frame-subheading1-text" id="subheading3" (click)="open(heading,'subheading3','subheading','Sub Heading Text')">
                     <p innerHtml="{{defaultSubHeading}}"></p>
                   </div>
@@ -227,7 +227,7 @@
                   CTA
                 </div>
                 <div class="frame-disclosure" id="disclosure3" (click)="open(heading,'disclosure3','disclosure','Disclosure')">
-                  Disclosure
+                  {{defaultDisclouser}}
                 </div>
               </div>
             </div>
@@ -273,7 +273,7 @@
               </ngx-slick-carousel>
             </div>
             <div class="modal-footer">
-              <button mat-stroked-button color="primary" id="dataOffer">
+              <button mat-stroked-button color="primary" id="dataOffer" (click)="modalRef.hide()">
                 Done
               </button>
             </div>
@@ -293,6 +293,11 @@
               <mat-form-field class="example-full-width" >
                 <input matInput placeholder="Image source" formControlName="image"
                        [errorStateMatcher]="matcher" name="image" >
+
+                <mat-error *ngIf="!frameForm.get('image').valid && frameForm.get('image').touched">
+                  <span> Field is required</span>
+                </mat-error>
+
               </mat-form-field>
             </div>
 
@@ -314,8 +319,16 @@
           <form class="example-form" [formGroup]="textForm">
             <div class="modal-body">
               <mat-form-field class="example-full-width" >
-                <input matInput placeholder="Text" formControlName="heading"
-                       [errorStateMatcher]="matcher" maxlength="30">
+                <input matInput placeholder="Text" formControlName="heading">
+                <!-- <mat-error *ngIf="textForm.get('heading').invalid ">
+                    <span *ngIf="textForm.get('heading').hasError('required')">Input is required</span>
+                    <span *ngIf="textForm.get('heading').hasError('maxLength')">Allow maximum 27 character only</span>
+                </mat-error> -->
+                <mat-error *ngIf="!textForm.get('heading').valid && textForm.get('heading').touched">
+                  <!-- <span *ngIf="!textForm.get('heading').hasError('required')">Input is required</span>
+                  <span *ngIf="!textForm.get('heading').hasError('maxLength')">Allow maximum 27 character only</span> -->
+                  <span> Either Field is required or Allow maximum 27 character only.</span>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="modal-footer">
@@ -338,6 +351,10 @@
               <mat-form-field class="example-full-width" >
                 <input matInput placeholder="Image source"  formControlName="vehicle"
                        [errorStateMatcher]="matcher" >
+
+                <mat-error *ngIf="!vehicleForm.get('vehicle').valid && vehicleForm.get('vehicle').touched">
+                  <span> Field is required</span>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="modal-footer">
@@ -359,12 +376,19 @@
             <div class="modal-body">
               <mat-form-field class="example-full-width" >
                 <input matInput placeholder="Text"  formControlName="ctarecord"
-                       [errorStateMatcher]="matcher" maxlength="15">
+                       [errorStateMatcher]="matcher" >
+                <mat-error *ngIf="ctaForm.get('ctarecord').touched && ctaForm.get('ctarecord').invalid ">
+                  <span>Either Input is required or Allow maximum 20 character only</span>
+
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field class="example-full-width" >
                 <input matInput placeholder="Url"  formControlName="ctaurl"
                        [errorStateMatcher]="matcher" >
+                <mat-error *ngIf="ctaForm.get('ctaurl').touched && ctaForm.get('ctaurl').invalid ">
+                  <span>Url is required</span>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="modal-footer">
