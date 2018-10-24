@@ -194,11 +194,11 @@
                           </div>
                       </div>
                 </div>
-                <div class="frame-disclosure" id="disclosure1" >
+                <div class="frame-disclosure" id="disclosurecopy1" >
                     <div formArrayName="offers"  *ngFor="let disc of rows.controls | slice:0:1; let i = index;" >
                         <div [formGroupName]="i" class="placementArrayGroupItem" >
                           <mat-form-field class="full-width" required>
-                            <input matInput type="text" formControlName="disclosurelabel1" (click)="openDialog(title, 'disclosurelabel1', disc.controls['disclosurelabel1'].value, '', i)">
+                            <input matInput type="text" formControlName="disclosurecopy1" (click)="openDialog(title, 'disclosurecopy1', disc.controls['disclosurecopy1'].value, '', i)">
                            </mat-form-field>
                           </div>
                       </div>
@@ -266,11 +266,11 @@
                             </div>
                         </div>
                   </div>
-                  <div class="frame-disclosure" id="disclosure2" >
+                  <div class="frame-disclosure" id="disclosurecopy2" >
                       <div formArrayName="offers"  *ngFor="let disc of rows.controls | slice:0:1; let i = index;" >
                           <div [formGroupName]="i" class="placementArrayGroupItem" >
                             <mat-form-field class="full-width" required>
-                              <input matInput type="text" formControlName="disclosurelabel2" (click)="openDialog(title, 'disclosurelabel2', disc.controls['disclosurelabel2'].value, '', i)">
+                              <input matInput type="text" formControlName="disclosurecopy2" (click)="openDialog(title, 'disclosurecopy2', disc.controls['disclosurecopy2'].value, '', i)">
                              </mat-form-field>
                             </div>
                         </div>
@@ -339,11 +339,11 @@
                             </div>
                         </div>
                   </div>
-                  <div class="frame-disclosure" id="disclosure3" >
+                  <div class="frame-disclosure" id="disclosurecopy3" >
                       <div formArrayName="offers"  *ngFor="let disc of rows.controls | slice:0:1; let i = index;" >
                           <div [formGroupName]="i" class="placementArrayGroupItem" >
                             <mat-form-field class="full-width" required>
-                              <input matInput type="text" formControlName="disclosurelabel3" (click)="openDialog(title, 'disclosurelabel3', disc.controls['disclosurelabel3'].value, '', i)">
+                              <input matInput type="text" formControlName="disclosurecopy3" (click)="openDialog(title, 'disclosurecopy3', disc.controls['disclosurecopy3'].value, '', i)">
                              </mat-form-field>
                             </div>
                         </div>

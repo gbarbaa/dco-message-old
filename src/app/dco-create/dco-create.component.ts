@@ -174,6 +174,7 @@ export class DcoCreateComponent implements OnInit {
   openId :String = '';
   conditionDiv :String = '';
   title :String = '';
+  repeatBackground : Boolean = false;
 
   stored_userid = sessionStorage.getItem('userid');
   stored_dealerid = sessionStorage.getItem('dealerid');
@@ -405,17 +406,21 @@ export class DcoCreateComponent implements OnInit {
         this.offersData[index].vehiclename2 =  data.Campaign.Name.replace(/<[^>]*>/g, '');;
         this.offersData[index].vehiclename3 =  data.Campaign.Name.replace(/<[^>]*>/g, '');;
         /**Cta label */
-        this.offersData[index].ctalabel1 =  data.type;
-        this.offersData[index].ctalabel2 =  data.type;
-        this.offersData[index].ctalabel3 =  data.type;
+        this.offersData[index].ctalabel1 =  'SHOP NOW';
+        this.offersData[index].ctalabel2 =  'SHOP NOW';
+        this.offersData[index].ctalabel3 =  'SHOP NOW';
         /**Cta url */
-        this.offersData[index].ctaurl1 =  data.Campaign.CampaignImages.CampaignImage.URL;
-        this.offersData[index].ctaurl2 =  data.Campaign.CampaignImages.CampaignImage.URL;
-        this.offersData[index].ctaurl3 =  data.Campaign.CampaignImages.CampaignImage.URL;
+        // this.offersData[index].ctaurl1 =  data.Campaign.CampaignImages.CampaignImage.URL;
+        // this.offersData[index].ctaurl2 =  data.Campaign.CampaignImages.CampaignImage.URL;
+        // this.offersData[index].ctaurl3 =  data.Campaign.CampaignImages.CampaignImage.URL;
         /**Disclaim */
-        this.offersData[index].disclosurelabel1 =  data.Campaign.Disclaimer;
-        this.offersData[index].disclosurelabel2 =  data.Campaign.Disclaimer;
-        this.offersData[index].disclosurelabel3 =  data.Campaign.Disclaimer;
+        this.offersData[index].disclosurecopy1 =  data.Campaign.Disclaimer;
+        this.offersData[index].disclosurecopy2 =  data.Campaign.Disclaimer;
+        this.offersData[index].disclosurecopy3 =  data.Campaign.Disclaimer;
+        /**Disclaim */
+        this.offersData[index].disclosurelabel1 =  'Offer Disclosure';
+        this.offersData[index].disclosurelabel2 =  'Offer Disclosure';
+        this.offersData[index].disclosurelabel3 =  'Offer Disclosure';
     });
     this.offersData = this.dcoForm.controls['offers'].value;
     while (this.rows.length !== 0) {

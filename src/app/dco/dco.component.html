@@ -1,23 +1,23 @@
 <header id="top">
-    <div class="navbar-fixed-top" role="navigation">
-        <div class="navbar container no-container">
-            <!-- Navbar Header -->
-  
-            <div class="navbar-header">
-                <!-- Logo -->
-                <a class="navbar-brand" href="#">
-                    <img src="../assets/images/fd-horz-logo.png" alt="Ford Direct" class="logo">
-                </a>
-            </div>
-        </div>
+  <div class="navbar-fixed-top" role="navigation">
+    <div class="navbar container no-container">
+      <!-- Navbar Header -->
+
+      <div class="navbar-header">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+          <img src="../assets/images/fd-horz-logo.png" alt="Ford Direct" class="logo">
+        </a>
+      </div>
     </div>
-  </header>
-  <!-- Header Ends -->
-  
-  <section class="container-page  leftside-panel ">
-    <div class="container">
+  </div>
+</header>
+<!-- Header Ends -->
+
+<section class="container-page  leftside-panel ">
+  <div class="container">
     <div class="row">
-    <form [formGroup]="dcoForm" (ngSubmit)="onFormSubmit(dcoForm.value)" >
+      <form [formGroup]="dcoForm" (ngSubmit)="onFormSubmit(dcoForm.value)">
         <!-- Left Part Sidebar -->
         <div class="col-md-3 col-sm-3">
           <!-- Sidebar Begins -->
@@ -26,10 +26,11 @@
               <h5>Active Placements</h5>
               <!-- Devider -->
               <div class="devider">
-                <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn" data-animation-delay="1000"></div>
-  
+                <div class="devider-line-h devider-line-h-sea-green animated zoomIn visible" data-animation="zoomIn"
+                     data-animation-delay="1000"></div>
+
               </div>
-  
+
               <!-- Search Box Begins -->
               <div class="input-group animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="300">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -39,16 +40,17 @@
                   </a>
                 </span>
               </div>
-  
+
               <!-- Active Placements -->
-  
+
               <div class="row active-projects">
-                <div class="col-md-12 tabs accordion-after animated fadeInUp visible" data-animation="fadeInUp" data-animation-delay="500">
+                <div class="col-md-12 tabs accordion-after animated fadeInUp visible" data-animation="fadeInUp"
+                     data-animation-delay="500">
                   <!-- Title -->
-  
+
                   <!-- Accordion Inner Begins -->
-                  <div id="accordion" class="panel-group faq-panel accordion" data-animated="fadeInUp"  >
-  
+                  <div id="accordion" class="panel-group faq-panel accordion" data-animated="fadeInUp">
+
                     <!-- Accordion campaings Begins -->
                     <div class="panel panel-default" *ngFor="let key of groupedDcoIds; index as i " [class.active]="selectedDcoIndex === i">
                     
@@ -92,34 +94,43 @@
                   <!-- Accordion Inner Ends -->
                 </div>
                 <!-- Accordion Left Part Ends -->
-  
-  
+
+
               </div>
               <hr class="hr-style">
               <!-- Accordion Section Ends -->
-  
+
             </div>
-  
+
           </div>
           <!-- Sidebar Ends -->
-  
+
 
         </div>
-  
+
         <!-- Right Panel -->
         <div class="main-section col-md-8 col-sm-8">
         
-        <div class="">
-            <a mat-raised-button color="primary" [routerLink]="['/dco-create']">
-                <mat-icon>add</mat-icon>
-            </a>
-            <button type="submit" [disabled]="!dcoForm.valid" mat-raised-button color="primary" style="height: 36px;margin-left: 20px;">
-                <mat-icon>save</mat-icon>
-            </button>
-
+            <div class="btn-group-justified">
+                <div class="btn-group">
+                  <button type="button" mat-raised-button [routerLink]="['/dco-create']"
+                          class="btn button-color btn-primary">
+                    <mat-icon>add</mat-icon>
+                    Add Record
+                  </button>
+                </div>
+                <div class="btn-group button-offer">
+                  <button mat-raised-button type="button" [disabled]="!dcoForm.valid"
+                          class="btn button-color btn-primary">
+                    <mat-icon>save</mat-icon>
+                    Save
+                  </button>
+                </div>
+                <div class="btn-group">
             <button mat-raised-button color="primary" style="height: 36px;margin-left: 20px;">
                <angular2csv [data]="csvData" filename="test.csv" [options]="options"></angular2csv>
             </button>
+            </div>
         </div>
     
         <div class="">
@@ -351,7 +362,7 @@
     </form>
     </div>
     <!-- end container -->
-    </div>
-  </section>
+  </div>
+</section>
 
 
