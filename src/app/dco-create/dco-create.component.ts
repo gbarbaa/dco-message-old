@@ -17,6 +17,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Offers } from '../lib/service/data/offers';
 
 
+import { Dialog } from "../lib/service/data/dialog";
+import { DcoDialogComponent } from '../dco-dialog/dco-dialog.component';
+
+
 export interface Vehiclemodel {
   value: string;
   viewValue: string;
@@ -43,14 +47,15 @@ export class DcoCreateComponent implements OnInit {
   textvalue: String;
   urlvalue: String;
   category: String;
-  
+
   dcoForm: FormGroup;
+  id:string='';
   userid: String = '';
   make: String = '';
   model: String = '';
   year: String = '';
   dealerid: String = '';
-  dealerName: String = '';
+  dealername: String = '';
   dealerurl: String = '';
   pacode: String = '';
   postalcode: String = '';
@@ -84,42 +89,10 @@ export class DcoCreateComponent implements OnInit {
     backgroundimage: String,
     backgroundurl: String,
   }];
-  publisher: String = '';
 
   modalRef: BsModalRef;
   submittedData: Object ;
-  OfferHeadline1: String = '';
-  SubHeading1: String = '';
-  CTALabel1: String = '';
-  CTAURL1: String = '';
-  Logo1: String = '';
-  VehicleImage1: String = '';
-  BackgroundUrl1: String = '';
-  DisclosureLabel1: String = '';
-  DisclosureCopy1: String = '';
-  OfferHeadline2: String = '';
-  SubHeading2: String = '';
-  CTALabel2: String = '';
-  CTAURL2: String = '';
-  Logo2: String = '';
-  VehicleImage2: String = '';
-  BackgroundUrl2: String = '';
-  DisclosureLabel2: String = '';
-  DisclosureCopy2: String = '';
-  OfferHeadline3: String = '';
-  SubHeading3: String = '';
-  CTALabel3: String = '';
-  CTAURL3: String = '';
-  Logo3: String = '';
-  VehicleImage3: String = '';
-  BackgroundUrl3: String = '';
-  DisclosureLabel3: String = '';
-  DisclosureCopy3: String = '';
-
   frameForm: FormGroup;
-  textForm: FormGroup;
-  vehicleForm: FormGroup;
-  ctaForm: FormGroup;
 
   selected = -1;
 
@@ -127,13 +100,14 @@ export class DcoCreateComponent implements OnInit {
 
   defaultHeading : String = '';
   defaultSubHeading : String = '';
-  defaultDisclouser : String = '';
+  defaultDisclouser : String = 'Disclosure';
 
   unCheckedCheckbox : Boolean = false;
 
   vehiclemakes: Vehiclemake[] = [
     {value: 'Ford', viewValue: 'Ford'}
   ];
+
   vehiclemodels: Vehiclemodel[] = [
     {value: 'Fusion', viewValue: 'Fusion'},
     {value: 'Fiesta', viewValue: 'Fiesta'},
@@ -208,7 +182,8 @@ export class DcoCreateComponent implements OnInit {
   stored_pacode = sessionStorage.getItem('pacode');
   stored_zipcode = sessionStorage.getItem('zipcode');
 
-  constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService) {
+  constructor(private http: HttpClient, private router: Router, private activeRoute: ActivatedRoute, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService,
+    private dialog: MatDialog) {
   }
 
 
@@ -229,11 +204,8 @@ export class DcoCreateComponent implements OnInit {
       'pacode': [this.stored_pacode],
       'postalcode': [this.stored_zipcode, Validators.required],
       'offers':  this.rows
-    }, err => {
-      if(err.status === 401) {
-        this.router.navigate(['login']);
-      }
     });
+     
      
     //* Create 5 placements ids, 1 for each size, for the intial form 
     this.possible_sizes.forEach(element => {
@@ -298,6 +270,7 @@ export class DcoCreateComponent implements OnInit {
     this.dataSource.next(this.rows.controls);
   }
 
+
   removeEmptyPlacementIds() {
     this.offersData = this.dcoForm.controls['offers'].value;
     this.offersData = _.filter(this.offersData, discs=>discs.placementid != null);
@@ -334,143 +307,129 @@ export class DcoCreateComponent implements OnInit {
     });
   }
 
+  openDialog(title, label, textvalue, urlvalue, i) {
+   
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '550px'
+
+    dialogConfig.data = {
+        title, label, textvalue, urlvalue
+    };
+
+    const dialogRef = this.dialog.open(DcoDialogComponent,
+        dialogConfig);
+
+
+    dialogRef.afterClosed().subscribe(
+        val => {
+          if (val != undefined) {
+
+            /** Frame1 
+            if(val.label == 'logo1') this.groupedDcos[this.selectedDco][0].offers[i].logo1 = val.textvalue;
+            if(val.label == 'offerheadline1') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline1 = val.textvalue;
+            if(val.label == 'vehicleimage1') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage1 = val.textvalue;
+            if(val.label == 'vehiclename1') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename1 = val.textvalue;
+            if(val.label == 'ctalabel1') {
+              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel1 = val.textvalue;
+              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl1 = val.urlvalue;
+            }
+            if(val.label == 'disclosurelabel1') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel1 = val.textvalue;
+            /** Frame2
+            if(val.label == 'logo2') this.groupedDcos[this.selectedDco][0].offers[i].logo2 = val.textvalue;
+            if(val.label == 'offerheadline2') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline2 = val.textvalue;
+            if(val.label == 'vehicleimage2') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage2 = val.textvalue;
+            if(val.label == 'vehiclename2') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename2 = val.textvalue;
+            if(val.label == 'ctalabel2') {
+              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel2 = val.textvalue;
+              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl2 = val.urlvalue;
+            }
+            if(val.label == 'disclosurelabel2') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel2 = val.textvalue;
+            /** Frame3
+            if(val.label == 'logo3') this.groupedDcos[this.selectedDco][0].offers[i].logo3 = val.textvalue;
+            if(val.label == 'offerheadline3') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline3 = val.textvalue;
+            if(val.label == 'vehicleimage3') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage3 = val.textvalue;
+            if(val.label == 'vehiclename3') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename3 = val.textvalue;
+            if(val.label == 'ctalabel3') {
+              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel3 = val.textvalue;
+              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl3 = val.urlvalue;
+            }
+            if(val.label == 'disclosurelabel3') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel3 = val.textvalue;
+
+            this.getDco(this.groupedDcos, this.selectedDco, 0 ); */
+          }
+        }, (err) => {
+          console.log(err);
+        }
+    );
+}
+
+
   offerInfo(template: TemplateRef<any>,record) {
+    this.offer = [];
+    this.selected = -1;
     this.api.getOffer(record)
       .subscribe(data => {
-        console.log(data)
-        if(data.Response.Nameplate.Trims != '') {
-          this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;
+        if(record.model == 'Fusion' || record.model == 'Focus') {
+          this.offer = data.Response.Nameplate.Trims.Trim[0].Groups.Group;
         } else {
-          this.offer = data.Response.Nameplate.Groups.Group;
+          if(data.Response.Nameplate.Trims != '') {
+            this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;
+          } else {
+            this.offer = data.Response.Nameplate.Groups.Group;
+          }
         }
+      } ,  error => {
+
       });
 
     this.submittedData = record;
-
-    // if(!record.make && !record.model && !record.year && !record.postalcode) {
     this.modalRef = this.bsmodalservice.show(template, { class: 'modal-lg' });
-    // }
-
-
   }
 
-  open(frame: TemplateRef<any>,id,condition,title) {
-
-    this.modalRef = this.bsmodalservice.show(frame, { class: 'modal-md' });
-    this.openId = id;
-    this.conditionDiv = condition;
-    this.title = title;
-  }
-
-
-  submitImageData(imgSrc,condition,url?:any) {
-
-    if(condition == 'image') {
-
-      let id: any = this.openId;
-
-      let element = document.getElementById(id);
-      element.setAttribute("style", "background-image: url("+imgSrc.image+");");
-
-      let appendValue:any = '';
-
-      if(id == 'logo1') {
-        appendValue = document.getElementById('Logo1');
-        this.Logo1 = imgSrc.image;
-      } else if(id == 'logo2') {
-        appendValue = document.getElementById('Logo2');
-        this.Logo2 = imgSrc.image;
-      } else {
-        appendValue = document.getElementById('Logo3');
-        this.Logo3 = imgSrc.image;
-      }
-
-    } else if(condition == 'heading' || condition == 'subheading' || condition == 'disclosure') {
-
-
-      let id: any = this.openId;
-
-      let element = document.getElementById(id);
-      element.innerHTML = imgSrc.heading;
-
-      if(id == 'heading1') {
-        this.OfferHeadline1 = imgSrc.heading;
-      } else if(id == 'heading2') {
-        this.OfferHeadline2 = imgSrc.heading;
-      } else if(id == 'heading3') {
-        this.OfferHeadline3 = imgSrc.heading;
-      } else if(id == 'subheading1') {
-        this.SubHeading1 = imgSrc.heading;
-      } else if(id == 'subheading2') {
-        this.SubHeading2 = imgSrc.heading;
-      } else if(id == 'subheading3') {
-        this.SubHeading3 = imgSrc.heading;
-      } else if(id == 'disclosure1') {
-        this.DisclosureLabel1 = imgSrc.heading;
-      } else if(id == 'disclosure2') {
-        this.DisclosureLabel2 = imgSrc.heading;
-      } else {
-        this.DisclosureLabel1 = imgSrc.heading;
-      }
-
-
-    } else if(condition == 'vehicle') {
-
-      let id: any = this.openId;
-
-      var element = document.getElementById(id);
-      element.setAttribute("style", "background-image: url("+imgSrc.vehicle+");");
-
-      if(id == 'vehicle1') {
-        this.VehicleImage1 = imgSrc.vehicle;
-      } else if(id == 'vehicle2') {
-        this.VehicleImage2 = imgSrc.vehicle;
-      } else if(id == 'vehicle3') {
-        this.VehicleImage3 = imgSrc.vehicle;
-      }
-
-
-    } else if(condition == 'cta') {
-
-      let x = document.createElement("a");
-      x.setAttribute("href", imgSrc.ctaurl);
-      x.setAttribute("target", '_blank');
-      x.setAttribute("class", 'contentHref');
-      x.setAttribute("style", "text-decoration: none;color:white");
-      x.innerHTML = imgSrc.ctarecord;
-      let id: any = this.openId;
-      var element = document.getElementById(id);
-      element.innerHTML = "";
-      element.appendChild(x);
-
-      if(id == 'cta1') {
-        this.CTALabel1 = imgSrc.ctarecord;
-        this.CTAURL1 = imgSrc.ctaurl;
-      } else if(id == 'cta2') {
-        this.CTALabel2 = imgSrc.ctarecord;
-        this.CTAURL2 = imgSrc.ctaurl;
-      } else if(id == 'cta3') {
-        this.CTALabel3 = imgSrc.ctarecord;
-        this.CTAURL3 = imgSrc.ctaurl;
-      }
-    }
-    this.modalRef.hide()
-  }
-
-// Select Offer and submit
-
-  submitOffer() {
-
-  }
 
   clickOffer(record) {
 
     let data = this.offer[record];
+    console.log("modalData", data);
+    this.offersData = this.dcoForm.controls['offers'].value;
 
-    this.defaultHeading = data.Campaign.CampaignType;
-    this.defaultSubHeading = data.Campaign.Name;
-    console.log(record);
-    console.log();
+    this.possible_sizes.forEach((size, index) => {
+        this.offersData[index].offerheadline1 = data.Campaign.CampaignType;
+        this.offersData[index].offerheadline2 = data.Campaign.CampaignType;
+        this.offersData[index].offerheadline3 = data.Campaign.CampaignType;
+        /**Vehicle Name */
+        this.offersData[index].vehiclename1 =  data.Campaign.Name.replace(/<[^>]*>/g, '');;
+        this.offersData[index].vehiclename2 =  data.Campaign.Name.replace(/<[^>]*>/g, '');;
+        this.offersData[index].vehiclename3 =  data.Campaign.Name.replace(/<[^>]*>/g, '');;
+        /**Cta label */
+        this.offersData[index].ctalabel1 =  data.type;
+        this.offersData[index].ctalabel2 =  data.type;
+        this.offersData[index].ctalabel3 =  data.type;
+        /**Cta url */
+        this.offersData[index].ctaurl1 =  data.Campaign.CampaignImages.CampaignImage.URL;
+        this.offersData[index].ctaurl2 =  data.Campaign.CampaignImages.CampaignImage.URL;
+        this.offersData[index].ctaurl3 =  data.Campaign.CampaignImages.CampaignImage.URL;
+        /**Disclaim */
+        this.offersData[index].disclosurelabel1 =  data.Campaign.Disclaimer;
+        this.offersData[index].disclosurelabel2 =  data.Campaign.Disclaimer;
+        this.offersData[index].disclosurelabel3 =  data.Campaign.Disclaimer;
+    });
+    this.offersData = this.dcoForm.controls['offers'].value;
+    while (this.rows.length !== 0) {
+      this.rows.removeAt(0);
+    }
+    this.offersData.forEach((d: Offers) => this.addRow(d, false));
+
+    this.dcoForm.updateValueAndValidity;
+    console.log("dcoForm", this.dcoForm);
   }
+
+  onChangeResetFrame() {
+   
+  }
+
 
 }

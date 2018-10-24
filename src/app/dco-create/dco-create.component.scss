@@ -409,11 +409,23 @@ row.disclaimers {
 /*
 Frames
 =========================== */
+
+.placementArrayGroupItem {
+  display: block;
+}
+
+.placementArrayGroupItem-hide {
+  display: none;
+}
+
+
+.placementArrayGroupItem.visible {
+  display: block;
+}
+
+
 .frames-container {
-  display: inline-block;
-  padding-left: 13%;
-  margin-top: 2%;
-  display: inline-block
+  display: inherit;
 }
 
 .single-frame-main {
@@ -434,9 +446,9 @@ Frames
 .frame-dealer-logo, .frame-heading-text, .frame-vehicle-img {
   margin: 10px;
   border: 1px solid black;
+  text-align: center;
 
   background: white;
-  text-align: center;
 }
 
 .frame-subheading1-text, .frame-subheading2-text {
@@ -451,8 +463,6 @@ Frames
   color: #3f51b5;
   text-align: -webkit-center;
   cursor: pointer;
-  max-height: 125px;
-  overflow: scroll;
 }
 
 .frame-cta {
@@ -504,16 +514,17 @@ Frames
 }
 
 .frame-cta:before {
-  content: "";
+  content: "CTA";
 }
 
 .frame-disclosure:before {
-  content: "";
+  content: "Disclosure";
 }
 
 .frame-background:before {
   content: "Background";
 }
+
 
 /*
 // Colors
