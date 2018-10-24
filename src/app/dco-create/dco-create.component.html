@@ -152,24 +152,24 @@
                 <h5>Frame 1</h5>
               </div>
               <div class="single-frame-main">
-                <div class="frame-dealer-logo" id="logo1" (click)="open(frame,'logo1','image','Dealer logo')">
+                <div class="frame-dealer-logo" id="logo1" (click)="open(frame,'logo1','image','Dealer logo',1)">
 
                 </div>
-                <div class="frame-background" id="background1" (click)="open(heading,'background1','background','Background Color')">
-                  <div class="frame-heading-text" id="heading1" (click)="open(heading,'heading1','heading','Heading Text')">
+                <div class="frame-background" id="background1" (click)="open(heading,'background1','background','Background Color',1)">
+                  <div class="frame-heading-text" id="heading1" (click)="open(heading,'heading1','heading','Heading Text',2);$event.stopPropagation()">
                     {{defaultHeading}}
                   </div>
-                  <div class="frame-vehicle-img" id="vehicle1" (click)="open(vehicle,'vehicle1','vehicle','Vehicle Image')">
+                  <div class="frame-vehicle-img" id="vehicle1" (click)="open(vehicle,'vehicle1','vehicle','Vehicle Image',2);$event.stopPropagation()">
 
                   </div>
                 </div>
-                <div class="frame-subheading1-text" id="subheading1" (click)="open(heading,'subheading1','subheading','Sub Heading Text')">
+                <div class="frame-subheading1-text" id="subheading1" (click)="open(heading,'subheading1','subheading','Sub Heading Text',1)">
                   <p innerHtml="{{defaultSubHeading}}"></p>
                 </div>
-                <div class="frame-cta" id="cta1" (click)="open(cta,'cta1','cta','Button Text')">
+                <div class="frame-cta" id="cta1" (click)="open(cta,'cta1','cta','Button Text',1)">
                   CTA
                 </div>
-                <div class="frame-disclosure" id="disclosure1" (click)="open(heading,'disclosure1','disclosure','Disclosure')">
+                <div class="frame-disclosure" id="disclosure1" (click)="open(heading,'disclosure1','disclosure','Disclosure',1)">
                   {{defaultDisclouser}}
                 </div>
 
@@ -180,23 +180,23 @@
                 <h5>Frame 2</h5>
               </div>
               <div class="single-frame-main">
-                <div class="frame-dealer-logo" id="logo2" (click)="open(frame,'logo2','image','Dealer Logo')">
+                <div class="frame-dealer-logo" id="logo2" (click)="open(frame,'logo2','image','Dealer Logo',1)">
                 </div>
-                <div class="frame-background" id="background2" (click)="open(heading,'background2','background','Background Color')">
-                  <div class="frame-heading-text" id="heading2" (click)="open(heading,'heading2','heading','Heading Text')">
+                <div class="frame-background" id="background2" (click)="open(heading,'background2','background','Background Color',1)">
+                  <div class="frame-heading-text" id="heading2" (click)="open(heading,'heading2','heading','Heading Text',2);$event.stopPropagation()">
                     {{defaultHeading}}
                   </div>
-                  <div class="frame-subheading1-text" id="subheading2" (click)="open(heading,'subheading2','subheading','Sub Heading Text')">
+                  <div class="frame-subheading1-text" id="subheading2" (click)="open(heading,'subheading2','subheading','Sub Heading Text',2);$event.stopPropagation()">
                     <p innerHtml="{{defaultSubHeading}}"></p>
                   </div>
-                  <div class="frame-vehicle-img" id="vehicle2" (click)="open(vehicle,'vehicle2','vehicle','Vehicle Image')">
+                  <div class="frame-vehicle-img" id="vehicle2" (click)="open(vehicle,'vehicle2','vehicle','Vehicle Image',2);$event.stopPropagation()">
 
                   </div>
                 </div>
-                <div class="frame-cta" id="cta2" (click)="open(cta,'cta2','cta','Button Text')">
+                <div class="frame-cta" id="cta2" (click)="open(cta,'cta2','cta','Button Text',1)">
                   CTA
                 </div>
-                <div class="frame-disclosure" id="disclosure2" (click)="open(heading,'disclosure2','disclosure','Disclosure')">
+                <div class="frame-disclosure" id="disclosure2" (click)="open(heading,'disclosure2','disclosure','Disclosure',1)">
                   {{defaultDisclouser}}
                 </div>
 
@@ -208,25 +208,25 @@
                 <h5>Frame 3</h5>
               </div>
               <div class="single-frame-main">
-                <div class="frame-dealer-logo" id="logo3" (click)="open(frame,'logo3','image','Dealer Logo')">
+                <div class="frame-dealer-logo" id="logo3" (click)="open(frame,'logo3','image','Dealer Logo',1)">
 
                 </div>
-                <div class="frame-vehicle-img" id="vehicle3" (click)="open(vehicle,'vehicle3','vehicle','Vehicle Image')">
+                <div class="frame-vehicle-img" id="vehicle3" (click)="open(vehicle,'vehicle3','vehicle','Vehicle Image',1)">
 
                 </div>
-                <div class="frame-background" id="background3" (click)="open(heading,'background3','background','Background Color')">
-                  <div class="frame-subheading1-text" id="subheading3" (click)="open(heading,'subheading3','subheading','Sub Heading Text')">
+                <div class="frame-background" id="background3" (click)="open(heading,'background3','background','Background Color',1)">
+                  <div class="frame-subheading1-text" id="subheading3" (click)="open(heading,'subheading3','subheading','Sub Heading Text',2);$event.stopPropagation()">
                     <p innerHtml="{{defaultSubHeading}}"></p>
                   </div>
-                  <div class="frame-heading-text" id="heading3" (click)="open(heading,'heading3','heading','Heading Text')">
+                  <div class="frame-heading-text" id="heading3" (click)="open(heading,'heading3','heading','Heading Text',2);$event.stopPropagation()">
                     {{defaultHeading}}
                   </div>
                 </div>
 
-                <div class="frame-cta" id="cta3" (click)="open(cta,'cta3','cta','Button Text')">
+                <div class="frame-cta" id="cta3" (click)="open(cta,'cta3','cta','Button Text',1)">
                   CTA
                 </div>
-                <div class="frame-disclosure" id="disclosure3" (click)="open(heading,'disclosure3','disclosure','Disclosure')">
+                <div class="frame-disclosure" id="disclosure3" (click)="open(heading,'disclosure3','disclosure','Disclosure',1)">
                   {{defaultDisclouser}}
                 </div>
               </div>

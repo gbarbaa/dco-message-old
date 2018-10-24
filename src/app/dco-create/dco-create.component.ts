@@ -146,6 +146,7 @@ export class DcoCreateComponent implements OnInit {
   openId :String = '';
   conditionDiv :String = '';
   title :String = '';
+  repeatBackground : Boolean = false;
 
   constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService) {
   }
@@ -323,8 +324,8 @@ export class DcoCreateComponent implements OnInit {
     this.modalRef = this.bsmodalservice.show(template, { class: 'modal-lg' });
   }
 
-  open(frame: TemplateRef<any>,id,condition,title) {
-
+  open(frame: TemplateRef<any>,id,condition,title,type) {
+    console.log(type);
     if(title === "Disclosure") {
       this.textForm = this.formBuilder.group({
         'heading': [null,
