@@ -18,6 +18,21 @@ label {
   font-weight: bold;
 }
 
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+
+.contentHref {
+  text-decoration: none;
+  color: white;
+}
 .container.header {
   min-height: 50px;
   vertical-align: middle;
@@ -395,7 +410,10 @@ row.disclaimers {
 Frames
 =========================== */
 .frames-container {
-  display: inherit;
+  display: inline-block;
+  padding-left: 13%;
+  margin-top: 2%;
+  display: inline-block
 }
 
 .single-frame-main {
@@ -416,9 +434,9 @@ Frames
 .frame-dealer-logo, .frame-heading-text, .frame-vehicle-img {
   margin: 10px;
   border: 1px solid black;
-  text-align: center;
-  min-height: 90px;
+
   background: white;
+  text-align: center;
 }
 
 .frame-subheading1-text, .frame-subheading2-text {
@@ -433,6 +451,8 @@ Frames
   color: #3f51b5;
   text-align: -webkit-center;
   cursor: pointer;
+  max-height: 125px;
+  overflow: scroll;
 }
 
 .frame-cta {
@@ -484,11 +504,11 @@ Frames
 }
 
 .frame-cta:before {
-  content: "CTA";
+  content: "";
 }
 
 .frame-disclosure:before {
-  content: "Disclosure";
+  content: "";
 }
 
 .frame-background:before {
@@ -584,6 +604,17 @@ Frames
   float: right;
 }
 
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
 .mat-card-header {
   background-color: #f6f6f6;
   width: 100%;
@@ -636,7 +667,12 @@ Frames
   text-align: center;
 }
 
-  
+img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
   
 
 

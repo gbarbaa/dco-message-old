@@ -376,6 +376,15 @@ img.img-responsive.pull-left.blog-image {
     width: 100%;
 }
 
+.placementArrayGroupItem {
+    display: none;
+}
+
+.placementArrayGroupItem.visible {
+    display: block;
+}
+
+
 /*
 Frames
 =========================== */
@@ -402,7 +411,7 @@ Frames
     margin: 10px;
     border: 1px solid black;
     text-align: center;
-    min-height: 90px;
+
     background: white;
   }
   

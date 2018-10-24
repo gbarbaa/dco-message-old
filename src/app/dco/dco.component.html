@@ -118,7 +118,7 @@
             </button>
 
             <button mat-raised-button color="primary" style="height: 36px;margin-left: 20px;">
-               <angular2csv [data]="data" filename="test.csv" [options]="options"></angular2csv>
+               <angular2csv [data]="csvData" filename="test.csv" [options]="options"></angular2csv>
             </button>
         </div>
     
@@ -132,27 +132,69 @@
                     <h5>Frame 1</h5>
                   </div>
                   <div class="single-frame-main">
-                    <div class="frame-dealer-logo" id="logo1" (click)="open(frame,'logo1','image','Dealer logo')">
-                        <mat-form-field class="full-width ">
-                                <input matInput placeholder="Logo1" type="text" formControlName="offers[placementid]">
-                        </mat-form-field>
+                    <div class="frame-dealer-logo" id="logo1" >
+                        <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                          <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                            <mat-form-field class="full-width" required>
+                              <input matInput type="text" formControlName="logo1" (click)="openDialog(title, 'logo1', disc.controls['logo1'].value, '', i)">
+                             </mat-form-field>
+                            </div>
+                        </div>
                     </div>
-                    <div class="frame-background">
-                      <div class="frame-heading-text" id="heading1" (click)="open(heading,'heading1','heading','Heading Text')">
-    
+                    <div class="frame-background" >
+                        <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                            <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value" (click)="openDialog(title, 'backgroundurl', disc.controls['backgroundurl'].value, '', i)">
+                              <mat-form-field class="full-width" required>
+                                <input type="hidden" matInput type="text" formControlName="backgroundurl" >
+                               </mat-form-field>
+                              </div>
+                          </div>
+                      <div class="frame-heading-text" id="heading1" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                <mat-form-field class="full-width" required>
+                                  <input matInput type="text" formControlName="offerheadline1" (click)="openDialog(title, 'offerheadline1', disc.controls['offerheadline1'].value, '', i)">
+                                 </mat-form-field>
+                                </div>
+                            </div>
                       </div>
-                      <div class="frame-vehicle-img" id="vehicle1" (click)="open(vehicle,'vehicle1','vehicle','Vehicle Image')">
-    
+                      <div class="frame-vehicle-img" id="vehicle1" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                <mat-form-field class="full-width" required>
+                                  <input matInput type="text" formControlName="vehicleimage1" (click)="openDialog(title, 'vehicleimage1', disc.controls['vehicleimage1'].value, '', i)">
+                                 </mat-form-field>
+                                </div>
+                            </div>
                       </div>
                     </div>
-                    <div class="frame-subheading1-text" id="subheading1" (click)="open(heading,'subheading1','subheading','Sub Heading Text')">
-    
+                    <div class="frame-subheading1-text" id="subheading1" >
+                        <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                            <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                              <mat-form-field class="full-width" required>
+                                <input matInput type="text" formControlName="vehiclename1" (click)="openDialog(title, 'vehiclename1', disc.controls['vehiclename1'].value, '', i)">
+                               </mat-form-field>
+                              </div>
+                          </div>
                     </div>
-                    <div class="frame-cta" id="cta1" (click)="open(cta,'cta1','cta','Button Text')">
-    
+                    <div class="frame-cta" id="cta1" >
+                        <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                            <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                              <mat-form-field class="full-width" required>
+                                <input matInput type="text" formControlName="ctalabel1" (click)="openDialog(title, 'ctalabel1', disc.controls['ctalabel1'].value,  disc.controls['ctaurl1'].value, i)">
+                                <input type="hidden" formControlName="ctaurl1"  id="CTAURL1" >
+                               </mat-form-field>
+                              </div>
+                          </div>
                     </div>
-                    <div class="frame-disclosure" id="disclosure1" (click)="open(heading,'disclosure1','disclosure','Disclosure')">
-    
+                    <div class="frame-disclosure" id="disclosure1" >
+                        <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                            <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                              <mat-form-field class="full-width" required>
+                                <input matInput type="text" formControlName="disclosurelabel1" (click)="openDialog(title, 'disclosurelabel1', disc.controls['disclosurelabel1'].value, '', i)">
+                               </mat-form-field>
+                              </div>
+                          </div>
                     </div>
     
                   </div>
@@ -162,27 +204,72 @@
                     <h5>Frame 2</h5>
                   </div>
                   <div class="single-frame-main">
-                    <div class="frame-dealer-logo" id="logo2" (click)="open(frame,'logo2','image','Dealer Logo')">
-                    </div>
-                    <div class="frame-background">
-                      <div class="frame-heading-text" id="heading2" (click)="open(heading,'heading2','heading','Heading Text')">
-    
+                      <div class="frame-dealer-logo" id="logo2" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                            <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                              <mat-form-field class="full-width" required>
+                                <input matInput type="text" formControlName="logo2" (click)="openDialog(title, 'logo2', disc.controls['logo2'].value, '', i)">
+                               </mat-form-field>
+                              </div>
+                          </div>
                       </div>
-                      <div class="frame-subheading1-text" id="subheading2" (click)="open(heading,'subheading2','subheading','Sub Heading Text')">
-    
+                      <div class="frame-background" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value" (click)="openDialog(title, 'backgroundurl', disc.controls['backgroundurl'].value, '', i)">
+                                <mat-form-field class="full-width" required>
+                                  <input type="hidden" matInput type="text" formControlName="backgroundurl" >
+                                 </mat-form-field>
+                                </div>
+                            </div>
+                        <div class="frame-heading-text" id="heading2" >
+                            <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                                <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                  <mat-form-field class="full-width" required>
+                                    <input matInput type="text" formControlName="offerheadline2" (click)="openDialog(title, 'offerheadline2', disc.controls['offerheadline2'].value, '', i)">
+                                   </mat-form-field>
+                                  </div>
+                              </div>
+                        </div>
+                        <div class="frame-vehicle-img" id="vehicle2" >
+                            <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                                <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                  <mat-form-field class="full-width" required>
+                                    <input matInput type="text" formControlName="vehicleimage2" (click)="openDialog(title, 'vehicleimage2', disc.controls['vehicleimage2'].value, '', i)">
+                                   </mat-form-field>
+                                  </div>
+                              </div>
+                        </div>
                       </div>
-                      <div class="frame-vehicle-img" id="vehicle2" (click)="open(vehicle,'vehicle2','vehicle','Vehicle Image')">
-    
+                      <div class="frame-subheading1-text" id="subheading2" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                <mat-form-field class="full-width" required>
+                                  <input matInput type="text" formControlName="vehiclename2" (click)="openDialog(title, 'vehiclename2', disc.controls['vehiclename2'].value, '', i)">
+                                 </mat-form-field>
+                                </div>
+                            </div>
                       </div>
+                      <div class="frame-cta" id="cta2" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                <mat-form-field class="full-width" required>
+                                  <input matInput type="text" formControlName="ctalabel2" (click)="openDialog(title, 'ctalabel2', disc.controls['ctalabel2'].value,  disc.controls['ctaurl2'].value, i)">
+                                  <input type="hidden" formControlName="ctaurl2"  id="CTAURL1" >
+                                 </mat-form-field>
+                                </div>
+                            </div>
+                      </div>
+                      <div class="frame-disclosure" id="disclosure2" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                <mat-form-field class="full-width" required>
+                                  <input matInput type="text" formControlName="disclosurelabel2" (click)="openDialog(title, 'disclosurelabel2', disc.controls['disclosurelabel2'].value, '', i)">
+                                 </mat-form-field>
+                                </div>
+                            </div>
+                      </div>
+      
                     </div>
-                   <div class="frame-cta" id="cta2" (click)="open(cta,'cta2','cta','Button Text')">
-    
-                    </div>
-                    <div class="frame-disclosure" id="disclosure2" (click)="open(heading,'disclosure2','disclosure','Disclosure')">
-    
-                    </div>
-    
-                  </div>
     
                 </div>
                 <div class="single-frame-container column col-md-4">
@@ -190,30 +277,74 @@
                     <h5>Frame 3</h5>
                   </div>
                   <div class="single-frame-main">
-                    <div class="frame-dealer-logo" id="logo3" (click)="open(frame,'logo3','image','Dealer Logo')">
-    
-                    </div>
-                    <div class="frame-vehicle-img" id="vehicle3" (click)="open(vehicle,'vehicle3','vehicle','Vehicle Image')">
-    
-                    </div>
-                    <div class="frame-background">
-                      <div class="frame-subheading1-text" id="subheading3" (click)="open(heading,'subheading3','subheading','Sub Heading Text')">
-    
+                      <div class="frame-dealer-logo" id="logo3" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                            <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                              <mat-form-field class="full-width" required>
+                                <input matInput type="text" formControlName="logo3" (click)="openDialog(title, 'logo3', disc.controls['logo3'].value, '', i)">
+                               </mat-form-field>
+                              </div>
+                          </div>
                       </div>
-                      <div class="frame-heading-text" id="heading3" (click)="open(heading,'heading3','heading','Heading Text')">
-    
+                      <div class="frame-background" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value" (click)="openDialog(title, 'backgroundurl', disc.controls['backgroundurl'].value, '', i)">
+                                <mat-form-field class="full-width" required>
+                                  <input type="hidden" matInput type="text" formControlName="backgroundurl" >
+                                 </mat-form-field>
+                                </div>
+                            </div>
+                        <div class="frame-heading-text" id="heading3" >
+                            <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                                <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                  <mat-form-field class="full-width" required>
+                                    <input matInput type="text" formControlName="offerheadline3" (click)="openDialog(title, 'offerheadline3', disc.controls['offerheadline3'].value, '', i)">
+                                   </mat-form-field>
+                                  </div>
+                              </div>
+                        </div>
+                        <div class="frame-vehicle-img" id="vehicle3" >
+                            <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                                <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                  <mat-form-field class="full-width" required>
+                                    <input matInput type="text" formControlName="vehicleimage3" (click)="openDialog(title, 'vehicleimage3', disc.controls['vehicleimage3'].value, '', i)">
+                                   </mat-form-field>
+                                  </div>
+                              </div>
+                        </div>
                       </div>
+                      <div class="frame-subheading1-text" id="subheading3" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                <mat-form-field class="full-width" required>
+                                  <input matInput type="text" formControlName="vehiclename3" (click)="openDialog(title, 'vehiclename3', disc.controls['vehiclename3'].value, '', i)">
+                                 </mat-form-field>
+                                </div>
+                            </div>
+                      </div>
+                      <div class="frame-cta" id="cta3" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                <mat-form-field class="full-width" required>
+                                  <input matInput type="text" formControlName="ctalabel3" (click)="openDialog(title, 'ctalabel3', disc.controls['ctalabel3'].value,  disc.controls['ctaurl3'].value, i)">
+                                  <input type="hidden" formControlName="ctaurl3"  id="CTAURL3" >
+                                 </mat-form-field>
+                                </div>
+                            </div>
+                      </div>
+                      <div class="frame-disclosure" id="disclosure3" >
+                          <div formArrayName="offers"  *ngFor="let disc of rows.controls; let i = index;" >
+                              <div [formGroupName]="i" class="placementArrayGroupItem" [class.visible]="selectedPlacement === disc.controls['placementid'].value">
+                                <mat-form-field class="full-width" required>
+                                  <input matInput type="text" formControlName="disclosurelabel3" (click)="openDialog(title, 'disclosurelabel3', disc.controls['disclosurelabel3'].value, '', i)">
+                                 </mat-form-field>
+                                </div>
+                            </div>
+                      </div>
+      
                     </div>
-    
-                    <div class="frame-cta" id="cta3" (click)="open(cta,'cta3','cta','Button Text')">
-    
-                    </div>
-                    <div class="frame-disclosure" id="disclosure3" (click)="open(heading,'disclosure3','disclosure','Disclosure')">
-    
-                    </div>
-                  </div>
                 </div>
-              </div>
+        </div>
     </div>
  
   

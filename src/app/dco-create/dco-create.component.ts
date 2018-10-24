@@ -1,9 +1,12 @@
-import {Component, OnInit,TemplateRef} from '@angular/core';
+import {Component, Input, OnInit, Inject, ViewEncapsulation, TemplateRef,ElementRef } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
+import { DataSource } from '@angular/cdk/collections';
+import { MatDialog, MatDialogConfig } from "@angular/material";
 import {tap, catchError} from 'rxjs/operators';
 import {ApiService} from '../api.service';
+
 import * as _ from 'lodash';
 import {of} from 'rxjs/observable/of';
 import {AbstractControl, FormControl, FormGroupDirective, FormBuilder, FormGroup, FormArray, NgForm, Validators} from '@angular/forms';
@@ -12,6 +15,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { Offers } from '../lib/service/data/offers';
+
 
 export interface Vehiclemodel {
   value: string;
@@ -26,17 +30,27 @@ export interface Vehiclemake {
 @Component({
   selector: 'app-dco-create',
   templateUrl: './dco-create.component.html',
-  styleUrls: [ './dco-create.component.scss']
+  styleUrls: [
+    './dco-create.component.scss'
+
+  ]
 })
 
 export class DcoCreateComponent implements OnInit {
+
+  @Input()
+  dialogid: Number;
+  textvalue: String;
+  urlvalue: String;
+  category: String;
+  
   dcoForm: FormGroup;
   userid: String = '';
   make: String = '';
   model: String = '';
   year: String = '';
   dealerid: String = '';
-  dealername: String = '';
+  dealerName: String = '';
   dealerurl: String = '';
   pacode: String = '';
   postalcode: String = '';
@@ -73,7 +87,49 @@ export class DcoCreateComponent implements OnInit {
   publisher: String = '';
 
   modalRef: BsModalRef;
-  submittedData : Object ;
+  submittedData: Object ;
+  OfferHeadline1: String = '';
+  SubHeading1: String = '';
+  CTALabel1: String = '';
+  CTAURL1: String = '';
+  Logo1: String = '';
+  VehicleImage1: String = '';
+  BackgroundUrl1: String = '';
+  DisclosureLabel1: String = '';
+  DisclosureCopy1: String = '';
+  OfferHeadline2: String = '';
+  SubHeading2: String = '';
+  CTALabel2: String = '';
+  CTAURL2: String = '';
+  Logo2: String = '';
+  VehicleImage2: String = '';
+  BackgroundUrl2: String = '';
+  DisclosureLabel2: String = '';
+  DisclosureCopy2: String = '';
+  OfferHeadline3: String = '';
+  SubHeading3: String = '';
+  CTALabel3: String = '';
+  CTAURL3: String = '';
+  Logo3: String = '';
+  VehicleImage3: String = '';
+  BackgroundUrl3: String = '';
+  DisclosureLabel3: String = '';
+  DisclosureCopy3: String = '';
+
+  frameForm: FormGroup;
+  textForm: FormGroup;
+  vehicleForm: FormGroup;
+  ctaForm: FormGroup;
+
+  selected = -1;
+
+  // Default content when check any offer
+
+  defaultHeading : String = '';
+  defaultSubHeading : String = '';
+  defaultDisclouser : String = '';
+
+  unCheckedCheckbox : Boolean = false;
 
   vehiclemakes: Vehiclemake[] = [
     {value: 'Ford', viewValue: 'Ford'}
@@ -96,7 +152,7 @@ export class DcoCreateComponent implements OnInit {
     {value: 'TransitConnect', viewValue: 'Transit Connect'},
     {value: 'FocusElectric', viewValue: 'Focus Electric'},
     {value: 'FusionHybrid', viewValue: 'Fusion Hybrid'},
-    {value: 'FusionEnergi', viewValue: 'Fusion Energi'},
+    {value: 'Fusion Energi', viewValue: 'Fusion Energi'},
     {value: 'C-MAX Hybrid', viewValue: 'C-MAX Hybrid'}
   ];
 
@@ -141,6 +197,9 @@ export class DcoCreateComponent implements OnInit {
   slideConfig = {"slidesToShow": 3, "slidesToScroll": 3, dots: true,arrows : false};
 
   offer = [];
+  openId :String = '';
+  conditionDiv :String = '';
+  title :String = '';
 
   stored_userid = sessionStorage.getItem('userid');
   stored_dealerid = sessionStorage.getItem('dealerid');
@@ -151,6 +210,7 @@ export class DcoCreateComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService) {
   }
+
 
   ngOnInit() {
 
@@ -180,7 +240,6 @@ export class DcoCreateComponent implements OnInit {
       this.offersData.forEach((d: Offers) => this.addRow(d, false));
     });
 
-    //this.offerInfo();
 
   }
 
@@ -277,44 +336,141 @@ export class DcoCreateComponent implements OnInit {
 
   offerInfo(template: TemplateRef<any>,record) {
     this.api.getOffer(record)
-        .subscribe(data => { 
-          
-          console.log(data) 
-
-          if(data.Response.Nameplate.Trims != '') {
-            this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;   
-          } else {
-            this.offer = data.Response.Nameplate.Groups.Group;   
-          }
+      .subscribe(data => {
+        console.log(data)
+        if(data.Response.Nameplate.Trims != '') {
+          this.offer = data.Response.Nameplate.Trims.Trim.Groups.Group;
+        } else {
+          this.offer = data.Response.Nameplate.Groups.Group;
+        }
       });
 
     this.submittedData = record;
-    
-    // if(!record.make && !record.model && !record.year && !record.zipcode) {
-      this.modalRef = this.bsmodalservice.show(template);  
+
+    // if(!record.make && !record.model && !record.year && !record.postalcode) {
+    this.modalRef = this.bsmodalservice.show(template, { class: 'modal-lg' });
     // }
-      
-    
+
+
   }
 
-  open(template: TemplateRef<any>) {
-    console.log(template);
-    
-  } 
+  open(frame: TemplateRef<any>,id,condition,title) {
 
-  onChange(event, index, item) {
-
-    
-    item.checked = !item.checked;
-
-    // this.lastAction = 'index: ' + index + ', label: ' + item.label + ', checked: ' + item.checked;
-
-    console.log(index)
-    console.log(event)
-    console.log(item);
-
-}
+    this.modalRef = this.bsmodalservice.show(frame, { class: 'modal-md' });
+    this.openId = id;
+    this.conditionDiv = condition;
+    this.title = title;
+  }
 
 
+  submitImageData(imgSrc,condition,url?:any) {
+
+    if(condition == 'image') {
+
+      let id: any = this.openId;
+
+      let element = document.getElementById(id);
+      element.setAttribute("style", "background-image: url("+imgSrc.image+");");
+
+      let appendValue:any = '';
+
+      if(id == 'logo1') {
+        appendValue = document.getElementById('Logo1');
+        this.Logo1 = imgSrc.image;
+      } else if(id == 'logo2') {
+        appendValue = document.getElementById('Logo2');
+        this.Logo2 = imgSrc.image;
+      } else {
+        appendValue = document.getElementById('Logo3');
+        this.Logo3 = imgSrc.image;
+      }
+
+    } else if(condition == 'heading' || condition == 'subheading' || condition == 'disclosure') {
+
+
+      let id: any = this.openId;
+
+      let element = document.getElementById(id);
+      element.innerHTML = imgSrc.heading;
+
+      if(id == 'heading1') {
+        this.OfferHeadline1 = imgSrc.heading;
+      } else if(id == 'heading2') {
+        this.OfferHeadline2 = imgSrc.heading;
+      } else if(id == 'heading3') {
+        this.OfferHeadline3 = imgSrc.heading;
+      } else if(id == 'subheading1') {
+        this.SubHeading1 = imgSrc.heading;
+      } else if(id == 'subheading2') {
+        this.SubHeading2 = imgSrc.heading;
+      } else if(id == 'subheading3') {
+        this.SubHeading3 = imgSrc.heading;
+      } else if(id == 'disclosure1') {
+        this.DisclosureLabel1 = imgSrc.heading;
+      } else if(id == 'disclosure2') {
+        this.DisclosureLabel2 = imgSrc.heading;
+      } else {
+        this.DisclosureLabel1 = imgSrc.heading;
+      }
+
+
+    } else if(condition == 'vehicle') {
+
+      let id: any = this.openId;
+
+      var element = document.getElementById(id);
+      element.setAttribute("style", "background-image: url("+imgSrc.vehicle+");");
+
+      if(id == 'vehicle1') {
+        this.VehicleImage1 = imgSrc.vehicle;
+      } else if(id == 'vehicle2') {
+        this.VehicleImage2 = imgSrc.vehicle;
+      } else if(id == 'vehicle3') {
+        this.VehicleImage3 = imgSrc.vehicle;
+      }
+
+
+    } else if(condition == 'cta') {
+
+      let x = document.createElement("a");
+      x.setAttribute("href", imgSrc.ctaurl);
+      x.setAttribute("target", '_blank');
+      x.setAttribute("class", 'contentHref');
+      x.setAttribute("style", "text-decoration: none;color:white");
+      x.innerHTML = imgSrc.ctarecord;
+      let id: any = this.openId;
+      var element = document.getElementById(id);
+      element.innerHTML = "";
+      element.appendChild(x);
+
+      if(id == 'cta1') {
+        this.CTALabel1 = imgSrc.ctarecord;
+        this.CTAURL1 = imgSrc.ctaurl;
+      } else if(id == 'cta2') {
+        this.CTALabel2 = imgSrc.ctarecord;
+        this.CTAURL2 = imgSrc.ctaurl;
+      } else if(id == 'cta3') {
+        this.CTALabel3 = imgSrc.ctarecord;
+        this.CTAURL3 = imgSrc.ctaurl;
+      }
+    }
+    this.modalRef.hide()
+  }
+
+// Select Offer and submit
+
+  submitOffer() {
+
+  }
+
+  clickOffer(record) {
+
+    let data = this.offer[record];
+
+    this.defaultHeading = data.Campaign.CampaignType;
+    this.defaultSubHeading = data.Campaign.Name;
+    console.log(record);
+    console.log();
+  }
 
 }

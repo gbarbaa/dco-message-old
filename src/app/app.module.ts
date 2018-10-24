@@ -23,7 +23,8 @@ import {
   MatFormFieldModule,
   MatCheckboxModule,
   MatTooltipModule,
-  MatTabsModule } from "@angular/material";
+  MatTabsModule,
+  MatDialogModule } from "@angular/material";
 
 import { AppComponent } from './app.component';
 import { CampaignComponent } from './campaign/campaign.component';
@@ -38,7 +39,7 @@ import { DcoComponent } from './dco/dco.component';
 import { DcoDetailComponent } from './dco-detail/dco-detail.component';
 import { DcoCreateComponent } from './dco-create/dco-create.component';
 import { DcoEditComponent } from './dco-edit/dco-edit.component';
-
+import { DcoDialogComponent } from './dco-dialog/dco-dialog.component';
 
 const appRoutes: Routes = [
   {
@@ -74,24 +75,24 @@ const appRoutes: Routes = [
   {
     path: 'dcos',
     component: DcoComponent,
-    data: { title: 'DCOs List' }
+    data: { title: 'DCOs List' },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'dco-details/:id',
     component: DcoDetailComponent,
-    data: { title: 'Campaign Details' }
+    data: { title: 'Dco Details' }
   },
   {
     path: 'dco-create',
     component: DcoCreateComponent,
-    data: { title: 'Create Campaign' }
+    data: { title: 'Create Dco' }
   },
   {
     path: 'dco-edit/:id',
     component: DcoEditComponent,
-    data: { title: 'Edit Campaign' }
+    data: { title: 'Edit Dco' }
   },
-
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'
@@ -114,11 +115,12 @@ const appRoutes: Routes = [
     DcoComponent,
     DcoDetailComponent,
     DcoCreateComponent,
-    DcoEditComponent
+    DcoEditComponent,
+    DcoDialogComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes,
-      { enableTracing: true } ),
+      { onSameUrlNavigation: 'reload' } ),
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -139,13 +141,16 @@ const appRoutes: Routes = [
     FileDropModule,
     MatCheckboxModule,
     MatTooltipModule,
+    MatDialogModule,
     // Specify your library as an import
     SlickCarouselModule,
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     Angular2CsvModule
   ],
+  exports: [RouterModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DcoDialogComponent]
 })
 export class AppModule { }
