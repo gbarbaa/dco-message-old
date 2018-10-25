@@ -2482,7 +2482,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    apiUrl: 'http://localhost:3050'
+    apiUrl: 'http://localhost:3030'
 };
 /*
  * In development mode, for easier debugging, you can ignore zone related error
