@@ -16,7 +16,16 @@ router.post('/signup', function(req, res) {
   } else {
     var newUser = new User({
       username: req.body.username,
-      password: req.body.password
+      password: req.body.password,
+      dealers : [{
+        dealerid: '',
+        dealername: '',
+        dealermake: '',
+        dealerurl: '',
+        dealercupid: '',
+        dealerpacode: '',
+        dealerzipcode: ''
+      }]
     });
     // save the user
     newUser.save(function(err) {
