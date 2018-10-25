@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('jwtToken', this.data.token);
       sessionStorage.setItem('userid', this.data.user.username);
 
- //     this.getDealer(this.data.user['dealers'][0].dealername);
+      this.getDealer('Gus Machado Ford');
       this.router.navigate(['dcos']);
       
     }, err => {

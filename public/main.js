@@ -2269,7 +2269,7 @@ var LoginComponent = /** @class */ (function () {
             _this.data = resp;
             localStorage.setItem('jwtToken', _this.data.token);
             sessionStorage.setItem('userid', _this.data.user.username);
-            //     this.getDealer(this.data.user['dealers'][0].dealername);
+            _this.getDealer('Gus Machado Ford');
             _this.router.navigate(['dcos']);
         }, function (err) {
             _this.message = err.error.msg;
