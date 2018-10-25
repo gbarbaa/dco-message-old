@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('jwtToken', this.data.token);
       sessionStorage.setItem('userid', this.data.user.username);
 
-      this.getDealer(this.data.user['dealers'][0].dealername);
+ //     this.getDealer(this.data.user['dealers'][0].dealername);
       this.router.navigate(['dcos']);
       
     }, err => {
@@ -65,19 +65,29 @@ export class LoginComponent implements OnInit {
 
       console.log("obj", obj['Response']['Dealer']);
 
-      if (obj['Response']['Dealer'].length >= 1) {
-        this.data.user['dealers'][0].dealerid = obj['Response']['Dealer'][0]['SalesCode'];
-        this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer'][0]['Cupid'];
+ //     if (obj['Response']['Dealer'].length >= 1) {
+ //       this.data.user['dealers'][0].dealerid = obj['Response']['Dealer'][0]['SalesCode'];
+  //      this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer'][0]['Cupid'];
  //       this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer'][0]['URL'];
-        this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer'][0]['PACode'];
-        this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer'][0]['Address']['PostalCode'];
-      } else {
-        this.data.user['dealers'][0].dealerid = obj['Response']['Dealer']['SalesCode'];
-        this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer']['Cupid'];
+ //       this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer'][0]['PACode'];
+//        this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer'][0]['Address']['PostalCode'];
+//      } else {
+//        this.data.user['dealers'][0].dealerid = obj['Response']['Dealer']['SalesCode'];
+ //       this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer']['Cupid'];
  //       this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer']['URL'];
-        this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer']['PACode'];
-        this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer']['Address']['PostalCode'];
-      }
+ //       this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer']['PACode'];
+ //       this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer']['Address']['PostalCode'];
+ //     }
+
+      this.data.user['dealers'][0].dealerid = '24F007';
+      this.data.user['dealers'][0].dealername = 'Gus Machado Ford';
+      this.data.user['dealers'][0].dealermake = 'Ford';
+      this.data.user['dealers'][0].dealerzipcode = '33012';
+      this.data.user['dealers'][0].dealercupid = 'F24007';
+      this.data.user['dealers'][0].dealerurl = 'gusmachadofordofhialeah';
+      this.data.user['dealers'][0].dealerpacode = '04931';
+
+
 
       this.http.put('/api/profile',this.data.user).subscribe(resp => {
         console.log("resp", resp);
