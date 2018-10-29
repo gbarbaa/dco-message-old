@@ -2269,7 +2269,7 @@ var LoginComponent = /** @class */ (function () {
             _this.data = resp;
             localStorage.setItem('jwtToken', _this.data.token);
             sessionStorage.setItem('userid', _this.data.user.username);
-            _this.getDealer('Gus Machado Ford');
+            _this.getDealer("Gus Machado Ford");
             _this.router.navigate(['dcos']);
         }, function (err) {
             _this.message = err.error.msg;
@@ -2283,26 +2283,25 @@ var LoginComponent = /** @class */ (function () {
             var xml = parser.parseFromString(_this.dealer, 'text/xml');
             var obj = _this.ngxXml2jsonService.xmlToJson(xml);
             console.log("obj", obj['Response']['Dealer']);
-            //     if (obj['Response']['Dealer'].length >= 1) {
-            //       this.data.user['dealers'][0].dealerid = obj['Response']['Dealer'][0]['SalesCode'];
-            //      this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer'][0]['Cupid'];
-            //       this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer'][0]['URL'];
-            //       this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer'][0]['PACode'];
-            //        this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer'][0]['Address']['PostalCode'];
-            //      } else {
-            //        this.data.user['dealers'][0].dealerid = obj['Response']['Dealer']['SalesCode'];
-            //       this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer']['Cupid'];
-            //       this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer']['URL'];
-            //       this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer']['PACode'];
-            //       this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer']['Address']['PostalCode'];
-            //     }
-            _this.data.user['dealers'][0].dealerid = '24F007';
-            _this.data.user['dealers'][0].dealername = 'Gus Machado Ford';
-            _this.data.user['dealers'][0].dealermake = 'Ford';
-            _this.data.user['dealers'][0].dealerzipcode = '33012';
-            _this.data.user['dealers'][0].dealercupid = 'F24007';
+            if (obj['Response']['Dealer'].length >= 1) {
+                _this.data.user['dealers'][0].dealername = dealerName;
+                _this.data.user['dealers'][0].dealermake = 'Ford';
+                _this.data.user['dealers'][0].dealerid = obj['Response']['Dealer'][0]['SalesCode'];
+                _this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer'][0]['Cupid'];
+                _this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer'][0]['URL'];
+                _this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer'][0]['PACode'];
+                _this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer'][0]['Address']['PostalCode'];
+            }
+            else {
+                _this.data.user['dealers'][0].dealername = dealerName;
+                _this.data.user['dealers'][0].dealermake = 'Ford';
+                _this.data.user['dealers'][0].dealerid = obj['Response']['Dealer']['SalesCode'];
+                _this.data.user['dealers'][0].dealercupid = obj['Response']['Dealer']['Cupid'];
+                _this.data.user['dealers'][0].dealerurl = obj['Response']['Dealer']['URL'];
+                _this.data.user['dealers'][0].dealerpacode = obj['Response']['Dealer']['PACode'];
+                _this.data.user['dealers'][0].dealerzipcode = obj['Response']['Dealer']['Address']['PostalCode'];
+            }
             _this.data.user['dealers'][0].dealerurl = 'gusmachadofordofhialeah';
-            _this.data.user['dealers'][0].dealerpacode = '04931';
             _this.http.put('/api/profile', _this.data.user).subscribe(function (resp) {
                 console.log("resp", resp);
             }, function (err) {

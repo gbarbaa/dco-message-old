@@ -427,6 +427,12 @@ row.disclaimers {
 
 }
 
+mat-form-field textarea.isBold {
+  font-weight: bold;
+  font-size: 14pt;
+  word-wrap: break-word;
+}
+
 /*
 Frames
 =========================== */
@@ -643,7 +649,7 @@ Frames
   }
   
   .frame-disclosure:before {
-    content: "Disclosure";
+    content: "Offer Disclosure";
   }
   
   .frame-background:before {

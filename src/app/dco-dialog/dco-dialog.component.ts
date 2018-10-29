@@ -15,23 +15,26 @@ export class DcoDialogComponent implements OnInit {
     label:string;
     textvalue:string;
     urlvalue:string;
+    isBold: Boolean;
 
     constructor(
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<DcoDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) {title, label, textvalue, urlvalue} ) {
+        @Inject(MAT_DIALOG_DATA) {title, label, textvalue, urlvalue, isBold} ) {
 
         this.title = 'Please enter value for';
         this.label = label;
         this.textvalue = label;
         this.urlvalue = label;
+        this.isBold = isBold;
 
         this.form = fb.group({
           title: [title],
           label: [label],
           textvalue: [textvalue, Validators.required],
           urlvalue: [urlvalue, Validators.required],
-          category: [null]
+          category: [null],
+          isBold: [isBold]
         });
 
     }

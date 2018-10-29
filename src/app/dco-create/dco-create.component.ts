@@ -222,6 +222,7 @@ export class DcoCreateComponent implements OnInit {
     this.removeEmptyPlacementIds();
 
     formc = this.dcoForm.value;
+    console.log("thisdcform",  this.dcoForm.value)
     this.api.postDco(formc)
       .subscribe(res => {
         console.log("resu", res);
@@ -296,9 +297,9 @@ export class DcoCreateComponent implements OnInit {
     this.possible_sizes.forEach((size, index) => {
         this.offersData[index].size = size;
         /**Logo */
-        this.offersData[index].logo1 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + size + ".jpg" + azure_token;
-        this.offersData[index].logo2 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + size + ".jpg" + azure_token;
-        this.offersData[index].logo3 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + size + ".jpg" + azure_token;
+        this.offersData[index].logo1 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + "_" + size + ".jpg" + azure_token;
+        this.offersData[index].logo2 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + "_" + size + ".jpg" + azure_token;
+        this.offersData[index].logo3 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + "_" + size + ".jpg" + azure_token;
         /**Vehicle Image */
         this.offersData[index].vehicleimage1 = url_head + global_folder + captured_model + "_1_" + size + ".png" + azure_token;
         this.offersData[index].vehicleimage2 = url_head + global_folder + captured_model + "_2_" + size + ".png" + azure_token;
@@ -308,7 +309,7 @@ export class DcoCreateComponent implements OnInit {
     });
   }
 
-  openDialog(title, label, textvalue, urlvalue, i) {
+  openDialog(title, label, textvalue, urlvalue, i, isBold) {
    
     const dialogConfig = new MatDialogConfig();
 
@@ -317,7 +318,7 @@ export class DcoCreateComponent implements OnInit {
     dialogConfig.width = '550px'
 
     dialogConfig.data = {
-        title, label, textvalue, urlvalue
+        title, label, textvalue, urlvalue, isBold
     };
 
     const dialogRef = this.dialog.open(DcoDialogComponent,
@@ -327,39 +328,45 @@ export class DcoCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
         val => {
           if (val != undefined) {
-
-            /** Frame1 
-            if(val.label == 'logo1') this.groupedDcos[this.selectedDco][0].offers[i].logo1 = val.textvalue;
-            if(val.label == 'offerheadline1') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline1 = val.textvalue;
-            if(val.label == 'vehicleimage1') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage1 = val.textvalue;
-            if(val.label == 'vehiclename1') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename1 = val.textvalue;
-            if(val.label == 'ctalabel1') {
-              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel1 = val.textvalue;
-              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl1 = val.urlvalue;
+            console.log("thisofferdata", this.offersData);
+            this.offersData.forEach((element, index) => {
+      
+              /** Frame1  */
+              if(val.label == 'logo1') element.logo1 = val.textvalue;
+              if(val.label == 'offerheadline1') element.offerheadline1 = val.textvalue;
+              if(val.label == 'vehicleimage1') element.vehicleimage1 = val.textvalue;
+              if(val.label == 'vehiclename1') element.vehiclename1 = val.textvalue;
+              if(val.label == 'ctalabel1') {
+                element.ctalabel1 = val.textvalue;
+                element.ctaurl1 = val.urlvalue;
+              }
+              if(val.label == 'disclosurelabel1')element.disclosurelabel1 = val.textvalue;
+              /** Frame2 */
+              if(val.label == 'logo2') element.logo2 = val.textvalue;
+              if(val.label == 'offerheadline2') element.offerheadline2 = val.textvalue;
+              if(val.label == 'vehicleimage2') element.vehicleimage2 = val.textvalue;
+              if(val.label == 'vehiclename2') element.vehiclename2 = val.textvalue;
+              if(val.label == 'ctalabel2') {
+                element.ctalabel2 = val.textvalue;
+                element.ctaurl2 = val.urlvalue;
+              }
+              if(val.label == 'disclosurelabel2') element.disclosurelabel2 = val.textvalue;
+              /** Frame3 */
+              if(val.label == 'logo3') element.logo3 = val.textvalue;
+              if(val.label == 'offerheadline3') element.offerheadline3 = val.textvalue;
+              if(val.label == 'vehicleimage3') element.vehicleimage3 = val.textvalue;
+              if(val.label == 'vehiclename3') element.vehiclename3 = val.textvalue;
+              if(val.label == 'ctalabel3') {
+                element.ctalabel3 = val.textvalue;
+                element.ctaurl3 = val.urlvalue;
+              }
+              if(val.label == 'disclosurelabel3') element.disclosurelabel3 = val.textvalue;
+            });
+            while (this.rows.length !== 0) {
+              this.rows.removeAt(0);
             }
-            if(val.label == 'disclosurelabel1') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel1 = val.textvalue;
-            /** Frame2
-            if(val.label == 'logo2') this.groupedDcos[this.selectedDco][0].offers[i].logo2 = val.textvalue;
-            if(val.label == 'offerheadline2') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline2 = val.textvalue;
-            if(val.label == 'vehicleimage2') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage2 = val.textvalue;
-            if(val.label == 'vehiclename2') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename2 = val.textvalue;
-            if(val.label == 'ctalabel2') {
-              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel2 = val.textvalue;
-              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl2 = val.urlvalue;
-            }
-            if(val.label == 'disclosurelabel2') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel2 = val.textvalue;
-            /** Frame3
-            if(val.label == 'logo3') this.groupedDcos[this.selectedDco][0].offers[i].logo3 = val.textvalue;
-            if(val.label == 'offerheadline3') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline3 = val.textvalue;
-            if(val.label == 'vehicleimage3') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage3 = val.textvalue;
-            if(val.label == 'vehiclename3') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename3 = val.textvalue;
-            if(val.label == 'ctalabel3') {
-              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel3 = val.textvalue;
-              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl3 = val.urlvalue;
-            }
-            if(val.label == 'disclosurelabel3') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel3 = val.textvalue;
-
-            this.getDco(this.groupedDcos, this.selectedDco, 0 ); */
+            this.offersData.forEach((d: Offers) => this.addRow(d, false));
+            this.dcoForm.updateValueAndValidity;
           }
         }, (err) => {
           console.log(err);
@@ -398,13 +405,13 @@ export class DcoCreateComponent implements OnInit {
     this.offersData = this.dcoForm.controls['offers'].value;
 
     this.possible_sizes.forEach((size, index) => {
-        this.offersData[index].offerheadline1 = data.Campaign.CampaignType;
-        this.offersData[index].offerheadline2 = data.Campaign.CampaignType;
-        this.offersData[index].offerheadline3 = data.Campaign.CampaignType;
+        this.offersData[index].offerheadline1 = data.Campaign.Detail.replace(/<[^>]*>/g, '');
+        this.offersData[index].offerheadline2 = data.Campaign.Detail.replace(/<[^>]*>/g, '');
+        this.offersData[index].offerheadline3 = data.Campaign.Detail.replace(/<[^>]*>/g, '');
         /**Vehicle Name */
-        this.offersData[index].vehiclename1 =  data.Campaign.Name.replace(/<[^>]*>/g, '');;
-        this.offersData[index].vehiclename2 =  data.Campaign.Name.replace(/<[^>]*>/g, '');;
-        this.offersData[index].vehiclename3 =  data.Campaign.Name.replace(/<[^>]*>/g, '');;
+        this.offersData[index].vehiclename1 =  data.Campaign.Name.replace(/<[^>]*>/g, '');
+        this.offersData[index].vehiclename2 =  data.Campaign.Name.replace(/<[^>]*>/g, '');
+        this.offersData[index].vehiclename3 =  data.Campaign.Name.replace(/<[^>]*>/g, '');
         /**Cta label */
         this.offersData[index].ctalabel1 =  'SHOP NOW';
         this.offersData[index].ctalabel2 =  'SHOP NOW';

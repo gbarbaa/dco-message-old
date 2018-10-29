@@ -369,6 +369,14 @@ textarea {
   min-width: 100%;
 }
 
+mat-form-field textarea.isBold {
+  font-weight: bold;
+  font-size: 14pt;
+  word-wrap: break-word;
+}
+
+
+
 row.disclaimers {
   max-height: 200px;
   overflow-y: scroll;
@@ -511,7 +519,7 @@ Frames
 }
 
 .frame-disclosure:before {
-  content: "Disclosure";
+  content: "Offer Disclosure";
 }
 
 .frame-background:before {

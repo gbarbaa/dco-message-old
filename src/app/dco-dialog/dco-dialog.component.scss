@@ -1,3 +1,17 @@
 .mat-form-field {
     display: block;
 }
+
+mat-form-field textarea.isBold {
+    font-weight: bold;
+    font-size: 14pt;
+    word-wrap: break-word;
+}
+
+mat-form-field.urlinput.visible{
+    display: block !important;
+}
+
+mat-form-field.urlinput{
+    display: none !important;
+}

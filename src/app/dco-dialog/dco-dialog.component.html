@@ -5,13 +5,14 @@
 
     <mat-form-field>
 
-        <input matInput
+        <textarea [class.isBold]="isBold" matInput
             placeholder={{label}}
             formControlName="textvalue">
+            </textarea>
     </mat-form-field>
 
 
-    <mat-form-field>
+    <mat-form-field class="urlinput" [class.visible]="label == 'ctalabel1' || label == 'ctalabel2' || label == 'ctalabel3'">
 
         <input matInput placeholder="URL Value"
             formControlName="urlvalue">

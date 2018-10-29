@@ -44,7 +44,7 @@ export class DcoComponent implements OnInit {
     title: 'Placement IDs',
     useBom: false,
     removeNewLines: true,
-    keys: ['placementid','offerheadline1','vehiclename1','ctalabel1','ctaurl1','disclosurelabel1','logo1','vehicleimage1','offerheadline2','VehicleName2','ctalabel2','ctaurl2','disclousurelabel2','logo2','vehicleimage2','offerheadline3','VehicleName3','ctalabel3','ctaurl3','disclouserelabel3','logo3','vehicleimage3','disclosurecopy1','disclosurecopy2','disclosurecopy3','backgroundimage','backgroundurl' ]
+    keys: ['placementid','offerheadline1','vehiclename1','ctalabel1','ctaurl1','disclosurelabel1','logo1','vehicleimage1','offerheadline2','vehiclename2','ctalabel2','ctaurl2','disclosurelabel2','logo2','vehicleimage2','offerheadline3','vehiclename3','ctalabel3','ctaurl3','disclosurelabel3','logo3','vehicleimage3','disclosurecopy1','disclosurecopy2','disclosurecopy3','backgroundimage','backgroundurl' ]
   };
 
   csvData = [];
@@ -344,7 +344,7 @@ export class DcoComponent implements OnInit {
       this.dataSource.next(this.rows.controls);
     }
 
-    openDialog(title, label, textvalue, urlvalue, i) {
+    openDialog(title, label, textvalue, urlvalue, i, isBold) {
    
       const dialogConfig = new MatDialogConfig();
 
@@ -353,7 +353,7 @@ export class DcoComponent implements OnInit {
       dialogConfig.width = '550px'
 
       dialogConfig.data = {
-          title, label, textvalue, urlvalue
+          title, label, textvalue, urlvalue, isBold
       };
 
       const dialogRef = this.dialog.open(DcoDialogComponent,
