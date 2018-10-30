@@ -26,6 +26,11 @@ export interface Vehiclemodel {
   viewValue: string;
 }
 
+export interface Vehicleyearoptions {
+  value: string;
+  viewValue: string;
+}
+
 export interface Vehiclemake {
   value: string;
   viewValue: string;
@@ -106,6 +111,12 @@ export class DcoCreateComponent implements OnInit {
 
   vehiclemakes: Vehiclemake[] = [
     {value: 'Ford', viewValue: 'Ford'}
+  ];
+
+  vehicleyearoptions: Vehicleyearoptions[] = [
+    {value: '2017', viewValue: '2017'},
+    {value: '2018', viewValue: '2018'},
+    {value: '2019', viewValue: '2019'}
   ];
 
   vehiclemodels: Vehiclemodel[] = [

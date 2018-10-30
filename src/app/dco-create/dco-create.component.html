@@ -62,9 +62,13 @@
               </mat-form-field>
 
               <mat-form-field class="full-width ">
-                <input matInput placeholder="Year *" formControlName="year" [errorStateMatcher]="matcher">
+                <mat-select placeholder="Year *" formControlName="year" >
+                  <mat-option *ngFor="let vehicleyearoption of vehicleyearoptions" [value]="vehicleyearoption.value" >
+                    {{vehicleyearoption.viewValue}}
+                  </mat-option>
+                </mat-select>
                 <mat-error>
-                  <span *ngIf="!dcoForm.get('year').valid && dcoForm.get('year').touched">Please Select Car Year</span>
+                  <span *ngIf="!dcoForm.get('year').valid && dcoForm.get('year').touched">Please Select The Year</span>
                 </mat-error>
               </mat-form-field>
 
@@ -378,9 +382,9 @@
                       <mat-card-subtitle>{{slide.Campaign.CampaignType}}</mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content>
-                      <p innerHtml="{{slide.Campaign.Name}}"></p>
+                      <p [innerHtml]="slide.Campaign.Name"></p>
                       <br>
-                      <div innerHtml="{{slide.Campaign.Detail}}"></div>
+                      <div [innerHtml]="slide.Campaign.Detail"></div>
 
                     </mat-card-content>
                     <mat-card-actions>

@@ -1,0 +1,659 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>dco-me documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">dco-me documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>Vehiclemake</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/dco-create/dco-create.component.ts</code>
+        </p>
+
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#value">value</a>
+                                </li>
+                                <li>
+                                        <a href="#viewValue">viewValue</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="value"></a>
+                                        <span class="name"><b>value</b><a href="#value"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>value:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="viewValue"></a>
+                                        <span class="name"><b>viewValue</b><a href="#viewValue"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>viewValue:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, Input, OnInit, Inject, ViewEncapsulation, TemplateRef,ElementRef } from &#x27;@angular/core&#x27;;
+import {HttpClient, HttpHeaders} from &#x27;@angular/common/http&#x27;;
+import {Router, ActivatedRoute} from &#x27;@angular/router&#x27;;
+import {Observable} from &#x27;rxjs/Observable&#x27;;
+import { DataSource } from &#x27;@angular/cdk/collections&#x27;;
+import { MatDialog, MatDialogConfig } from &quot;@angular/material&quot;;
+import {tap, catchError} from &#x27;rxjs/operators&#x27;;
+import {ApiService} from &#x27;../api.service&#x27;;
+
+import * as _ from &#x27;lodash&#x27;;
+import {of} from &#x27;rxjs/observable/of&#x27;;
+import {AbstractControl, FormControl, FormGroupDirective, FormBuilder, FormGroup, FormArray, NgForm, Validators} from &#x27;@angular/forms&#x27;;
+import {BehaviorSubject} from &#x27;rxjs&#x27;;
+import { BsModalService } from &#x27;ngx-bootstrap/modal&#x27;;
+import { BsModalRef } from &#x27;ngx-bootstrap/modal/bs-modal-ref.service&#x27;;
+
+import { Offers } from &#x27;../lib/service/data/offers&#x27;;
+
+
+import { Dialog } from &quot;../lib/service/data/dialog&quot;;
+import { DcoDialogComponent } from &#x27;../dco-dialog/dco-dialog.component&#x27;;
+
+
+export interface Vehiclemodel {
+  value: string;
+  viewValue: string;
+}
+
+export interface Vehiclemake {
+  value: string;
+  viewValue: string;
+}
+
+@Component({
+  selector: &#x27;app-dco-create&#x27;,
+  templateUrl: &#x27;./dco-create.component.html&#x27;,
+  styleUrls: [
+    &#x27;./dco-create.component.scss&#x27;
+
+  ]
+})
+
+export class DcoCreateComponent implements OnInit {
+
+  @Input()
+  dialogid: Number;
+  textvalue: String;
+  urlvalue: String;
+  category: String;
+
+  dcoForm: FormGroup;
+  id:string&#x3D;&#x27;&#x27;;
+  userid: String &#x3D; &#x27;&#x27;;
+  make: String &#x3D; &#x27;&#x27;;
+  model: String &#x3D; &#x27;&#x27;;
+  year: String &#x3D; &#x27;&#x27;;
+  dealerid: String &#x3D; &#x27;&#x27;;
+  dealername: String &#x3D; &#x27;&#x27;;
+  dealerurl: String &#x3D; &#x27;&#x27;;
+  pacode: String &#x3D; &#x27;&#x27;;
+  postalcode: String &#x3D; &#x27;&#x27;;
+  offers : [{
+    size: String,
+    placementid: String,
+    offerheadline1: String,
+    vehiclename1: String,
+    ctalabel1: String,
+    ctaurl1: String,
+    disclosurelabel1: String,
+    logo1: String,
+    vehicleimage1: String,
+    offerheadline2: String,
+    vehiclename2: String,
+    ctalabel2: String,
+    ctaurl2: String,
+    disclosurelabel2: String,
+    logo2: String,
+    vehicleimage2: String,
+    offerheadline3: String,
+    vehiclename3: String,
+    ctalabel3: String,
+    ctaurl3: String,
+    disclosurelabel3: String,
+    logo3: String,
+    vehicleimage3: String,
+    disclosurecopy1: String,
+    disclosurecopy2: String,
+    disclosurecopy3: String,
+    backgroundimage: String,
+    backgroundurl: String,
+  }];
+
+  modalRef: BsModalRef;
+  submittedData: Object ;
+  frameForm: FormGroup;
+
+  selected &#x3D; -1;
+
+  // Default content when check any offer
+
+  defaultHeading : String &#x3D; &#x27;&#x27;;
+  defaultSubHeading : String &#x3D; &#x27;&#x27;;
+  defaultDisclouser : String &#x3D; &#x27;Disclosure&#x27;;
+
+  unCheckedCheckbox : Boolean &#x3D; false;
+
+  vehiclemakes: Vehiclemake[] &#x3D; [
+    {value: &#x27;Ford&#x27;, viewValue: &#x27;Ford&#x27;}
+  ];
+
+  vehiclemodels: Vehiclemodel[] &#x3D; [
+    {value: &#x27;Fusion&#x27;, viewValue: &#x27;Fusion&#x27;},
+    {value: &#x27;Fiesta&#x27;, viewValue: &#x27;Fiesta&#x27;},
+    {value: &#x27;Focus&#x27;, viewValue: &#x27;Focus&#x27;},
+    {value: &#x27;Mustang&#x27;, viewValue: &#x27;Mustang&#x27;},
+    {value: &#x27;Taurus&#x27;, viewValue: &#x27;Taurus&#x27;},
+    {value: &#x27;Escape&#x27;, viewValue: &#x27;Escape&#x27;},
+    {value: &#x27;EcoSport&#x27;, viewValue: &#x27;EcoSport&#x27;},
+    {value: &#x27;Edge&#x27;, viewValue: &#x27;Edge&#x27;},
+    {value: &#x27;Flex&#x27;, viewValue: &#x27;Flex&#x27;},
+    {value: &#x27;Explorer&#x27;, viewValue: &#x27;Explorer&#x27;},
+    {value: &#x27;Expedition&#x27;, viewValue: &#x27;Expedition&#x27;},
+    {value: &#x27;F-150&#x27;, viewValue: &#x27;F-150&#x27;},
+    {value: &#x27;SuperDuty&#x27;, viewValue: &#x27;SUPER DUTY&#x27;},
+    {value: &#x27;Transit&#x27;, viewValue: &#x27;Transit&#x27;},
+    {value: &#x27;TransitConnect&#x27;, viewValue: &#x27;Transit Connect&#x27;},
+    {value: &#x27;FocusElectric&#x27;, viewValue: &#x27;Focus Electric&#x27;},
+    {value: &#x27;FusionHybrid&#x27;, viewValue: &#x27;Fusion Hybrid&#x27;},
+    {value: &#x27;Fusion Energi&#x27;, viewValue: &#x27;Fusion Energi&#x27;},
+    {value: &#x27;C-MAX Hybrid&#x27;, viewValue: &#x27;C-MAX Hybrid&#x27;}
+  ];
+
+  possible_sizes: any &#x3D; [&#x27;300x600&#x27;,&#x27;300x250&#x27;,&#x27;790x90&#x27;,&#x27;160x600&#x27;,&#x27;320x50&#x27;];
+  possible_frames: any &#x3D; [&quot;_1&quot;, &quot;_2&quot;, &quot;_3&quot;];
+
+  offersData: Offers[] &#x3D; [{
+    size: new String,
+    placementid: new String,
+    offerheadline1: new String,
+    vehiclename1: new String,
+    ctalabel1: new String,
+    ctaurl1: new String,
+    disclosurelabel1: new String,
+    logo1: new String,
+    vehicleimage1: new String,
+    offerheadline2: new String,
+    vehiclename2: new String,
+    ctalabel2: new String,
+    ctaurl2: new String,
+    disclosurelabel2: new String,
+    logo2: new String,
+    vehicleimage2: new String,
+    offerheadline3: new String,
+    vehiclename3: new String,
+    ctalabel3: new String,
+    ctaurl3: new String,
+    disclosurelabel3: new String,
+    logo3: new String,
+    vehicleimage3: new String,
+    disclosurecopy1: new String,
+    disclosurecopy2: new String,
+    disclosurecopy3: new String,
+    backgroundimage: new String,
+    backgroundurl: new String
+  }];
+  
+  dataSource &#x3D; new BehaviorSubject&lt;AbstractControl[]&gt;([]);
+  displayColumns &#x3D; [&#x27;placementid&#x27;];
+  rows: FormArray &#x3D; this.fb.array([]);
+  
+  slideConfig &#x3D; {&quot;slidesToShow&quot;: 3, &quot;slidesToScroll&quot;: 3, dots: true,arrows : false};
+
+  offer &#x3D; [];
+  openId :String &#x3D; &#x27;&#x27;;
+  conditionDiv :String &#x3D; &#x27;&#x27;;
+  title :String &#x3D; &#x27;&#x27;;
+  repeatBackground : Boolean &#x3D; false;
+
+  stored_userid &#x3D; sessionStorage.getItem(&#x27;userid&#x27;);
+  stored_dealerid &#x3D; sessionStorage.getItem(&#x27;dealerid&#x27;);
+  stored_dealername &#x3D; sessionStorage.getItem(&#x27;dealername&#x27;);
+  stored_dealerurl &#x3D; sessionStorage.getItem(&#x27;dealerurl&#x27;);
+  stored_pacode &#x3D; sessionStorage.getItem(&#x27;pacode&#x27;);
+  stored_zipcode &#x3D; sessionStorage.getItem(&#x27;zipcode&#x27;);
+
+  constructor(private http: HttpClient, private router: Router, private activeRoute: ActivatedRoute, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService,
+    private dialog: MatDialog) {
+  }
+
+
+  ngOnInit() {
+
+    console.log(&#x27;zipcode&#x27;, this.stored_zipcode);
+    console.log(&#x27;pacode&#x27;, this.stored_pacode);
+
+ 
+    this.dcoForm &#x3D; this.formBuilder.group({
+      &#x27;userid&#x27;: [this.stored_userid],
+      &#x27;make&#x27;: [null, Validators.required],
+      &#x27;model&#x27;: [null, Validators.required],
+      &#x27;year&#x27;: [null, Validators.required],
+      &#x27;dealerid&#x27;: [this.stored_dealerid],
+      &#x27;dealername&#x27;: [this.stored_dealername],
+      &#x27;dealerurl&#x27;: [this.stored_dealerurl],
+      &#x27;pacode&#x27;: [this.stored_pacode],
+      &#x27;postalcode&#x27;: [this.stored_zipcode, Validators.required],
+      &#x27;offers&#x27;:  this.rows
+    });
+     
+     
+    //* Create 5 placements ids, 1 for each size, for the intial form 
+    this.possible_sizes.forEach(element &#x3D;&gt; {
+      this.offersData.forEach((d: Offers) &#x3D;&gt; this.addRow(d, false));
+    });
+
+
+  }
+
+  onFormSubmit(formc: NgForm) {
+    //* Cycle through placementids and remove empty ones before post */
+    this.editInitialFieldValues();
+    this.removeEmptyPlacementIds();
+
+    formc &#x3D; this.dcoForm.value;
+    this.api.postDco(formc)
+      .subscribe(res &#x3D;&gt; {
+        console.log(&quot;resu&quot;, res);
+          let id &#x3D; res[&#x27;_id&#x27;];
+          this.router.navigate([&#x27;dcos&#x27;]);
+        }, (err) &#x3D;&gt; {
+          console.log(err);
+      });
+  }
+
+  addRow(d?: Offers, noUpdate?: boolean) {
+    const row &#x3D; this.fb.group({
+      &#x27;size&#x27;: [d &amp;&amp; d.size ? d.size : null, []],
+      &#x27;placementid&#x27;   : [d &amp;&amp; d.placementid ? d.placementid : null, []],
+      &#x27;offerheadline1&#x27;   : [d &amp;&amp; d.offerheadline1 ? d.offerheadline1 : null, []],
+      &#x27;vehiclename1&#x27;   : [d &amp;&amp; d.vehiclename1 ? d.vehiclename1 : null, []],
+      &#x27;ctalabel1&#x27;   : [d &amp;&amp; d.ctalabel1 ? d.ctalabel1 : null, []],
+      &#x27;ctaurl1&#x27;   : [d &amp;&amp; d.ctaurl1 ? d.ctaurl1 : null, []],
+      &#x27;disclosurelabel1&#x27;   : [d &amp;&amp; d.disclosurelabel1 ? d.disclosurelabel1 : null, []],
+      &#x27;logo1&#x27;   : [d &amp;&amp; d.logo1 ? d.logo1 : null, []],
+      &#x27;vehicleimage1&#x27;   : [d &amp;&amp; d.vehicleimage1 ? d.vehicleimage1 : null, []],
+      &#x27;offerheadline2&#x27;   : [d &amp;&amp; d.offerheadline2 ? d.offerheadline2 : null, []],
+      &#x27;vehiclename2&#x27;   : [d &amp;&amp; d.vehiclename2 ? d.vehiclename2 : null, []],
+      &#x27;ctalabel2&#x27;   : [d &amp;&amp; d.ctalabel2 ? d.ctalabel2 : null, []],
+      &#x27;ctaurl2&#x27;   : [d &amp;&amp; d.ctaurl2 ? d.ctaurl2 : null, []],
+      &#x27;disclosurelabel2&#x27;   : [d &amp;&amp; d.disclosurelabel2 ? d.disclosurelabel2 : null, []],
+      &#x27;logo2&#x27;   : [d &amp;&amp; d.logo2 ? d.logo2 : null, []],
+      &#x27;vehicleimage2&#x27;   : [d &amp;&amp; d.vehicleimage2 ? d.vehicleimage2 : null, []],
+      &#x27;offerheadline3&#x27;   : [d &amp;&amp; d.offerheadline3 ? d.offerheadline3 : null, []],
+      &#x27;vehiclename3&#x27;   : [d &amp;&amp; d.vehiclename3 ? d.vehiclename3 : null, []],
+      &#x27;ctalabel3&#x27;   : [d &amp;&amp; d.ctalabel3 ? d.ctalabel3 : null, []],
+      &#x27;ctaurl3&#x27;   : [d &amp;&amp; d.ctaurl3 ? d.ctaurl3 : null, []],
+      &#x27;disclosurelabel3&#x27;   : [d &amp;&amp; d.disclosurelabel3 ? d.disclosurelabel3 : null, []],
+      &#x27;logo3&#x27;   : [d &amp;&amp; d.logo3 ? d.logo3 : null, []],
+      &#x27;vehicleimage3&#x27;   : [d &amp;&amp; d.vehicleimage3 ? d.vehicleimage3 : null, []],
+      &#x27;disclosurecopy1&#x27;: [d &amp;&amp; d.disclosurecopy1 ? d.disclosurecopy1 : null, []],
+      &#x27;disclosurecopy2&#x27;: [d &amp;&amp; d.disclosurecopy2 ? d.disclosurecopy2 : null, []],
+      &#x27;disclosurecopy3&#x27;: [d &amp;&amp; d.disclosurecopy3 ? d.disclosurecopy3 : null, []],
+      &#x27;backgroundimage&#x27;: [d &amp;&amp; d.backgroundimage ? d.backgroundimage : null, []],
+      &#x27;backgroundurl&#x27;  : [d &amp;&amp; d.backgroundurl ? d.backgroundurl : null, []]
+    });
+    this.rows.push(row);
+    if (!noUpdate) { this.updateView(); }
+  }
+
+  updateView() {
+    this.dataSource.next(this.rows.controls);
+  }
+
+
+  removeEmptyPlacementIds() {
+    this.offersData &#x3D; this.dcoForm.controls[&#x27;offers&#x27;].value;
+    this.offersData &#x3D; _.filter(this.offersData, discs&#x3D;&gt;discs.placementid !&#x3D; null);
+    this.offersData &#x3D; _.filter(this.offersData, discs&#x3D;&gt;discs.placementid.length &gt; 0);
+    while (this.rows.length !&#x3D;&#x3D; 0) {
+      this.rows.removeAt(0);
+    }
+    this.offersData.forEach((d: Offers) &#x3D;&gt; this.addRow(d, false));
+    this.dcoForm.updateValueAndValidity;
+  }
+
+  editInitialFieldValues() {
+    this.offersData &#x3D; this.dcoForm.controls[&#x27;offers&#x27;].value;
+    var captured_model &#x3D; this.dcoForm.controls[&#x27;model&#x27;].value;
+    const url_head: string &#x3D; &quot;https://creativesham.file.core.windows.net/progad/&quot;;
+    const dealer_folder: string &#x3D;  this.stored_zipcode + &quot;_&quot; + this.stored_dealerurl + &quot;/&quot;;
+    const global_folder: string  &#x3D;  &quot;universal/&quot;;
+    const azure_token: string &#x3D; &quot;?sv&#x3D;2017-11-09&amp;ss&#x3D;f&amp;srt&#x3D;sco&amp;sp&#x3D;rl&amp;se&#x3D;2022-01-02T03:35:55Z&amp;st&#x3D;2018-10-12T18:35:55Z&amp;spr&#x3D;https&amp;sig&#x3D;9xuB6sBTVQvjHdG3S5W8KyfvrFYw6CjSmcKvhE25Snk%3D&quot;
+
+ //   console.log(&quot;offerdata&quot;, this.offersData);
+
+    this.possible_sizes.forEach((size, index) &#x3D;&gt; {
+        this.offersData[index].size &#x3D; size;
+        /**Logo */
+        this.offersData[index].logo1 &#x3D; url_head + dealer_folder + this.stored_zipcode + &quot;_&quot; + this.stored_dealerurl + size + &quot;.jpg&quot; + azure_token;
+        this.offersData[index].logo2 &#x3D; url_head + dealer_folder + this.stored_zipcode + &quot;_&quot; + this.stored_dealerurl + size + &quot;.jpg&quot; + azure_token;
+        this.offersData[index].logo3 &#x3D; url_head + dealer_folder + this.stored_zipcode + &quot;_&quot; + this.stored_dealerurl + size + &quot;.jpg&quot; + azure_token;
+        /**Vehicle Image */
+        this.offersData[index].vehicleimage1 &#x3D; url_head + global_folder + captured_model + &quot;_1_&quot; + size + &quot;.png&quot; + azure_token;
+        this.offersData[index].vehicleimage2 &#x3D; url_head + global_folder + captured_model + &quot;_2_&quot; + size + &quot;.png&quot; + azure_token;
+        this.offersData[index].vehicleimage3 &#x3D; url_head + global_folder + captured_model + &quot;_3_&quot; + size + &quot;.png&quot; + azure_token;
+        /**Background URL */
+        this.offersData[index].backgroundurl &#x3D; 	&quot;https://www.&quot; + this.stored_dealerurl + &quot;.com/new-inventory/index.htm?search&#x3D;&amp;model&#x3D;&quot; + captured_model;
+    });
+  }
+
+  openDialog(title, label, textvalue, urlvalue, i) {
+   
+    const dialogConfig &#x3D; new MatDialogConfig();
+
+    dialogConfig.disableClose &#x3D; true;
+    dialogConfig.autoFocus &#x3D; true;
+    dialogConfig.width &#x3D; &#x27;550px&#x27;
+
+    dialogConfig.data &#x3D; {
+        title, label, textvalue, urlvalue
+    };
+
+    const dialogRef &#x3D; this.dialog.open(DcoDialogComponent,
+        dialogConfig);
+
+
+    dialogRef.afterClosed().subscribe(
+        val &#x3D;&gt; {
+          if (val !&#x3D; undefined) {
+
+            /** Frame1 
+            if(val.label &#x3D;&#x3D; &#x27;logo1&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].logo1 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;offerheadline1&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].offerheadline1 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;vehicleimage1&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage1 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;vehiclename1&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].vehiclename1 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;ctalabel1&#x27;) {
+              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel1 &#x3D; val.textvalue;
+              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl1 &#x3D; val.urlvalue;
+            }
+            if(val.label &#x3D;&#x3D; &#x27;disclosurelabel1&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel1 &#x3D; val.textvalue;
+            /** Frame2
+            if(val.label &#x3D;&#x3D; &#x27;logo2&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].logo2 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;offerheadline2&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].offerheadline2 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;vehicleimage2&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage2 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;vehiclename2&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].vehiclename2 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;ctalabel2&#x27;) {
+              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel2 &#x3D; val.textvalue;
+              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl2 &#x3D; val.urlvalue;
+            }
+            if(val.label &#x3D;&#x3D; &#x27;disclosurelabel2&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel2 &#x3D; val.textvalue;
+            /** Frame3
+            if(val.label &#x3D;&#x3D; &#x27;logo3&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].logo3 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;offerheadline3&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].offerheadline3 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;vehicleimage3&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage3 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;vehiclename3&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].vehiclename3 &#x3D; val.textvalue;
+            if(val.label &#x3D;&#x3D; &#x27;ctalabel3&#x27;) {
+              this.groupedDcos[this.selectedDco][0].offers[i].ctalabel3 &#x3D; val.textvalue;
+              this.groupedDcos[this.selectedDco][0].offers[i].ctaurl3 &#x3D; val.urlvalue;
+            }
+            if(val.label &#x3D;&#x3D; &#x27;disclosurelabel3&#x27;) this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel3 &#x3D; val.textvalue;
+
+            this.getDco(this.groupedDcos, this.selectedDco, 0 ); */
+          }
+        }, (err) &#x3D;&gt; {
+          console.log(err);
+        }
+    );
+}
+
+
+  offerInfo(template: TemplateRef&lt;any&gt;,record) {
+    this.offer &#x3D; [];
+    this.selected &#x3D; -1;
+    this.api.getOffer(record)
+      .subscribe(data &#x3D;&gt; {
+        if(record.model &#x3D;&#x3D; &#x27;Fusion&#x27; || record.model &#x3D;&#x3D; &#x27;Focus&#x27;) {
+          this.offer &#x3D; data.Response.Nameplate.Trims.Trim[0].Groups.Group;
+        } else {
+          if(data.Response.Nameplate.Trims !&#x3D; &#x27;&#x27;) {
+            this.offer &#x3D; data.Response.Nameplate.Trims.Trim.Groups.Group;
+          } else {
+            this.offer &#x3D; data.Response.Nameplate.Groups.Group;
+          }
+        }
+      } ,  error &#x3D;&gt; {
+
+      });
+
+    this.submittedData &#x3D; record;
+    this.modalRef &#x3D; this.bsmodalservice.show(template, { class: &#x27;modal-lg&#x27; });
+  }
+
+
+  clickOffer(record) {
+
+    let data &#x3D; this.offer[record];
+    console.log(&quot;modalData&quot;, data);
+    this.offersData &#x3D; this.dcoForm.controls[&#x27;offers&#x27;].value;
+
+    this.possible_sizes.forEach((size, index) &#x3D;&gt; {
+        this.offersData[index].offerheadline1 &#x3D; data.Campaign.CampaignType;
+        this.offersData[index].offerheadline2 &#x3D; data.Campaign.CampaignType;
+        this.offersData[index].offerheadline3 &#x3D; data.Campaign.CampaignType;
+        /**Vehicle Name */
+        this.offersData[index].vehiclename1 &#x3D;  data.Campaign.Name.replace(/&lt;[^&gt;]*&gt;/g, &#x27;&#x27;);;
+        this.offersData[index].vehiclename2 &#x3D;  data.Campaign.Name.replace(/&lt;[^&gt;]*&gt;/g, &#x27;&#x27;);;
+        this.offersData[index].vehiclename3 &#x3D;  data.Campaign.Name.replace(/&lt;[^&gt;]*&gt;/g, &#x27;&#x27;);;
+        /**Cta label */
+        this.offersData[index].ctalabel1 &#x3D;  &#x27;SHOP NOW&#x27;;
+        this.offersData[index].ctalabel2 &#x3D;  &#x27;SHOP NOW&#x27;;
+        this.offersData[index].ctalabel3 &#x3D;  &#x27;SHOP NOW&#x27;;
+        /**Cta url */
+        // this.offersData[index].ctaurl1 &#x3D;  data.Campaign.CampaignImages.CampaignImage.URL;
+        // this.offersData[index].ctaurl2 &#x3D;  data.Campaign.CampaignImages.CampaignImage.URL;
+        // this.offersData[index].ctaurl3 &#x3D;  data.Campaign.CampaignImages.CampaignImage.URL;
+        /**Disclaim */
+        this.offersData[index].disclosurecopy1 &#x3D;  data.Campaign.Disclaimer;
+        this.offersData[index].disclosurecopy2 &#x3D;  data.Campaign.Disclaimer;
+        this.offersData[index].disclosurecopy3 &#x3D;  data.Campaign.Disclaimer;
+        /**Disclaim */
+        this.offersData[index].disclosurelabel1 &#x3D;  &#x27;Offer Disclosure&#x27;;
+        this.offersData[index].disclosurelabel2 &#x3D;  &#x27;Offer Disclosure&#x27;;
+        this.offersData[index].disclosurelabel3 &#x3D;  &#x27;Offer Disclosure&#x27;;
+    });
+    this.offersData &#x3D; this.dcoForm.controls[&#x27;offers&#x27;].value;
+    while (this.rows.length !&#x3D;&#x3D; 0) {
+      this.rows.removeAt(0);
+    }
+    this.offersData.forEach((d: Offers) &#x3D;&gt; this.addRow(d, false));
+
+    this.dcoForm.updateValueAndValidity;
+    console.log(&quot;dcoForm&quot;, this.dcoForm);
+  }
+
+  onChangeResetFrame() {
+   
+  }
+
+
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Vehiclemake.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

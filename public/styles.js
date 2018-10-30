@@ -662,10 +662,10 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\galferez\Apps\dco-message\node_modules\@angular\material\prebuilt-themes\indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
-__webpack_require__(/*! C:\Users\galferez\Apps\dco-message\src\assets\sass\styles.scss */"./src/assets/sass/styles.scss");
-__webpack_require__(/*! C:\Users\galferez\Apps\dco-message\node_modules\slick-carousel\slick\slick.scss */"./node_modules/slick-carousel/slick/slick.scss");
-module.exports = __webpack_require__(/*! C:\Users\galferez\Apps\dco-message\node_modules\slick-carousel\slick\slick-theme.scss */"./node_modules/slick-carousel/slick/slick-theme.scss");
+__webpack_require__(/*! C:\Users\LSURESHK\Development\dco-message\node_modules\@angular\material\prebuilt-themes\indigo-pink.css */"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
+__webpack_require__(/*! C:\Users\LSURESHK\Development\dco-message\src\assets\sass\styles.scss */"./src/assets/sass/styles.scss");
+__webpack_require__(/*! C:\Users\LSURESHK\Development\dco-message\node_modules\slick-carousel\slick\slick.scss */"./node_modules/slick-carousel/slick/slick.scss");
+module.exports = __webpack_require__(/*! C:\Users\LSURESHK\Development\dco-message\node_modules\slick-carousel\slick\slick-theme.scss */"./node_modules/slick-carousel/slick/slick-theme.scss");
 
 
 /***/ })

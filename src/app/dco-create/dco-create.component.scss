@@ -464,13 +464,14 @@ Frames
   color: #3f51b5;
   text-align: -webkit-center;
   cursor: pointer;
+  max-height: 125px;
 }
 
 .frame-cta {
   margin: 10px;
   background: #1b3664;
   color: white;
-  min-height: 30px;
+  height: 30px;
   text-align: center;
   vertical-align: -webkit-baseline-middle;
   padding-top: 5px;
