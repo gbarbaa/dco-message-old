@@ -26,6 +26,11 @@ export interface Vehiclemodel {
   viewValue: string;
 }
 
+export interface Vehicleyearoptions {
+  value: any;
+  viewValue: any;
+}
+
 export interface Vehiclemake {
   value: string;
   viewValue: string;
@@ -47,7 +52,7 @@ export class DcoCreateComponent implements OnInit {
   textvalue: String;
   urlvalue: String;
   category: String;
-
+currentYear: Date;
   dcoForm: FormGroup;
   id:string='';
   userid: String = '';
@@ -106,6 +111,12 @@ export class DcoCreateComponent implements OnInit {
 
   vehiclemakes: Vehiclemake[] = [
     {value: 'Ford', viewValue: 'Ford'}
+  ];
+
+  vehicleyearoptions: Vehicleyearoptions[] = [
+    {value: new Date().getFullYear() - 1, viewValue: new Date().getFullYear() - 1 },
+    {value: new Date().getFullYear(), viewValue: new Date().getFullYear() },
+    {value: new Date().getFullYear() + 1, viewValue: new Date().getFullYear() + 1}
   ];
 
   vehiclemodels: Vehiclemodel[] = [
@@ -189,7 +200,7 @@ export class DcoCreateComponent implements OnInit {
 
 
   ngOnInit() {
-
+    
     console.log('zipcode', this.stored_zipcode);
     console.log('pacode', this.stored_pacode);
 

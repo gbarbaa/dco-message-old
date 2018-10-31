@@ -182,10 +182,12 @@ export class DcoComponent implements OnInit {
 
         this.groupedDcoIds = Object.keys(this.groupedDcos);
 
-        this.selectedDco =  this.groupedDcoIds[0];
-
         console.log("dcos",  this.groupedDcos);
         console.log("gdcois",  this.groupedDcoIds);
+        
+        this.selectedDco =  this.groupedDcoIds[0];
+
+
 
         this.offersData = this.groupedDcos[this.groupedDcoIds[0]][0].offers;
       
@@ -228,17 +230,13 @@ export class DcoComponent implements OnInit {
     private panelCollapse = false;
 
     getDco(allDcos, dcoId, OfferId) {
-       console.log("gallDcos", allDcos[dcoId]);
-       console.log("OfferId", OfferId);
-       console.log("selplid", this.selectedPlacement);
-
-       allDcos[dcoId].forEach((element, offix) => {
-        
-       });
+        console.log("gallDcos", allDcos);
+        console.log("dcoId", dcoId);
+        console.log("OfferId", OfferId);
 
         this.id = allDcos[dcoId][OfferId]._id;
-   
         console.log("thisid", this.id);
+        this.dcoForm.reset;
         this.dcoForm.setValue({
              userid: allDcos[dcoId][OfferId].userid,
              make: allDcos[dcoId][OfferId].make,
@@ -328,7 +326,6 @@ export class DcoComponent implements OnInit {
 
     onFormSubmit(formc:NgForm) {
       
-      formc = this.dcoForm.value;
       this.api.updateDco(this.id, formc)
         .subscribe(res => {
             let id = res['_id'];
@@ -371,6 +368,7 @@ export class DcoComponent implements OnInit {
     openDialog(title, label, textvalue, urlvalue, i, isBold) {
    
       const dialogConfig = new MatDialogConfig();
+      var updatedOfferIndex = String;
 
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
@@ -387,6 +385,7 @@ export class DcoComponent implements OnInit {
       dialogRef.afterClosed().subscribe(
           val => {
             if (val != undefined) {
+
               this.offersData = this.dcoForm.value.offers;
 
               console.log("odrows", this.offersData);
@@ -424,14 +423,26 @@ export class DcoComponent implements OnInit {
               while (this.rows.length !== 0) {
                 this.rows.removeAt(0);
               }
-              // this.offersData.forEach((d: Offers) => this.addRow(d, false));
-              // this.dcoForm.controls['offers'].setValue(this.offersData);
-              // this.updateView();
-              // this.dcoForm.updateValueAndValidity;
-              console.log("dbtis.dcoForm", this.dcoForm);
+              this.offersData.forEach((d: Offers) => this.addRow(d, false));
+              this.dcoForm.controls['offers'].setValue(this.offersData);
+              this.updateView();
+              this.dcoForm.updateValueAndValidity;
+              console.log("dbtis.dcoForm", this.dcoForm.value);
               console.log("dbtis.groupedDcos", this.groupedDcos);
-              this.getDco(this.groupedDcos, this.selectedDco, this.offersData);
-              
+
+              // this.groupedDcos[this.selectedDco].forEach((offitem, offix) => {
+              //   offitem.offers.forEach((plitem, plix) => {
+              //      if(plitem.placementid == this.offersData[i].placementid) {
+              //         this.id = this.groupedDcos[this.selectedDco][offix]._id;
+              //         this.groupedDcos[this.selectedDco][offix].offers[plix] = this.offersData[i];
+              //         console.log("thisid", this.groupedDcos[this.selectedDco][offix]);       
+              //         updatedOfferIndex = offix;
+              //      }
+              //    });
+              // });
+              // console.log("updatedOfferIndex", updatedOfferIndex);
+              // this.getDco(this.groupedDcos, this.selectedDco, updatedOfferIndex );
+              this.selectedPlacement =  this.offersData[i].placementid;
             }
           }, (err) => {
             console.log(err);

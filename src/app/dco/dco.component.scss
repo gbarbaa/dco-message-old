@@ -481,10 +481,10 @@ Frames
 .frame-disclosure {
   margin: 10px;
   color: #3f51b5;
+  top: 41px;
+  position: relative;
   text-align: -webkit-center;
   cursor: pointer;
-  max-height: 125px;
-  overflow: scroll;
 }
 
 .frame-cta {
