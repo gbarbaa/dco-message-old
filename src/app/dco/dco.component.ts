@@ -135,12 +135,12 @@ export class DcoComponent implements OnInit {
   displayColumns = ['placementid'];
   rows: FormArray = this.fb.array([]);
 
-  stored_userid = sessionStorage.getItem('userid');
-  stored_dealerid = sessionStorage.getItem('dealerid');
-  stored_dealername = sessionStorage.getItem('dealername');
-  stored_dealerurl = sessionStorage.getItem('dealerurl');
-  stored_pacode = sessionStorage.getItem('pacode');
-  stored_zipcode = sessionStorage.getItem('zipcode');
+  stored_userid = localStorage.getItem('userid');
+  stored_dealerid = localStorage.getItem('dealerid');
+  stored_dealername = localStorage.getItem('dealername');
+  stored_dealerurl = localStorage.getItem('dealerurl');
+  stored_pacode = localStorage.getItem('pacode');
+  stored_zipcode = localStorage.getItem('zipcode');
 
   constructor(
     private api: ApiService,
@@ -162,7 +162,7 @@ export class DcoComponent implements OnInit {
     }
 
     ngOnInit() {
-      var stored_userid = sessionStorage.getItem('userid');
+      var stored_userid = localStorage.getItem('userid');
 
       this.api.getDcos()
 
@@ -193,7 +193,9 @@ export class DcoComponent implements OnInit {
 
         this.getDco(this.groupedDcos, this.groupedDcoIds[0], 0);
 
+
         console.log("make",this.groupedDcos[this.groupedDcoIds[0]][0].make)
+
 
         this.selectedPlacement =  this.groupedDcos[this.groupedDcoIds[0]][0].offers[0].placementid;
 
@@ -226,8 +228,17 @@ export class DcoComponent implements OnInit {
     private panelCollapse = false;
 
     getDco(allDcos, dcoId, OfferId) {
-        console.log("gallDcos", allDcos[dcoId][OfferId]);
+       console.log("gallDcos", allDcos[dcoId]);
+       console.log("OfferId", OfferId);
+       console.log("selplid", this.selectedPlacement);
+
+       allDcos[dcoId].forEach((element, offix) => {
+        
+       });
+
         this.id = allDcos[dcoId][OfferId]._id;
+   
+        console.log("thisid", this.id);
         this.dcoForm.setValue({
              userid: allDcos[dcoId][OfferId].userid,
              make: allDcos[dcoId][OfferId].make,
@@ -244,10 +255,22 @@ export class DcoComponent implements OnInit {
 
     selectDco(key, i){
       console.log("key", key);
+
       this.selectedDco = key;
       this.selectedDcoIndex = i;
+      
+      while (this.rows.length !== 0) {
+        this.rows.removeAt(0);
+      }
+      this.groupedDcos[this.groupedDcoIds[i]].forEach(element => {
+        this.offersData = element.offers;
+        this.offersData.forEach((d: Offers) => this.addRow(d, false));
+      });
+      
+      console.log("rows2", this.rows);
+     
       this.selectedPlacement =  this.groupedDcos[this.groupedDcoIds[i]][0].offers[0].placementid;
-      this.getDco(this.groupedDcos, key, 0 );
+  //    this.getDco(this.groupedDcos, key, 0 );
     };
 
     selectPlacement(p, i){
@@ -256,7 +279,7 @@ export class DcoComponent implements OnInit {
       console.log("grpdco",this.groupedDcos );
       console.log("seldco",this.selectedDco );
       console.log("selpid",this.selectedPlacement );
-      this.getDco(this.groupedDcos, this.selectedDco, p );
+
     };
 
     toggleCollapse(){
@@ -344,6 +367,7 @@ export class DcoComponent implements OnInit {
       this.dataSource.next(this.rows.controls);
     }
 
+ 
     openDialog(title, label, textvalue, urlvalue, i, isBold) {
    
       const dialogConfig = new MatDialogConfig();
@@ -363,39 +387,51 @@ export class DcoComponent implements OnInit {
       dialogRef.afterClosed().subscribe(
           val => {
             if (val != undefined) {
+              this.offersData = this.dcoForm.value.offers;
 
+              console.log("odrows", this.offersData);
               /** Frame1 */
-              if(val.label == 'logo1') this.groupedDcos[this.selectedDco][0].offers[i].logo1 = val.textvalue;
-              if(val.label == 'offerheadline1') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline1 = val.textvalue;
-              if(val.label == 'vehicleimage1') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage1 = val.textvalue;
-              if(val.label == 'vehiclename1') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename1 = val.textvalue;
+              if(val.label == 'logo1') this.offersData[i].logo1 = val.textvalue;
+              if(val.label == 'offerheadline1') this.offersData[i].offerheadline1 = val.textvalue;
+              if(val.label == 'vehicleimage1') this.offersData[i].vehicleimage1 = val.textvalue;
+              if(val.label == 'vehiclename1') this.offersData[i].vehiclename1 = val.textvalue;
               if(val.label == 'ctalabel1') {
-                this.groupedDcos[this.selectedDco][0].offers[i].ctalabel1 = val.textvalue;
-                this.groupedDcos[this.selectedDco][0].offers[i].ctaurl1 = val.urlvalue;
+                this.offersData[i].ctalabel1 = val.textvalue;
+                this.offersData[i].ctaurl1 = val.urlvalue;
               }
-              if(val.label == 'disclosurelabel1') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel1 = val.textvalue;
+              if(val.label == 'disclosurelabel1') this.offersData[i].disclosurelabel1 = val.textvalue;
               /** Frame2 */
-              if(val.label == 'logo2') this.groupedDcos[this.selectedDco][0].offers[i].logo2 = val.textvalue;
-              if(val.label == 'offerheadline2') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline2 = val.textvalue;
-              if(val.label == 'vehicleimage2') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage2 = val.textvalue;
-              if(val.label == 'vehiclename2') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename2 = val.textvalue;
+              if(val.label == 'logo2') this.offersData[i].logo2 = val.textvalue;
+              if(val.label == 'offerheadline2') this.offersData[i].offerheadline2 = val.textvalue;
+              if(val.label == 'vehicleimage2') this.offersData[i].vehicleimage2 = val.textvalue;
+              if(val.label == 'vehiclename2') this.offersData[i].vehiclename2 = val.textvalue;
               if(val.label == 'ctalabel2') {
-                this.groupedDcos[this.selectedDco][0].offers[i].ctalabel2 = val.textvalue;
-                this.groupedDcos[this.selectedDco][0].offers[i].ctaurl2 = val.urlvalue;
+                this.offersData[i].ctalabel2 = val.textvalue;
+                this.offersData[i].ctaurl2 = val.urlvalue;
               }
-              if(val.label == 'disclosurelabel2') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel2 = val.textvalue;
+              if(val.label == 'disclosurelabel2') this.offersData[i].disclosurelabel2 = val.textvalue;
               /** Frame3 */
-              if(val.label == 'logo3') this.groupedDcos[this.selectedDco][0].offers[i].logo3 = val.textvalue;
-              if(val.label == 'offerheadline3') this.groupedDcos[this.selectedDco][0].offers[i].offerheadline3 = val.textvalue;
-              if(val.label == 'vehicleimage3') this.groupedDcos[this.selectedDco][0].offers[i].vehicleimage3 = val.textvalue;
-              if(val.label == 'vehiclename3') this.groupedDcos[this.selectedDco][0].offers[i].vehiclename3 = val.textvalue;
+              if(val.label == 'logo3') this.offersData[i].logo3 = val.textvalue;
+              if(val.label == 'offerheadline3') this.offersData[i].offerheadline3 = val.textvalue;
+              if(val.label == 'vehicleimage3') this.offersData[i].vehicleimage3 = val.textvalue;
+              if(val.label == 'vehiclename3') this.offersData[i].vehiclename3 = val.textvalue;
               if(val.label == 'ctalabel3') {
-                this.groupedDcos[this.selectedDco][0].offers[i].ctalabel3 = val.textvalue;
-                this.groupedDcos[this.selectedDco][0].offers[i].ctaurl3 = val.urlvalue;
+                this.offersData[i].ctalabel3 = val.textvalue;
+                this.offersData[i].ctaurl3 = val.urlvalue;
               }
-              if(val.label == 'disclosurelabel3') this.groupedDcos[this.selectedDco][0].offers[i].disclosurelabel3 = val.textvalue;
+              if(val.label == 'disclosurelabel3') this.offersData[i].disclosurelabel3 = val.textvalue;
 
-              this.getDco(this.groupedDcos, this.selectedDco, 0 );
+              while (this.rows.length !== 0) {
+                this.rows.removeAt(0);
+              }
+              // this.offersData.forEach((d: Offers) => this.addRow(d, false));
+              // this.dcoForm.controls['offers'].setValue(this.offersData);
+              // this.updateView();
+              // this.dcoForm.updateValueAndValidity;
+              console.log("dbtis.dcoForm", this.dcoForm);
+              console.log("dbtis.groupedDcos", this.groupedDcos);
+              this.getDco(this.groupedDcos, this.selectedDco, this.offersData);
+              
             }
           }, (err) => {
             console.log(err);

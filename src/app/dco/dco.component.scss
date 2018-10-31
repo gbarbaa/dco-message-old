@@ -31,6 +31,10 @@ label {
   vertical-align: middle;
   line-height: 50px;
   background: white;
+  position: absolute;
+  z-index: 999;
+  background: transparent;
+  right: 5%;
 }
 
 .btn-background {
@@ -66,6 +70,8 @@ ul.menu-shop-menu {
   font-size: 16px;
   margin: 0;
   color: #111111;
+  right: 0;
+  top: 30px;
 }
 
 .buttons-panel {
@@ -89,6 +95,7 @@ li.menu-shop-menu__subitem {
   padding: 5px;
   line-height: 20px;
   margin-right: 20px;
+  margin-top: 30px;
 }
 
 .menu-shop-menu__subitem {
@@ -98,7 +105,7 @@ li.menu-shop-menu__subitem {
 
 .menu-shop-menu__link {
   font-size: 14px;
-  color: #000000;
+  color: white;
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;

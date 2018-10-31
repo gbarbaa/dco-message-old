@@ -39,10 +39,14 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+
+    localStorage.removeItem('jwtToken');
+
+
     this.http.post('/api/signin',this.loginData).subscribe(resp => {
       this.data = resp;
       localStorage.setItem('jwtToken', this.data.token);
-      sessionStorage.setItem('userid', this.data.user.username);
+      localStorage.setItem('userid', this.data.user.username);
 
       this.getDealer("Gus Machado Ford");
       this.router.navigate(['dcos']);
@@ -91,11 +95,11 @@ export class LoginComponent implements OnInit {
         this.message = err.error.msg;
       });
 
-      sessionStorage.setItem('dealerid', this.data.user['dealers'][0].dealerid);
-      sessionStorage.setItem('dealername', this.data.user['dealers'][0].dealername);
-      sessionStorage.setItem('dealerurl', this.data.user['dealers'][0].dealerurl);
-      sessionStorage.setItem('pacode', this.data.user['dealers'][0].dealerpacode);
-      sessionStorage.setItem('zipcode', this.data.user['dealers'][0].dealerzipcode);
+      localStorage.setItem('dealerid', this.data.user['dealers'][0].dealerid);
+      localStorage.setItem('dealername', this.data.user['dealers'][0].dealername);
+      localStorage.setItem('dealerurl', this.data.user['dealers'][0].dealerurl);
+      localStorage.setItem('pacode', this.data.user['dealers'][0].dealerpacode);
+      localStorage.setItem('zipcode', this.data.user['dealers'][0].dealerzipcode);
     });
   }
 

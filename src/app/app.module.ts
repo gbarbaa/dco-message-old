@@ -8,6 +8,8 @@ import { FileDropModule } from 'ngx-file-drop';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { ModalModule , TooltipModule } from 'ngx-bootstrap';
 import { Angular2CsvModule } from 'angular2-csv';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptorService } from './loader-interceptor.service';
 
 import {
   MatInputModule,
@@ -40,6 +42,7 @@ import { DcoDetailComponent } from './dco-detail/dco-detail.component';
 import { DcoCreateComponent } from './dco-create/dco-create.component';
 import { DcoEditComponent } from './dco-edit/dco-edit.component';
 import { DcoDialogComponent } from './dco-dialog/dco-dialog.component';
+import { LoaderComponent } from './loader/loader.component';
 
 const appRoutes: Routes = [
   {
@@ -116,7 +119,8 @@ const appRoutes: Routes = [
     DcoDetailComponent,
     DcoCreateComponent,
     DcoEditComponent,
-    DcoDialogComponent
+    DcoDialogComponent,
+    LoaderComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes,
@@ -149,7 +153,11 @@ const appRoutes: Routes = [
     Angular2CsvModule
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoaderInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent],
   entryComponents: [DcoDialogComponent]
 })

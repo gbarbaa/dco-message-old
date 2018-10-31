@@ -176,12 +176,12 @@ export class DcoCreateComponent implements OnInit {
   title :String = '';
   repeatBackground : Boolean = false;
 
-  stored_userid = sessionStorage.getItem('userid');
-  stored_dealerid = sessionStorage.getItem('dealerid');
-  stored_dealername = sessionStorage.getItem('dealername');
-  stored_dealerurl = sessionStorage.getItem('dealerurl');
-  stored_pacode = sessionStorage.getItem('pacode');
-  stored_zipcode = sessionStorage.getItem('zipcode');
+  stored_userid = localStorage.getItem('userid');
+  stored_dealerid = localStorage.getItem('dealerid');
+  stored_dealername = localStorage.getItem('dealername');
+  stored_dealerurl = localStorage.getItem('dealerurl');
+  stored_pacode = localStorage.getItem('pacode');
+  stored_zipcode = localStorage.getItem('zipcode');
 
   constructor(private http: HttpClient, private router: Router, private activeRoute: ActivatedRoute, private api: ApiService, private formBuilder: FormBuilder, private fb: FormBuilder, private bsmodalservice: BsModalService,
     private dialog: MatDialog) {
@@ -209,12 +209,10 @@ export class DcoCreateComponent implements OnInit {
      
      
     //* Create 5 placements ids, 1 for each size, for the intial form 
-    this.possible_sizes.forEach(element => {
-      this.offersData.forEach((d: Offers) => this.addRow(d, false));
-    });
-
-
-  }
+     this.possible_sizes.forEach(element => {
+       this.offersData.forEach((d: Offers) => this.addRow(d, false));
+     });
+   }
 
   onFormSubmit(formc: NgForm) {
     //* Cycle through placementids and remove empty ones before post */
@@ -222,16 +220,20 @@ export class DcoCreateComponent implements OnInit {
     this.removeEmptyPlacementIds();
 
     formc = this.dcoForm.value;
-    console.log("thisdcform",  this.dcoForm.value)
+    console.log("this.dcoForm.value", formc)
     this.api.postDco(formc)
       .subscribe(res => {
-        console.log("resu", res);
           let id = res['_id'];
           this.router.navigate(['dcos']);
         }, (err) => {
           console.log(err);
       });
   }
+
+  logout() {
+    localStorage.removeItem('jwtToken');
+    this.router.navigate(['login']);
+  };
 
   addRow(d?: Offers, noUpdate?: boolean) {
     const row = this.fb.group({
@@ -274,27 +276,26 @@ export class DcoCreateComponent implements OnInit {
 
 
   removeEmptyPlacementIds() {
-    this.offersData = this.dcoForm.controls['offers'].value;
     this.offersData = _.filter(this.offersData, discs=>discs.placementid != null);
     this.offersData = _.filter(this.offersData, discs=>discs.placementid.length > 0);
     while (this.rows.length !== 0) {
       this.rows.removeAt(0);
     }
     this.offersData.forEach((d: Offers) => this.addRow(d, false));
-    this.dcoForm.updateValueAndValidity;
   }
 
   editInitialFieldValues() {
-    this.offersData = this.dcoForm.controls['offers'].value;
+
+    this.offersData = this.dcoForm.value.offers;
+
     var captured_model = this.dcoForm.controls['model'].value;
     const url_head: string = "https://creativesham.file.core.windows.net/progad/";
     const dealer_folder: string =  this.stored_zipcode + "_" + this.stored_dealerurl + "/";
     const global_folder: string  =  "universal/";
     const azure_token: string = "?sv=2017-11-09&ss=f&srt=sco&sp=rl&se=2022-01-02T03:35:55Z&st=2018-10-12T18:35:55Z&spr=https&sig=9xuB6sBTVQvjHdG3S5W8KyfvrFYw6CjSmcKvhE25Snk%3D"
 
- //   console.log("offerdata", this.offersData);
-
     this.possible_sizes.forEach((size, index) => {
+
         this.offersData[index].size = size;
         /**Logo */
         this.offersData[index].logo1 = url_head + dealer_folder + this.stored_zipcode + "_" + this.stored_dealerurl + "_" + size + ".jpg" + azure_token;
@@ -328,9 +329,9 @@ export class DcoCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
         val => {
           if (val != undefined) {
-            console.log("thisofferdata", this.offersData);
+
+            this.offersData = this.dcoForm.value.offers;
             this.offersData.forEach((element, index) => {
-      
               /** Frame1  */
               if(val.label == 'logo1') element.logo1 = val.textvalue;
               if(val.label == 'offerheadline1') element.offerheadline1 = val.textvalue;
@@ -340,7 +341,7 @@ export class DcoCreateComponent implements OnInit {
                 element.ctalabel1 = val.textvalue;
                 element.ctaurl1 = val.urlvalue;
               }
-              if(val.label == 'disclosurelabel1')element.disclosurelabel1 = val.textvalue;
+              if(val.label == 'disclosurecopy1')element.disclosurecopy1 = val.textvalue;
               /** Frame2 */
               if(val.label == 'logo2') element.logo2 = val.textvalue;
               if(val.label == 'offerheadline2') element.offerheadline2 = val.textvalue;
@@ -350,7 +351,7 @@ export class DcoCreateComponent implements OnInit {
                 element.ctalabel2 = val.textvalue;
                 element.ctaurl2 = val.urlvalue;
               }
-              if(val.label == 'disclosurelabel2') element.disclosurelabel2 = val.textvalue;
+              if(val.label == 'disclosurecopy2') element.disclosurecopy2 = val.textvalue;
               /** Frame3 */
               if(val.label == 'logo3') element.logo3 = val.textvalue;
               if(val.label == 'offerheadline3') element.offerheadline3 = val.textvalue;
@@ -360,13 +361,13 @@ export class DcoCreateComponent implements OnInit {
                 element.ctalabel3 = val.textvalue;
                 element.ctaurl3 = val.urlvalue;
               }
-              if(val.label == 'disclosurelabel3') element.disclosurelabel3 = val.textvalue;
+              if(val.label == 'disclosurecopy3') element.disclosurecopy3 = val.textvalue;
             });
+
             while (this.rows.length !== 0) {
               this.rows.removeAt(0);
             }
             this.offersData.forEach((d: Offers) => this.addRow(d, false));
-            this.dcoForm.updateValueAndValidity;
           }
         }, (err) => {
           console.log(err);
@@ -402,7 +403,7 @@ export class DcoCreateComponent implements OnInit {
 
     let data = this.offer[record];
     console.log("modalData", data);
-    this.offersData = this.dcoForm.controls['offers'].value;
+    this.offersData = this.dcoForm.value.offers;
 
     this.possible_sizes.forEach((size, index) => {
         this.offersData[index].offerheadline1 = data.Campaign.Detail.replace(/<[^>]*>/g, '');
@@ -429,14 +430,12 @@ export class DcoCreateComponent implements OnInit {
         this.offersData[index].disclosurelabel2 =  'Offer Disclosure';
         this.offersData[index].disclosurelabel3 =  'Offer Disclosure';
     });
-    this.offersData = this.dcoForm.controls['offers'].value;
+
     while (this.rows.length !== 0) {
       this.rows.removeAt(0);
     }
     this.offersData.forEach((d: Offers) => this.addRow(d, false));
 
-    this.dcoForm.updateValueAndValidity;
-    console.log("dcoForm", this.dcoForm);
   }
 
   onChangeResetFrame() {

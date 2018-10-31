@@ -7,7 +7,7 @@
     "restart": "ng build && node ./bin/www",
     "serve": "ng serve --host 0.0.0.0 --port 3020 --proxy-config proxy.conf.json",
     "build": "ng build --output-path=public",
-    "serve-api": "node ./bin/www",
+    "serve-api": "node ./bin/www &",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
