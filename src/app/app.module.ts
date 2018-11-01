@@ -43,6 +43,7 @@ import { DcoCreateComponent } from './dco-create/dco-create.component';
 import { DcoEditComponent } from './dco-edit/dco-edit.component';
 import { DcoDialogComponent } from './dco-dialog/dco-dialog.component';
 import { LoaderComponent } from './loader/loader.component';
+import { SafeHtmlPipe } from './dco-create/safehtml.pipe';
 
 const appRoutes: Routes = [
   {
@@ -120,7 +121,8 @@ const appRoutes: Routes = [
     DcoCreateComponent,
     DcoEditComponent,
     DcoDialogComponent,
-    LoaderComponent
+    LoaderComponent,
+    SafeHtmlPipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes,

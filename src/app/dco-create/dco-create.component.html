@@ -394,9 +394,9 @@
                       <mat-card-subtitle>{{slide.Campaign.CampaignType}}</mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content>
-                      <p [innerHtml]="slide.Campaign.Name"></p>
+                      <p [innerHtml]="slide.Campaign.Name | safeHtml"></p>
                       <br>
-                      <div [innerHtml]="slide.Campaign.Detail"></div>
+                      <div [innerHtml]="slide.Campaign.Detail | safeHtml"></div>
 
                     </mat-card-content>
                     <mat-card-actions>
