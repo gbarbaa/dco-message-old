@@ -6,9 +6,7 @@
                   <!-- <li class="menu-shop-menu__subitem">
                       <a href="#" class="menu-link menu-shop-menu__link">Change Dealer</a>
                   </li> -->
-                  <li class="menu-shop-menu__subitem">
-                      <a href="#" class="menu-link menu-shop-menu__link" (click)="logout()"><mat-icon style="vertical-align: middle;">exit_to_app</mat-icon>Logout</a>
-                  </li>
+
               </ul>
           </nav>
       </div>
@@ -19,6 +17,7 @@
         <!-- Logo -->
         <a class="navbar-brand" href="#">
           <img src="../assets/images/fd-horz-logo.png" alt="Ford Direct" class="logo">
+          <button type="button" (click)="logout()" class="btn btn-default navbar-btn"><mat-icon style="vertical-align: middle;">exit_to_app</mat-icon>Logout</button>
         </a>
       </div>
     </div>
@@ -139,7 +138,7 @@
                   </button>
                 </div>
                 <div class="btn-group">
-            <button mat-raised-button color="primary" style="height: 36px;margin-left: 20px;">
+            <button class="btn btn-download" style="height: 36px;margin-left: 20px;">
                <angular2csv [data]="csvData" filename="test.csv" [options]="options"></angular2csv>
             </button>
             </div>

@@ -485,7 +485,23 @@ Frames
   padding-top: 5px;
   cursor: pointer;
 }
+button.btn.btn-default.navbar-btn {
+  text-align: right;
+  position: absolute;
+  right: 0;
+  font-weight: bold;
+  color: #1b3664;
+  margin-right: 20px;
+}
+.btn-download{
+  background: #1b3664;
+}
 
+:host ::ng-deep angular2csv button {
+  border: none !important;
+  background: transparent;
+  color: white;
+}
 .frame-dealer-logo:before, .frame-heading-text:before, .frame-vehicle-img:before, .frame-subheading1-text:before, .frame-subheading2-text:before, .frame-background:before {
   font-size: x-small;
   position: relative;
